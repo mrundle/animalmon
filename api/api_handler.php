@@ -122,13 +122,13 @@
 	}
 
 	function updateGameState(){
-		session_start();
 		return $_SESSION;
 
 	}
 
-	function handleMove(move){
-		powerPointChange('battleTeam1', move);
+	function handleMove($move){
+		powerPointCalculation('battleTeam1', $move);
+		return $_SESSION;
 	}
 
 ?>
