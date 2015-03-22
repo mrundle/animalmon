@@ -24,7 +24,7 @@ function accuracyCalculation($baseAccuracy, $statAccuracy, $statEvasion){
 	return $finalAccuracy;
 }
 function damageCalculation($team, $baseDamage, $critChance, $statAttack, $statDefense){
-	$modifer = 1.0;
+	$modifier = 1.0;
 	if(critCalculation($critChance) == TRUE){
 		$modifier += 0.5;
 		$_SESSION[$team]['battleLog']['crit'] = TRUE;
