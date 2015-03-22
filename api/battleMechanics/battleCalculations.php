@@ -11,7 +11,7 @@ function moveTypeCalculation($team){
 	$selfAttributes = $_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['STATS'];
 	$foeAttributes = $_SESSION[$team][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS'];
 	if($moveAttributes['TARGET'] == 'Foe'){
-		if(hitCalculation($team, $moveAttributes['BASE_ACCURACY'], $selfAttributes['ACCURACY'], $foeAttributes['EVASION']){
+		if(hitCalculation($team, $moveAttributes['BASE_ACCURACY'], $selfAttributes['ACCURACY'], $foeAttributes['EVASION'])){
 			if($moveAttributes['BASE_DAMAGE'] != 0){
 				$_SESSION[$team]['battleLog']['move_type'] = 'damage';
 				damageCalculation($team, $moveAttributes['BASE_DAMAGE'], $moveAttributes['CRITICAL_HIT'], $selfAttributes['ATTACK'], $foeAttributes['DEFENSE']);
