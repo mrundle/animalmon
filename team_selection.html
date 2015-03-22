@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+
+    <!-- IMPORT JQUERY (from Google CDN)
+    ----------------------------------------- -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- INCLUDE OTHER JAVASCRIPT FILES
+    ----------------------------------------- -->
+    <script type='text/javascript' src='js/debug.js'></script> <!-- GLOBAL DEBUG VARIABLE -->
+
+    <!-- JQUERY SCRIPT
+    ----------------------------------------- -->
+    <script>
+    $(document).ready(function(){
+        // jQuery methods go here
+        //alert('test');
+        $('#animalSelection').ready(function(){
+            
+            // set up the JSON to send to the API
+            var to_send = {};
+            to_send.type = "view_animal_options";
+            to_send.secret = localStorage.getItem("secret");
+            var to_send_JSON = JSON.stringify(to_send);
+	
+            // make the POST request
+            $.post('api.php',to_send)
+            .done(function(data){
+                // debugging purposes
+		if(GLOBAL_DEBUG_ON){
+			alert('API returned: ' + data);
+		}
+
+                parsed_data = JSON.parse(data);
+		
+                if (parsed_data["status"] === "pass") {
+                    var animals = parsed_data['animals']['NAME'];	
+                    for(var i = 0; i < animals.length; i++){
+			var name = String(animals[i]);
+                        var html = "<input type='checkbox' value='" + name + "'/>" + name + "<br />";
+                        $( "#animal_options").after(html);
+                    }
+
+                } else {
+                    alert("API call unsuccessful: " + parsed_data['message']);
+                }
+            });
+        });
+    });
+    </script>
+  
+
+    <center style="font-family:Helvetica">
+	    <title>Animalmon</title>
+	    <img src="http://img1.wikia.nocookie.net/__cb20100714172711/u__/unanswers/images/thumb/8/88/Real_animals_made_to_look_like_pokemon.png/500px-Real_animals_made_to_look_like_pokemon.png" alt="Insert cool picture here.">
+	    <h1>Animalmon!</h1>
+    </center>
+</head>
+<body>
+
+    <fieldset>
+        <legend id='animal_options'> Select your animal team! </legend>
+        
+
+
+    </fieldset>
+    <button>Select</button>
+
+
+
+</body>
+</html>

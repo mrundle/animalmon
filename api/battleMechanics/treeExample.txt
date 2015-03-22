@@ -1,0 +1,391 @@
+Array
+(
+    [battleTeam1] => Array
+        (
+            [Hippopotamus] => Array
+                (
+                    [TYPE] => Mammal
+                    [TYPE2] => 
+                    [MOVES] => Array
+                        (
+                            [Growl] => Array
+                                (
+                                    [BASE_DAMAGE] => 0
+                                    [BASE_ACCURACY] => 95
+                                    [POWER_POINTS] => 5
+                                    [CRITICAL_HIT] => 0
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [Intimidation] => The effected animal has a 50% chance to flinch for the next 2 turns
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                            [Maul] => Array
+                                (
+                                    [BASE_DAMAGE] => 5
+                                    [BASE_ACCURACY] => 80
+                                    [POWER_POINTS] => 50
+                                    [CRITICAL_HIT] => 50
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [Gathering Power] => The move which caused this effect gains 5 base damage. This is stackable
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                            [Swim] => Array
+                                (
+                                    [BASE_DAMAGE] => 0
+                                    [BASE_ACCURACY] => 100
+                                    [POWER_POINTS] => 7
+                                    [CRITICAL_HIT] => 0
+                                    [TARGET] => Self
+                                    [EFFECT] => Array
+                                        (
+                                            [Stealth] => The effected animal cannot be targeted. Ends when the effected animal issues another move. The issued move deals 1.10X Base Damage and has 1.10X Base Accuracy
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                            [Crush] => Array
+                                (
+                                    [BASE_DAMAGE] => 50
+                                    [BASE_ACCURACY] => 50
+                                    [POWER_POINTS] => 10
+                                    [CRITICAL_HIT] => 50
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [STATS] => Array
+                        (
+                            [HEALTH] => 75
+                            [ATTACK] => 90
+                            [DEFENSE] => 65
+                            [ACCURACY] => 60
+                            [EVASION] => 5
+                            [SPEED] => 5
+                        )
+
+                )
+
+            [Spider] => Array
+                (
+                    [TYPE] => Bug
+                    [TYPE2] => 
+                    [MOVES] => Array
+                        (
+                            [Poison Bite] => Array
+                                (
+                                    [BASE_DAMAGE] => 10
+                                    [BASE_ACCURACY] => 95
+                                    [POWER_POINTS] => 5
+                                    [CRITICAL_HIT] => 50
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [Poisoned] => The effected animal takes 5 damage for 5 turns
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                            [Arachnophobia] => Array
+                                (
+                                    [BASE_DAMAGE] => 0
+                                    [BASE_ACCURACY] => 95
+                                    [POWER_POINTS] => 5
+                                    [CRITICAL_HIT] => 0
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [Intimidation] => The effected animal has a 50% chance to flinch for the next 2 turns
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                            [Spin Web] => Array
+                                (
+                                    [BASE_DAMAGE] => 0
+                                    [BASE_ACCURACY] => 100
+                                    [POWER_POINTS] => 3
+                                    [CRITICAL_HIT] => 0
+                                    [TARGET] => Self
+                                    [EFFECT] => Array
+                                        (
+                                            [Sure Footed] => The effected animal gains 1.50X Speed and 1.25X Evasion
+                                        )
+
+                                    [TARGET2] => Foe
+                                    [EFFECT2] => Array
+                                        (
+                                            [Slowed] => The effected animal drops to 0.75X Evasion and 0.50X Speed
+                                        )
+
+                                )
+
+                            [Web Shot] => Array
+                                (
+                                    [BASE_DAMAGE] => 0
+                                    [BASE_ACCURACY] => 80
+                                    [POWER_POINTS] => 10
+                                    [CRITICAL_HIT] => 0
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [Blinded] => The effected animal drops to 0.50X Accuracy
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [STATS] => Array
+                        (
+                            [HEALTH] => 30
+                            [ATTACK] => 20
+                            [DEFENSE] => 30
+                            [ACCURACY] => 80
+                            [EVASION] => 80
+                            [SPEED] => 60
+                        )
+
+                )
+
+        )
+
+    [battleTeam2] => Array
+        (
+            [Bear] => Array
+                (
+                    [TYPE] => Mammal
+                    [TYPE2] => 
+                    [MOVES] => Array
+                        (
+                            [Growl] => Array
+                                (
+                                    [BASE_DAMAGE] => 0
+                                    [BASE_ACCURACY] => 95
+                                    [POWER_POINTS] => 5
+                                    [CRITICAL_HIT] => 0
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [Intimidation] => The effected animal has a 50% chance to flinch for the next 2 turns
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                            [Hiberante] => Array
+                                (
+                                    [BASE_DAMAGE] => 0
+                                    [BASE_ACCURACY] => 100
+                                    [POWER_POINTS] => 5
+                                    [CRITICAL_HIT] => 0
+                                    [TARGET] => Self
+                                    [EFFECT] => Array
+                                        (
+                                            [Hibernation] => The effected animal sleeps for 2 turns healing 50% of its max health each turn. The effected animal cannot dodge attacks
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                            [Maul] => Array
+                                (
+                                    [BASE_DAMAGE] => 5
+                                    [BASE_ACCURACY] => 80
+                                    [POWER_POINTS] => 50
+                                    [CRITICAL_HIT] => 50
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [Gathering Power] => The move which caused this effect gains 5 base damage. This is stackable
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                            [Bite] => Array
+                                (
+                                    [BASE_DAMAGE] => 20
+                                    [BASE_ACCURACY] => 80
+                                    [POWER_POINTS] => 20
+                                    [CRITICAL_HIT] => 50
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [STATS] => Array
+                        (
+                            [HEALTH] => 80
+                            [ATTACK] => 60
+                            [DEFENSE] => 80
+                            [ACCURACY] => 40
+                            [EVASION] => 20
+                            [SPEED] => 20
+                        )
+
+                )
+
+            [Parasite] => Array
+                (
+                    [TYPE] => Bug
+                    [TYPE2] => 
+                    [MOVES] => Array
+                        (
+                            [Infect: Stomach] => Array
+                                (
+                                    [BASE_DAMAGE] => 0
+                                    [BASE_ACCURACY] => 100
+                                    [POWER_POINTS] => 1
+                                    [CRITICAL_HIT] => 0
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [Infected] => The effected animal losses 25% of its max health every turn
+                                        )
+
+                                    [TARGET2] => Self
+                                    [EFFECT2] => Array
+                                        (
+                                            [Death] => The effected animal is KOd
+                                        )
+
+                                )
+
+                            [Infect: Heart] => Array
+                                (
+                                    [BASE_DAMAGE] => 0
+                                    [BASE_ACCURACY] => 50
+                                    [POWER_POINTS] => 1
+                                    [CRITICAL_HIT] => 0
+                                    [TARGET] => Foe
+                                    [EFFECT] => Array
+                                        (
+                                            [Death] => The effected animal is KOd
+                                        )
+
+                                    [TARGET2] => Self
+                                    [EFFECT2] => Array
+                                        (
+                                            [Death] => The effected animal is KOd
+                                        )
+
+                                )
+
+                            [] => Array
+                                (
+                                    [BASE_DAMAGE] => 
+                                    [BASE_ACCURACY] => 
+                                    [POWER_POINTS] => 
+                                    [CRITICAL_HIT] => 
+                                    [TARGET] => 
+                                    [EFFECT] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                    [TARGET2] => 
+                                    [EFFECT2] => Array
+                                        (
+                                            [] => 
+                                        )
+
+                                )
+
+                        )
+
+                    [STATS] => Array
+                        (
+                            [HEALTH] => 1
+                            [ATTACK] => 1
+                            [DEFENSE] => 1
+                            [ACCURACY] => 100
+                            [EVASION] => 1
+                            [SPEED] => 100
+                        )
+
+                )
+
+        )
+
+)
