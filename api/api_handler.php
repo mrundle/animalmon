@@ -127,10 +127,10 @@
 	}
 
 	function handleMove($move){
-		
-		powerPointCalculation('battleTeam1', $move);
 		$_SESSION['battleTeam1']['battleLog']['action'] = 'move';
 		$_SESSION['battleTeam1']['battleLog']['move'] = $move;
+		moveTypeCalculation('battleTeam1');
+		powerPointCalculation('battleTeam1');
 		return $_SESSION;
 	}
 

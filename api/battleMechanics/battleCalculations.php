@@ -1,5 +1,24 @@
 <?php
 session_start();
+function moveTypeCalculation($team){
+	if($team == 'battleTeam1'){
+		$foeTeam = 'battleTeam2';
+	}
+	else{
+		$foeTeam = 'battleTeam1';
+	}
+	$moveAttributes = $_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$_SESSION[$team]['battleLog']['move']];
+	$selfAttributes = $_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['STATS'];
+	$foeAttributes = $_SESSION[$team][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS'];
+	if($moveAttributes['TARGET'] == 'Foe'){
+		if(hitCalculation($team, $moveAttributes['BASE_ACCURACY'], $selfAttributes['ACCURACY'], $foeAttributes['EVASION']){
+			if($moveAttributes['BASE_DAMAGE'] != 0){
+				$_SESSION[$team]['battleLog']['move_type'] = 'damage';
+				damageCalculation($team, $moveAttributes['BASE_DAMAGE'], $moveAttributes['CRITICAL_HIT'], $selfAttributes['ATTACK'], $foeAttributes['DEFENSE']);
+			}
+		}
+	}
+}
 function accuracyCalculation($baseAccuracy, $statAccuracy, $statEvasion){
 	$finalAccuracy = ($statAccuracy/$statEvasion) * $baseAccuracy; //calculate the final accuracy
 	return $finalAccuracy;
@@ -34,7 +53,7 @@ function hitCalculation($team, $baseAccuracy, $statAccuracy, $statEvasion){
 		return FALSE;
 	}
 }
-function powerPointCalculation($team, $move){
-	$_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$move]['CURRENT_POWER_POINTS']--;
+function powerPointCalculation($team){
+	$_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$_SESSION[$team]['battleLog']['move']]['CURRENT_POWER_POINTS']--;
 }
 ?>
