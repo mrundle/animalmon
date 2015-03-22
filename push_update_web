@@ -1,0 +1,5 @@
+git push origin master
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cd /home/mrundle/apache2/htdocs/project
+git pull origin master
+cd $DIR
