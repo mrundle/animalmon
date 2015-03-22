@@ -79,6 +79,14 @@
 	function updateBattleLog(data){
 		parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
+		if(gameState['battleTeam1']['battleLog']['move_type'] == 'damage'){
+			if(gameState['battleTeam1']['battleLog']['hit'] == 'FALSE'){
+				document.getElementById('battleLog').innerHTML("you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "but missed!");			
+			}
+			else{
+				document.getElementById('battleLog').innerHTML("you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "and hit for " + gameState['battleTeam1']['battleLog']['damage'] + "!");
+			}
+		}
 	}
 
 	</script>
