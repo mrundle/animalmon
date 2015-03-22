@@ -17,10 +17,10 @@ function getAnimalmon($animalmon){
 	$query = oci_parse($conn, $query_string);
 	oci_execute($query);
 	$animal_moves = oci_fetch_array($query, OCI_ASSOC+OCI_RETURN_NULLS);
-	$animalInfo['MOVES'][$animal_moves['MOVE_1']] = NULL;
-	$animalInfo['MOVES'][$animal_moves['MOVE_2']] = NULL;
-	$animalInfo['MOVES'][$animal_moves['MOVE_3']] = NULL;
-	$animalInfo['MOVES'][$animal_moves['MOVE_4']] = NULL;
+	$animalInfo['MOVES'][$animal_moves['MOVE_1']] = $animal_moves['MOVE_1'];
+	$animalInfo['MOVES'][$animal_moves['MOVE_2']] = $animal_moves['MOVE_2'];
+	$animalInfo['MOVES'][$animal_moves['MOVE_3']] = $animal_moves['MOVE_3'];
+	$animalInfo['MOVES'][$animal_moves['MOVE_4']] = $animal_moves['MOVE_4'];
 
 	// fetch the move stats
 	foreach ($animalInfo['MOVES'] as $move => $value){
@@ -34,9 +34,9 @@ function getAnimalmon($animalmon){
 		$animalInfo['MOVES'][$move]['BASE_DAMAGE'] = $move_stats['BASE_DAMAGE'];
 		$animalInfo['MOVES'][$move]['CRITICAL_HIT'] = $move_stats['CRITICAL_HIT'];
 		$animalInfo['MOVES'][$move]['TARGET'] = $move_stats['TARGET'];
-		$animalInfo['MOVES'][$move]['EFFECT'][$move_stats['EFFECT']] = NULL;
+		$animalInfo['MOVES'][$move]['EFFECT'][$move_stats['EFFECT']] = $move_stats['EFFECT'];
 		$animalInfo['MOVES'][$move]['TARGET2'] = $move_stats['TARGET2'];
-		$animalInfo['MOVES'][$move]['EFFECT2'][$move_stats['EFFECT2']] = NULL;
+		$animalInfo['MOVES'][$move]['EFFECT2'][$move_stats['EFFECT2']] = $move_stats['EFFECT2'];
 
 		// fetch the effect descriptions
 		$query_string = "SELECT * FROM EFFECTS WHERE NAME = '" . $move_stats["EFFECT"] . "'";

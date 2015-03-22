@@ -80,12 +80,18 @@
 		window.alert(data);
 		parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
+		var battleLog = '';
 		if(gameState['battleTeam1']['battleLog']['move_type'] == 'damage'){
 			if(gameState['battleTeam1']['battleLog']['hit'] == false){
-				document.getElementById('battleLog').innerHTML = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "but missed!";			
+				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "but missed!";
+				document.getElementById('battleLog').innerHTML = battleLog;
 			}
 			else{
-				document.getElementById('battleLog').innerHTML = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "and hit for " + gameState['battleTeam1']['battleLog']['damage'] + "!";
+				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "and hit for " + gameState['battleTeam1']['battleLog']['damage'] + "!";
+				if(gameState['battleTeam1']['battleLog']['crit'] == true){
+					battleLog += "<br> CRITICAL HIT!!!";
+				}
+				document.getElementById('battleLog').innerHTML = battleLog;
 			}
 		}
 	}
