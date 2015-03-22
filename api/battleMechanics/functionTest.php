@@ -1,4 +1,5 @@
 <?php
+session_start();
 session_unset();
 $_SESSION['battleTeam1'] = array('Hippopotamus'=>NULL,'Spider'=>NULL);
 $_SESSION['battleTeam2'] = array('Bear'=>NULL, 'Parasite'=>NULL);
