@@ -79,6 +79,7 @@
 	function updateBattleLog(data){
 		parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
+		console.alert(gameState['battleTeam1']['battleLog']['hit']);
 		if(gameState['battleTeam1']['battleLog']['move_type'] == 'damage'){
 			if(gameState['battleTeam1']['battleLog']['hit'] == 'FALSE'){
 				document.getElementById('battleLog').innerHTML("you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "but missed!");			
