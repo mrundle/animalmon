@@ -1,7 +1,4 @@
 <?php
-	$myfile = fopen("newfile.txt", "w");
-	fwrite($myfile,"in\n");
-
 	error_reporting(-1);
 	ini_set('display_errors', 'On');
 
@@ -140,9 +137,6 @@
 
 	// Close the DB connection 
 	oci_close($conn);
-
-	fwrite($myfile,"out\n");
-	fclose($myfile);
 
 	exit(0);
 ?>
