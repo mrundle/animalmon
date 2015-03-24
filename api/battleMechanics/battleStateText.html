@@ -92,10 +92,22 @@
 				}
 				if(Object.keys(gameState['battleTeam1']['battleLog']['effect']) != 'null'){
 					if(Object.keys(gameState['battleTeam1']['battleLog']['effect']) == 'Gathering Power'){
-						battleLog += "You're " + gameState['battleTeam1']['battleLog']['move'] + " is gathering power!";
+						battleLog += "<br>Your " + gameState['battleTeam1']['battleLog']['move'] + " is gathering power!";
 					} 
 					else{
 						battleLog += "<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
+					}
+					if(Object.keys(gameState['battleTeam1']['battleLog']['effect2']) != 'null'){
+						if(Object.keys(gameState['battleTeam1']['battleLog']['effect2']) == 'Gathering Power'){
+							battleLog += "<br>Your " + gameState['battleTeam1']['battleLog']['move'] + " is gathering power!";
+						} 
+						else{
+							if(gameState['battleTeam1']['battleLog']['target2'] != 'self'){
+								battleLog += "<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']);
+							}
+							else(battleLog += "<br>You are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']);
+							}
+						}
 					}
 				}
 			}
