@@ -75,7 +75,7 @@
 
 			break;
 	
-    	    case 'view_animal_options':
+    case 'view_animal_options':
             
 			// Make sure user secret exists
 			if(!isset($_POST['secret'])){
@@ -101,8 +101,39 @@
 			break;
 
 		case 'startgame':
-			$result['message'] = 'you are trying to start a game';
-			break;
+    
+      // Make sure user secret exists
+			if(!isset($_POST['secret'])){
+				$result['message'] = 'secret not stored or passed correctly';
+				$result['status'] = 'fail';
+				break;
+			}
+			else if(!secret_exists($_POST['secret'])) {
+				$result['message'] = 'secret ' . $_POST['secret'] .' does not exist in the database';
+				$result['status'] = 'fail';
+				break;
+			}
+      
+      // Make sure animal input is set
+      if(!isset($_POST['animals'])){
+        $result['message'] = 'animals array not set';
+        $result['status'] = 'fail';
+      }
+      else if(count($_POST['animals']) != 6){
+        $result['message'] = 'need 6 animals';
+        $result['status'] = 'fail';
+      }
+      
+      // Set the users animals
+      if(set_animals($_POST['animals'])){
+        $result['status'] = 'pass';
+      }
+      else{
+        $result['message'] = 'something went wrong while setting animals';
+        $result['status'] = 'fail';
+      }
+      
+      break;
 
 		case 'update':
 			$gameState = updateGameState();

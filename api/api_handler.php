@@ -117,6 +117,12 @@
 		// return the secret
 		return $secret;
 	}
+  
+  function set_animals($animals){
+    foreach($animals as $animal){
+      $_SESSION['battleTeam1'][$animal] = NULL; 
+    }
+  }
 
 	function updateGameState(){
 		return $_SESSION;
