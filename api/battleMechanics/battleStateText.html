@@ -98,23 +98,23 @@
 			}
 			else{
 				if(gameState['battleTeam1']['battleLog']['target'] == 'Foe'){
-					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
-//					if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
-//						battleLog += "and " + gameState['battleTeam1']['battleLog']['effect2'] + "!";
-//					}
-//					else if(gameState['battleTeam1']['battleLog']['target2'] == 'Self'){
-//						battleLog += "!<br>you are now " + gameState['battleTeam1']['battleLog']['effect2'] + "!";
-//					} 
+					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now" + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
+					if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
+						battleLog += "and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
+					}
+					else if(gameState['battleTeam1']['battleLog']['target2'] == 'Self'){
+						battleLog += "!<br>you are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
+					} 
 				}
-/*				else if(gameState['battleTeam1']['battleLog']['target'] == 'Self'){
-					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>You are now " + gameState['battleTeam1']['batteLog']['effect'];
+				else if(gameState['battleTeam1']['battleLog']['target'] == 'Self'){
+					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>You are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
 					if(gameState['battleTeam1']['battleLog']['target2'] == 'Self'){
-						battleLog += "and " + gameState['battleTeam1']['battleLog']['effect2'] + "!";
+						battleLog += "and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
 					}
 					else if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
-						battleLog += "!<br>Foe is now " + gameState['battleTeam1']['battleLog']['effect2'] + "!";
+						battleLog += "!<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
 					}
-				}*/
+				}
 			}
 		}
 		document.getElementById('battleLog').innerHTML = battleLog;
