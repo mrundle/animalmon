@@ -101,7 +101,7 @@
 			break;
 
 		case 'startgame':
-    
+    		session_unset();
       // Make sure user secret exists
 			if(!isset($_POST['secret'])){
 				$result['message'] = 'secret not stored or passed correctly';
