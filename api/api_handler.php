@@ -124,7 +124,7 @@
       $_SESSION['battleTeam1'][$animal] = NULL; 
     }
 	$_SESSION['battleTeam2'] = array('Bear'=>NULL, 'Parasite'=>NULL);
-	getSessionAnimalmon()
+	getSessionAnimalmon();
   }
 
 	function updateGameState(){
