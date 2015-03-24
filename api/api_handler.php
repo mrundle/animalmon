@@ -122,9 +122,11 @@
   function set_animals($animals){
     foreach($animals as $animal){
       $_SESSION['battleTeam1'][$animal] = NULL; 
+	$_SESSION['battleTeam1']['currentAnimalmon'] = $animal;
     }
-	$_SESSION['battleTeam2'] = array('Bear'=>NULL, 'Parasite'=>NULL);
+	$_SESSION['battleTeam2'] = array('Bear'=>NULL, 'Parasite'=>NULL, 'Spider'=>NULL, 'Elk'=>NULL, 'Poison Frog'=>NULL, 'Falcon' => NULL);
 	getSessionAnimalmon();
+	$_SESSION['battleTeam2']['currentAnimalmon'] = 'Bear';
   }
 
 	function updateGameState(){
