@@ -105,7 +105,8 @@
 							if(gameState['battleTeam1']['battleLog']['target2'] != 'self'){
 								battleLog += "<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']);
 							}
-							else(battleLog += "<br>You are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']);
+							else{
+								battleLog += "<br>You are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']);
 							}
 						}
 					}
