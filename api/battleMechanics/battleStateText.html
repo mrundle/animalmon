@@ -95,11 +95,10 @@
 		else{
 			if(gameState['battleTeam1']['battleLog']['hit'] == false){
 				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "but missed!";
-				document.getElementById('battleLog').innerHTML = battleLog;
 			}
 			else{
 				if(gameState['battleTeam1']['battleLog']['target'] == 'Foe'){
-					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now " + gameState['battleTeam1']['batteLog']['effect'];
+//					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now " + gameState['battleTeam1']['batteLog']['effect'];
 //					if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
 //						battleLog += "and " + gameState['battleTeam1']['battleLog']['effect2'] + "!";
 //					}
