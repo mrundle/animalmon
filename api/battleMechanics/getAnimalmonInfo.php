@@ -88,6 +88,7 @@ function getSessionAnimalmon(){
 			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_2']] = NULL;
 			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_3']] = NULL;
 			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_4']] = NULL;
+			echo "SUP";
 
 			// fetch the move stats
 			foreach ($_SESSION[$team][$animalmon]['MOVES'] as $move => $value){
