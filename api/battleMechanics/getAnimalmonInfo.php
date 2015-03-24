@@ -33,9 +33,9 @@ function getAnimalmon($animalmon){
 		$animalInfo['MOVES'][$move]['BASE_DAMAGE'] = $move_stats['BASE_DAMAGE'];
 		$animalInfo['MOVES'][$move]['CRITICAL_HIT'] = $move_stats['CRITICAL_HIT'];
 		$animalInfo['MOVES'][$move]['TARGET'] = $move_stats['TARGET'];
-		$animalInfo['MOVES'][$move]['EFFECT'][$move_stats['EFFECT']] = $move_stats['EFFECT'];
+		$animalInfo['MOVES'][$move]['EFFECT'][$move_stats['EFFECT']] = NULL;
 		$animalInfo['MOVES'][$move]['TARGET2'] = $move_stats['TARGET2'];
-		$animalInfo['MOVES'][$move]['EFFECT2'][$move_stats['EFFECT2']] = $move_stats['EFFECT2'];
+		$animalInfo['MOVES'][$move]['EFFECT2'][$move_stats['EFFECT2']] = NULL;
 
 		// fetch the effect descriptions
 		$query_string = "SELECT * FROM EFFECTS WHERE NAME = '" . $move_stats["EFFECT"] . "'";
@@ -88,7 +88,6 @@ function getSessionAnimalmon(){
 			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_2']] = NULL;
 			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_3']] = NULL;
 			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_4']] = NULL;
-			echo print_r($animal_moves);
 
 			// fetch the move stats
 			foreach ($_SESSION[$team][$animalmon]['MOVES'] as $move => $value){
@@ -103,9 +102,9 @@ function getSessionAnimalmon(){
 				$_SESSION[$team][$animalmon]['MOVES'][$move]['BASE_DAMAGE'] = $move_stats['BASE_DAMAGE'];
 				$_SESSION[$team][$animalmon]['MOVES'][$move]['CRITICAL_HIT'] = $move_stats['CRITICAL_HIT'];
 				$_SESSION[$team][$animalmon]['MOVES'][$move]['TARGET'] = $move_stats['TARGET'];
-				$_SESSION[$team][$animalmon]['MOVES'][$move]['EFFECT'][$move_stats['EFFECT']] = $move_stats['EFFECT'];
+				$_SESSION[$team][$animalmon]['MOVES'][$move]['EFFECT'][$move_stats['EFFECT']] = NULL;
 				$_SESSION[$team][$animalmon]['MOVES'][$move]['TARGET2'] = $move_stats['TARGET2'];
-				$_SESSION[$team][$animalmon]['MOVES'][$move]['EFFECT2'][$move_stats['EFFECT2']] = $move_stats['EFFECT2'];
+				$_SESSION[$team][$animalmon]['MOVES'][$move]['EFFECT2'][$move_stats['EFFECT2']] = NULL;
 	
 				// fetch the effect descriptions
 				$query_string = "SELECT * FROM EFFECTS WHERE NAME = '" . $move_stats["EFFECT"] . "'";
