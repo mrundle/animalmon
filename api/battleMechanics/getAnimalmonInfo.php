@@ -1,5 +1,4 @@
 <?php
-require '../connect.php';
 function getAnimalmon($animalmon){
 	// get access to the db
 	global $conn;
@@ -137,7 +136,4 @@ function getSessionAnimalmon(){
 		}
 	}
 }
-
-getSessionAnimalmon();
-echo "<br>Creating a bogus game state: <a href=http://csevm03.crc.nd.edu:8503/project/api/battleMechanics/bogusGameState.php>CLICK HERE</a>";
 ?>
