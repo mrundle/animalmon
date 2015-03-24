@@ -84,6 +84,7 @@ function getSessionAnimalmon(){
 			$query = oci_parse($conn, $query_string);
 			oci_execute($query);
 			$animal_moves = oci_fetch_array($query, OCI_ASSOC+OCI_RETURN_NULLS);
+			echo print_r($animal_moves);
 			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_1']] = NULL;
 			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_2']] = NULL;
 			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_3']] = NULL;
