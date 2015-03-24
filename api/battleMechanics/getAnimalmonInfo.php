@@ -16,10 +16,10 @@ function getAnimalmon($animalmon){
 	$query = oci_parse($conn, $query_string);
 	oci_execute($query);
 	$animal_moves = oci_fetch_array($query, OCI_ASSOC+OCI_RETURN_NULLS);
-	$animalInfo['MOVES'][$animal_moves['MOVE_1']] = $animal_moves['MOVE_1'];
-	$animalInfo['MOVES'][$animal_moves['MOVE_2']] = $animal_moves['MOVE_2'];
-	$animalInfo['MOVES'][$animal_moves['MOVE_3']] = $animal_moves['MOVE_3'];
-	$animalInfo['MOVES'][$animal_moves['MOVE_4']] = $animal_moves['MOVE_4'];
+	$animalInfo['MOVES'][$animal_moves['MOVE_1']] = NULL;
+	$animalInfo['MOVES'][$animal_moves['MOVE_2']] = NULL;
+	$animalInfo['MOVES'][$animal_moves['MOVE_3']] = NULL;
+	$animalInfo['MOVES'][$animal_moves['MOVE_4']] = NULL;
 
 	// fetch the move stats
 	foreach ($animalInfo['MOVES'] as $move => $value){
@@ -65,7 +65,6 @@ function getAnimalmon($animalmon){
 	return $animalInfo;
 }
 function getSessionAnimalmon(){
-	session_start(); 
 	$teams = ["battleTeam1","battleTeam2"];
 	foreach ($teams as $team){
 		foreach ($_SESSION[$team] as $animalmon => $value){
@@ -85,10 +84,10 @@ function getSessionAnimalmon(){
 			$query = oci_parse($conn, $query_string);
 			oci_execute($query);
 			$animal_moves = oci_fetch_array($query, OCI_ASSOC+OCI_RETURN_NULLS);
-			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_1']] = $animalmoves['MOVE_1'];
-			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_2']] = $animalmoves['MOVE_2'];
-			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_3']] = $animalmoves['MOVE_3'];
-			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_4']] = $animalmoves['MOVE_4'];
+			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_1']] = NULL;
+			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_2']] = NULL;
+			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_3']] = NULL;
+			$_SESSION[$team][$animalmon]['MOVES'][$animal_moves['MOVE_4']] = NULL;
 
 			// fetch the move stats
 			foreach ($_SESSION[$team][$animalmon]['MOVES'] as $move => $value){
