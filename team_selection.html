@@ -86,7 +86,6 @@
                 $.post('api.php',to_send)
                 .done(function(data){
                     // debugging purposes
-		window.alert(data);
                     if(GLOBAL_DEBUG_ON){
                       alert('API returned: ' + data);
                     }
