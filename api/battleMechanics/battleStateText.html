@@ -93,6 +93,16 @@
 				document.getElementById('battleLog').innerHTML = battleLog;
 			}
 		}
+		else{
+			if(gameState['battleTeam1']['battleLog']['hit'] == false){
+				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "but missed!";
+				document.getElementById('battleLog').innerHTML = battleLog;
+			}
+			else{
+				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] "...<br>"
+				window.alert(gameState['battleTeam1']['battleLog']);
+				document.getElementById('battleLog').innerHTML = battleLog;
+		}
 	}
 
 	</script>

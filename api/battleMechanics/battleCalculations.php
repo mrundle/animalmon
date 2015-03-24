@@ -21,6 +21,13 @@ function moveTypeCalculation($team){
 					$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
 				}
 			}
+			else{
+				$_SESSION[$team]['battleLog']['move_type'] = 'status';
+				$_SESSION[$team]['battleLog']['target'] = $moveAttributes['TARGET'];
+				$_SESSION[$team]['battleLog']['effect'] = $moveAttributes['EFFECT'];
+				$_SESSION[$team]['battleLog']['target2'] = $moveAttributes['TARGET2'];
+				$_SESSION[$team]['battleLog']['effect2'] = $moveAttributes['EFFECT2'];
+			}
 		}
 	}
 }
