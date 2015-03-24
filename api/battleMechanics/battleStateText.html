@@ -101,7 +101,7 @@
 						if(Object.keys(gameState['battleTeam1']['battleLog']['effect2']) == 'Gathering Power'){
 							battleLog += "<br>Your " + gameState['battleTeam1']['battleLog']['move'] + " is gathering power!";
 						} 
-						else{
+						else if(Object.keys(gameState['battleTeam1']['battleLog']['effect2']) != 'null'{
 							if(gameState['battleTeam1']['battleLog']['target2'] != 'self'){
 								battleLog += "<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']);
 							}
