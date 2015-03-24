@@ -98,7 +98,7 @@
 			}
 			else{
 				if(gameState['battleTeam1']['battleLog']['target'] == 'Foe'){
-					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now" + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
+					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
 					if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
 						battleLog += "and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
 					}
