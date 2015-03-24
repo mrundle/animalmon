@@ -14,7 +14,7 @@ function moveTypeCalculation($team){
 		if(hitCalculation($team, $moveAttributes['BASE_ACCURACY'], $selfAttributes['ACCURACY'], $foeAttributes['EVASION'])){
 			if($moveAttributes['BASE_DAMAGE'] != 0){
 				$_SESSION[$team]['battleLog']['move_type'] = 'damage';
-				$damage = damageCalculation($team, $moveAttributes['BASE_DAMAGE'], $moveAttributes['CRITICAL_HIT'], $selfAttributes['ATTACK'], $foeAttributes['DEFENSE']);
+				$damage = damageCalculation($team, $moveAttributes['BASE_DAMAGE'], $moveAttributes['CRITICAL_HIT'], $selfAttributes['ATTACK'], $foeAttributes['DEFENSE'], $selfAttributes['SPEED'], $foeAttributes['SPEED']);
 				$_SESSION[$team]['battleLog']['damage'] = $damage;
 				$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] -= $damage;
 				if($_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] < 1) {
@@ -28,9 +28,9 @@ function accuracyCalculation($baseAccuracy, $statAccuracy, $statEvasion){
 	$finalAccuracy = ($statAccuracy/$statEvasion) * $baseAccuracy; //calculate the final accuracy
 	return $finalAccuracy;
 }
-function damageCalculation($team, $baseDamage, $critChance, $statAttack, $statDefense){
+function damageCalculation($team, $baseDamage, $critChance, $statAttack, $statDefense, $originSpeed, $targetSpeed){
 	$modifier = 1.0;
-	if(critCalculation($critChance) == TRUE){
+	if(critCalculation($critChance, $originSpeed, $targetSpeed) == TRUE){
 		$modifier += 0.5;
 		$_SESSION[$team]['battleLog']['crit'] = TRUE;
 	}
@@ -40,8 +40,8 @@ function damageCalculation($team, $baseDamage, $critChance, $statAttack, $statDe
 	$finalDamage = (($statAttack/$statDefense) * $baseDamage) * $modifier;//calculate the final damage
 	return $finalDamage;
 }
-function critCalculation($critChance){
-	if(rand() % 100 < $critChance){
+function critCalculation($critChance, $originSpeed, $targetSpeed){
+	if(rand() % 100 < ($critChance * ($originSpeed/$targetSpeed))){
 		return TRUE;
 	}
 	else{
