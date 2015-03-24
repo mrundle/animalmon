@@ -90,8 +90,13 @@
 				if(gameState['battleTeam1']['battleLog']['crit'] == true){
 					battleLog += "<br>CRITICAL HIT!!!";
 				}
-				if(gameState['battleTeam1']['battleLog']['effect'] != 'null'){
-					battleLog += "<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
+				if(Object.keys(gameState['battleTeam1']['battleLog']['effect']) != 'null'){
+					if(Object.keys(gameState['battleTeam1']['battleLog']['effect']) == 'Gathering Power'){
+						battleLog += "You're " + gameState['battleTeam1']['battleLog']['move'] + " is gathering power!";
+					} 
+					else{
+						battleLog += "<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
+					}
 				}
 			}
 		}
