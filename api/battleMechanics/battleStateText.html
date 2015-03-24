@@ -79,7 +79,7 @@
 	function updateBattleLog(data){
 		parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
-		window.alert(gameState['battleTeam1']['battleLog']);
+		window.alert(data);
 		var battleLog = '';
 		if(gameState['battleTeam1']['battleLog']['move_type'] == 'damage'){
 			if(gameState['battleTeam1']['battleLog']['hit'] == false){
