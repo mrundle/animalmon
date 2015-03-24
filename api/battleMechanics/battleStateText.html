@@ -79,7 +79,7 @@
 	function updateBattleLog(data){
 		parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
-		window.alert(gameState['battleTeam1']['battleLog']['target']);
+		window.alert(gameState['battleTeam1']['battleLog']['effect']);
 		var battleLog = '';
 		if(gameState['battleTeam1']['battleLog']['move_type'] == 'damage'){
 			if(gameState['battleTeam1']['battleLog']['hit'] == false){
@@ -98,7 +98,7 @@
 			}
 			else{
 				if(gameState['battleTeam1']['battleLog']['target'] == 'Foe'){
-//					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now " + gameState['battleTeam1']['batteLog']['effect'];
+					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now " + gameState['battleTeam1']['batteLog']['effect'];
 //					if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
 //						battleLog += "and " + gameState['battleTeam1']['battleLog']['effect2'] + "!";
 //					}
