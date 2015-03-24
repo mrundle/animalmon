@@ -35,14 +35,11 @@
 		$query = oci_parse($conn, $query_string);
 		oci_execute($query);
 		$num_results = oci_fetch_all($query,$results);
-		global $myfile;
-		fwrite($myfile,$num_results . "\n");
+		
 		if($results['COUNT(*)'][0] == 0){
-			fwrite($myfile,$secret . ' NOT FOUND' . ' but num_results is ' . print_r($results,true) . "\n");
 			return false;
 		}
 		else{
-			fwrite($myfile,$secret . ' FOUND' . "\n");
 			return true;
 		}
 	}

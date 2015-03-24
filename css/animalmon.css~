@@ -1,7 +1,69 @@
-.proj_background{
+.paper_background{
   background-color: #fff; 
   background-image: 
   linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
   linear-gradient(#eee .1em, transparent .1em);
   background-size: 100% 1.2em;
 }
+.rb_gradient{
+  background: -webkit-linear-gradient(90deg, #780206 10%, #061161 90%); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(90deg, #780206 10%, #061161 90%); /* FF3.6+ */
+  background:     -ms-linear-gradient(90deg, #780206 10%, #061161 90%); /* IE10 */
+  background:      -o-linear-gradient(90deg, #780206 10%, #061161 90%); /* Opera 11.10+ */
+  background:         linear-gradient(90deg, #780206 10%, #061161 90%); /* W3C */
+}
+
+/* .animal_slider */
+/* USED ON THE team_selection.html PAGE TO CHOOSE ANIMALS */
+.animal_slider {
+  width: 80px;
+  height: 26px;
+  background: #333;
+  margin: 20px auto;
+  position: relative;
+  border-radius: 50px;
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+}
+.animal_slider:after {
+  content: 'OFF';
+  color: #000;
+  position: absolute;
+  right: 10px;
+  z-index: 0;
+  font: 12px/26px Arial, sans-serif;
+  font-weight: bold;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.15);
+}
+.animal_slider:before {
+  content: 'ON';
+  color: #27ae60;
+  position: absolute;
+  left: 10px;
+  z-index: 0;
+  font: 12px/26px Arial, sans-serif;
+  font-weight: bold;
+}
+.animal_slider label {
+  display: block;
+  width: 34px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: 1;
+  background: #fcfff4;
+  background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  border-radius: 50px;
+  -webkit-transition: all 0.4s ease;
+          transition: all 0.4s ease;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+}
+.animal_slider input[type=checkbox] {
+  visibility: hidden;
+}
+.animal_slider input[type=checkbox]:checked + label {
+  left: 43px;
+}
+/* end .animal_slider */
