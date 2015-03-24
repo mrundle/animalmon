@@ -24,9 +24,9 @@
     <script>
     $(document).ready(function(){
         // jQuery methods go here
-        alert('test');
+        
         $('#animalSelection').ready(function(){
-            alert('1');
+            
             // set up the JSON to send to the API
             var to_send = {};
             to_send.type = "view_animal_options";
@@ -61,26 +61,21 @@
         });
 
         $('#selectBtn').click(function(){
-		
+            alert('click');
             var num_checked = 0;
             var animals_chosen = [];
-		
+            // Count how many animals are chosen
             $('input[type=checkbox]').each(function(){
-                //alert('2.1');
                 if(this.checked){
-                   // alert('2.2');
                     num_checked = num_checked + 1;
-                    //alert('2.3');
-                    //alert($(this).val());
                     animals_chosen.push($(this).val());
-                    //alert('2.4');
                 }
             });
             if(num_checked != 6){
                 alert('You need to select 6 animals!');
             }
             else{
-
+                alert('here we go');
                 // send the chosen animals to the server
                 var to_send = {};
                 to_send.type = "startgame";
@@ -99,13 +94,13 @@
 		
                     if (parsed_data["status"] === "pass") {
                       alert('success!');
-                    else{
-                      alert('fail...');
+                      // redirect to the battle page
+		      window.location.replace('./battle.html');
                     }
-                
-                alert("send these to the server: \n" + animals_chosen.join('\n'));
-		// redirect to the battle page
-		window.location.replace('./battle.html');
+                    else{
+                      alert('fail...' + data);
+                    }
+                });         
             }
         });
 

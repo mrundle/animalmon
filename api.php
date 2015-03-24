@@ -125,13 +125,8 @@
       }
       
       // Set the users animals
-      if(set_animals($_POST['animals'])){
-        $result['status'] = 'pass';
-      }
-      else{
-        $result['message'] = 'something went wrong while setting animals';
-        $result['status'] = 'fail';
-      }
+      set_animals($_POST['animals']);
+      $result['status'] = 'pass';
       
       break;
 
