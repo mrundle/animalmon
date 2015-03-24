@@ -57,7 +57,7 @@
 
 	function updateGameStateRep(data){
 		//set current animalmon
-		window.alert(data);
+//		window.alert(data);
 		parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
 		$('#currentAnimalmon1').text(gameState['battleTeam1']['currentAnimalmon'] + " ------ Health: "+ gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] + "/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
@@ -100,7 +100,7 @@
 				if(gameState['battleTeam1']['battleLog']['target'] == 'Foe'){
 					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
 					if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
-						battleLog += "and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
+						battleLog += " and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
 					}
 					else if(gameState['battleTeam1']['battleLog']['target2'] == 'Self'){
 						battleLog += "!<br>you are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
@@ -109,7 +109,7 @@
 				else if(gameState['battleTeam1']['battleLog']['target'] == 'Self'){
 					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>You are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
 					if(gameState['battleTeam1']['battleLog']['target2'] == 'Self'){
-						battleLog += "and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
+						battleLog += " and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
 					}
 					else if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
 						battleLog += "!<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
