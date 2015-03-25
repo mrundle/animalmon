@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<head>
+
+    <title>Animalmon</title>
+
+    <!-- FONT -->
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="dist/css/normalize.css">
+    <link rel="stylesheet" href="dist/css/skeleton.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/animalmon.css">
+
+    <!-- IMPORT JQUERY (from Google CDN)
+    ----------------------------------------- -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- INCLUDE OTHER JAVASCRIPT FILES
+    ----------------------------------------- -->
+    <script type='text/javascript' src='js/debug.js'></script> <!-- GLOBAL DEBUG VARIABLE -->
+
+    <!-- JQUERY SCRIPT
+    ----------------------------------------- -->
+    <script>
+    $(document).ready(function(){
+
+        // make sure user is authenticated
+
+        $('#statsBtn').click(function(){
+            alert('not implemented');
+        });
+
+        $('#statsBtn').click(function(){
+            window.location = "team_selection.html";
+        });
+
+    });
+    </script>
+</head>
+</body>
+<container>
+    <center>
+        <img src="http://img1.wikia.nocookie.net/__cb20100714172711/u__/unanswers/images/thumb/8/88/Real_animals_made_to_look_like_pokemon.png/500px-Real_animals_made_to_look_like_pokemon.png" alt="Insert cool picture here.">
+        <h1>Animalmon!</h1>
+        <hr style="margin-top:30px; margin-bottom:30px;">
+    </center>
+
+    <div class="row">
+        <div class="four columns offset-by-four">
+            <button class="u-full-width" id='statsBtn'>MY STATS</button>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="four columns offset-by-four">
+            <button class="u-full-width" id='onePlayerBtn'>SINGLE PLAYER</button>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="four columns offset-by-four">
+            <button class="u-full-width" id='twoPlayerBtn'>FIND MATCH ONLINE</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="four columns offset-by-four">
+            <button class="u-full-width" id='logoutBtn'>LOG OUT</button>
+        </div>
+    </div>
+
+</center>
+</container>
+</body>
+</html>
+

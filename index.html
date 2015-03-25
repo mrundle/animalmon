@@ -64,7 +64,7 @@
 			alert("Login successful!");
 	    		var secret = parsed_data['secret'];
                    	localStorage.setItem("secret", secret);
-                   	window.location = "team_selection.html";
+                   	window.location = "home.html";
                 }
 		else {
 			alert("Login unsuccessful: " + parsed_data['message']);
@@ -108,7 +108,7 @@
                 if (parsed_data["status"] === "pass") {
                     alert("User creation and login successful!");
                     localStorage.setItem("secret", secret);
-                    window.location = "team_selection.html";
+                    window.location = "home.html";
                 } else {
                     alert("User creation unsuccessful.");
                 }
