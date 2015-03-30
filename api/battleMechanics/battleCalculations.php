@@ -42,7 +42,7 @@ function moveTypeCalculation($team, $move){
 		$target2 = $moveAttributes['TARGET2'];
 		$effect2 = key($moveAttributes['EFFECT2']);
 	}
-	if($effect != null && $hit){
+	if($effect != null && $hit && $_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] > 0){
 		if($target == "Self") $target = $selfAnimalmon;
 		else $target = $foeAnimalmon;
 		if($target2 == "Self") $target2 = $selfAnimalmon;
