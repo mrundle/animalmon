@@ -29,6 +29,7 @@ function moveTypeCalculation($team, $move){
 		$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] -= $damage;
 		if($_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] < 1) {
 			$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
+			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $foeAnimalmon . " fainted!<br>";
 		}
 		$target = $moveAttributes['TARGET'];
 		$effect = key($moveAttributes['EFFECT']);
@@ -62,6 +63,7 @@ function moveTypeCalculation($team, $move){
 		}
 	}
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "<br><br>";
+
 }
 function accuracyCalculation($baseAccuracy, $statAccuracy, $statEvasion){
 	$finalAccuracy = ($statAccuracy/$statEvasion) * $baseAccuracy; //calculate the final accuracy
