@@ -137,63 +137,6 @@
 		gameState = parsed_data["gameState"];
 //		window.alert(gameState["battleLog"]);
 		var battleLog = gameState["battleLog"];
-/*		if(gameState['battleTeam1']['battleLog']['move_type'] == 'damage'){
-			if(gameState['battleTeam1']['battleLog']['hit'] == false){
-				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "but missed!";
-			}
-			else{
-				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "and hit for " + gameState['battleTeam1']['battleLog']['damage'] + "!";
-				if(gameState['battleTeam1']['battleLog']['crit'] == true){
-					battleLog += "<br>CRITICAL HIT!!!";
-				}
-				if(Object.keys(gameState['battleTeam1']['battleLog']['effect']) != ''){
-					if(Object.keys(gameState['battleTeam1']['battleLog']['effect']) == 'Gathering Power'){
-						battleLog += "<br>Your " + gameState['battleTeam1']['battleLog']['move'] + " is gathering power!";
-					} 
-					else{
-						battleLog += "<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
-					}
-					if(Object.keys(gameState['battleTeam1']['battleLog']['effect2']) != ''){
-						if(Object.keys(gameState['battleTeam1']['battleLog']['effect2']) == 'Gathering Power'){
-							battleLog += "<br>Your " + gameState['battleTeam1']['battleLog']['move'] + " is gathering power!";
-						} 
-						else{
-							if(gameState['battleTeam1']['battleLog']['target2'] != 'self'){
-								battleLog += "<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']);
-							}
-							else{
-								battleLog += "<br>You are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']);
-							}
-						}
-					}
-				}
-			}
-		}
-		else{
-			if(gameState['battleTeam1']['battleLog']['hit'] == false){
-				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "but missed!";
-			}
-			else{
-				if(gameState['battleTeam1']['battleLog']['target'] == 'Foe'){
-					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
-					if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
-						battleLog += " and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
-					}
-					else if(gameState['battleTeam1']['battleLog']['target2'] == 'Self'){
-						battleLog += "!<br>you are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
-					} 
-				}
-				else if(gameState['battleTeam1']['battleLog']['target'] == 'Self'){
-					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>You are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
-					if(gameState['battleTeam1']['battleLog']['target2'] == 'Self'){
-						battleLog += " and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
-					}
-					else if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
-						battleLog += "!<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
-					}
-				}
-			}
-		}*/
 		document.getElementById('battleLog').innerHTML = battleLog;
 	}
 	</script>
