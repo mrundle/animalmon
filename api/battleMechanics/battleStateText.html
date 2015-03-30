@@ -32,7 +32,48 @@
 		$('#move4Btn').click(function(){
 			handleMoveClick('move4');
 		});
+
+		//call a function to handle if any of the animals are clicked
+		$('#animalmon1Btn').click(function(){
+			handleAnimalmonClick('animalmon1');
+		});
+
+		$('#animalmon2Btn').click(function(){
+			handleAnimalmonClick('animalmon2');
+		});
+
+		$('#animalmon3Btn').click(function(){
+			handleAnimalmonClick('animalmon3');
+		});
+
+		$('#animalmon4Btn').click(function(){
+			handleAnimalmonClick('animalmon4');
+		});
+
+		$('#animalmon5Btn').click(function(){
+			handleAnimalmonClick('animalmon5');
+		});
+
+		$('#animalmon6Btn').click(function(){
+			handleAnimalmonClick('animalmon6');
+		});
+
+
 	});
+
+	function handleAnimalClick(buttonClicked){
+		animalmon = document.getElementById(buttonClicked + 'Btn').innerHTML;
+		var to_send = {}
+		to_send.type = 'swap';
+		to_send.animalmon = animalmon;
+
+		var to_send_JSON = JSON.stringify(to_send);
+
+		$.post('../../api.php', to_send)
+		.done(function(data){
+			updateGameStateRep(data);
+		});
+	}
 
 	//a move was just clicked
 	function handleMoveClick(buttonClicked){
@@ -73,6 +114,9 @@
 			} else {
 				document.getElementById('move'+ (i+1) + 'Btn').style.visibility = 'hidden';
 				document.getElementById('move'+ (i+1) + 'Label').style.visibility = 'hidden';
+			}
+			if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] < 1){
+				document.getElementById('move'+ (i+1) + 'Btn').disabled = true;
 			}
 		}
 		var animalmon = Object.keys(gameState['battleTeam1']);
