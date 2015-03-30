@@ -110,6 +110,11 @@
 				if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] < 1){
 					document.getElementById('move'+ (i+1) + 'Btn').disabled = true;
 				}
+				else{
+					document.getElementById('move'+ (i+1) + 'Btn').disabled = false;
+				document.getElementById('move'+ (i+1) + 'Btn').style.visibility = 'visible';
+				document.getElementById('move'+ (i+1) + 'Label').style.visibility = 'visible';
+				}
 			} else {
 				document.getElementById('move'+ (i+1) + 'Btn').style.visibility = 'hidden';
 				document.getElementById('move'+ (i+1) + 'Label').style.visibility = 'hidden';
