@@ -61,6 +61,7 @@ function moveTypeCalculation($team, $move){
 			}
 		}
 	}
+	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "<br><br>";
 }
 function accuracyCalculation($baseAccuracy, $statAccuracy, $statEvasion){
 	$finalAccuracy = ($statAccuracy/$statEvasion) * $baseAccuracy; //calculate the final accuracy
