@@ -79,7 +79,7 @@
 		delete animalmon['currentAnimalmon'];
 		for(var i = 0; i < 6; i++){
 			$('#animalmon' + (i+1) + 'Btn').text(animalmon[i]);
-			if(animalmon[i] == battleState['battleTeam1']['currentAnimalmon']){
+			if(animalmon[i] == gameState['battleTeam1']['currentAnimalmon'] || gameState['battleTeam1'][animalmon[i]]['STATS']['HEALTH'] == 0){
 				document.getElementById('animalmon'+ (i+1) + 'Btn').disabled = true;
 			}
 		}
