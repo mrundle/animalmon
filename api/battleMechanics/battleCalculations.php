@@ -95,4 +95,8 @@ function hitCalculation($team, $baseAccuracy, $statAccuracy, $statEvasion){
 function powerPointCalculation($team, $move){
 	$_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$move]['CURRENT_POWER_POINTS']--;
 }
+
+function AIMoveCalculation($team){
+	moveTypeCalculation($team, array_rand($_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES']));
+}
 ?>
