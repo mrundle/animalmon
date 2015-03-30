@@ -74,6 +74,32 @@
 			}
 
 			break;
+
+    case 'authenticate':
+        
+            // Make sure secret is set
+            if(!isset($_POST['secret'])){
+                $results['message'] = 'secret not set';
+                $results['status'] = 'fail';
+                break;
+            }            
+            else if($_POST['secret'] == '' or empty($_POST['secret'])){
+                $results['message'] = 'secret not set';
+                $results['status'] = 'fail';
+                break;
+            }     
+
+            // Validate secret
+            if(!secret_exists($_POST['secret'])){
+                $results['message'] = 'invalid secret';
+                $results['status'] = 'fail';
+            }
+            else{
+                $results['status'] = 'pass';
+                $results['message'] = $_POST['secret'];
+            }
+            
+            break;
 	
     case 'view_animal_options':
             

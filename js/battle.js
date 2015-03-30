@@ -1,12 +1,5 @@
-<!doctype html>
-<html>
-<head>
-<script src="./js/enchant.js"></script>
-</head>
-<body>
-<div id="enchant-stage">
-<!-- EXAMPLE TAKEN FROM ENCHANT.JS -->
-<script type="text/javascript">
+    
+function run_battle(){
     enchant(); // initialize
     var game = new Core(320, 320);
     game.preload('./img/chara1.png', './img/apple.png'); // preload image
@@ -83,7 +76,4 @@
     };
 
     game.start(); // start your game!
-</script>
-</div>
-</body>
-</html>
+}

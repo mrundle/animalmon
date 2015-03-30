@@ -27,6 +27,21 @@
 	// on startup...
 	$('#createUser').hide();
 
+    // check if user is already authenticated (& if so, redirect them)
+    var to_send = {};
+    to_send.type = 'authenticate';
+    to_send.secret = localStorage.getItem("secret");
+    if(to_send.secret != ""){
+        // make the POST request
+        $.post('api.php',to_send)
+        .done(function(data){
+            parsed_data = JSON.parse(data);
+            if (parsed_data["status"] == "pass"){
+                window.location = "home.html";
+            }
+        });
+    }
+
 
         // jQuery methods go here
 	$(window).on("error", function(evt) {
@@ -56,8 +71,7 @@
 
                	if(GLOBAL_DEBUG_ON){
 			alert('API returned: ' + data);
-		}
-	
+		}   	
                	var parsed_data = JSON.parse(data);
 		
                	if (parsed_data["status"] == "pass") {

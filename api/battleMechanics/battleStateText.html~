@@ -1,5 +1,6 @@
 <head>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src='../../js/enchant.js'></script>
 	<script>
 	$(document).ready(function(){
 		// jQuery methods go here
@@ -12,43 +13,52 @@
 		// make the POST request
 		$.post('../../api.php',to_send)
 		.done(function(data){
-
 			updateGameStateRep(data);
 		});
 
 		//call a function to handle if any of the moves are clicked
 		$('#move1Btn').click(function(){
-			handleMoveClick('move1Btn');
+			handleMoveClick('move1');
 		});
 
 		$('#move2Btn').click(function(){
-			handleMoveClick('move2Btn');
+			handleMoveClick('move2');
 		});
 
 		$('#move3Btn').click(function(){
-			handleMoveClick('move3Btn');
+			handleMoveClick('move3');
 		});
 
 		$('#move4Btn').click(function(){
-			handleMoveClick('move4Btn');
+			handleMoveClick('move4');
 		});
 	});
 
 	//a move was just clicked
 	function handleMoveClick(buttonClicked){
-		var to_send = {};
-		to_send.type = 'move';
-		to_send.move = document.getElementById(buttonClicked).innerHTML;
-    
-//		var to_send_JSON = JSON.stringify(to_send);
 
-		// make the POST request
-//		$.post('../../api.php',to_send)
-		
+		move = document.getElementById(buttonClicked + 'Btn').innerHTML;
+		if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][move]['CURRENT_POWER_POINTS'] < 1){
+			window.alert('THAT MOVE HAS NO MORE POWERPOINTS!!! :(');
+		}else{
+			var to_send = {};
+			to_send.type = 'move';
+			to_send.move = move
+	    
+			var to_send_JSON = JSON.stringify(to_send);
+
+			// make the POST request
+			$.post('../../api.php',to_send)
+			.done(function(data){
+				updateGameStateRep(data);
+				updateBattleLog(data);
+			});
+		}
 	}
 
 	function updateGameStateRep(data){
 		//set current animalmon
+//		window.alert(data);
 		parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
 		$('#currentAnimalmon1').text(gameState['battleTeam1']['currentAnimalmon'] + " ------ Health: "+ gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] + "/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
@@ -67,6 +77,70 @@
 		}
 	}
 
+	function updateBattleLog(data){
+		parsed_data = JSON.parse(data);
+		gameState = parsed_data["gameState"];
+//		window.alert(Object.keys(gameState['battleTeam1']['battleLog']['effect']));
+		var battleLog = '';
+		if(gameState['battleTeam1']['battleLog']['move_type'] == 'damage'){
+			if(gameState['battleTeam1']['battleLog']['hit'] == false){
+				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "but missed!";
+			}
+			else{
+				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "and hit for " + gameState['battleTeam1']['battleLog']['damage'] + "!";
+				if(gameState['battleTeam1']['battleLog']['crit'] == true){
+					battleLog += "<br>CRITICAL HIT!!!";
+				}
+				if(Object.keys(gameState['battleTeam1']['battleLog']['effect']) != ''){
+					if(Object.keys(gameState['battleTeam1']['battleLog']['effect']) == 'Gathering Power'){
+						battleLog += "<br>Your " + gameState['battleTeam1']['battleLog']['move'] + " is gathering power!";
+					} 
+					else{
+						battleLog += "<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
+					}
+					if(Object.keys(gameState['battleTeam1']['battleLog']['effect2']) != ''){
+						if(Object.keys(gameState['battleTeam1']['battleLog']['effect2']) == 'Gathering Power'){
+							battleLog += "<br>Your " + gameState['battleTeam1']['battleLog']['move'] + " is gathering power!";
+						} 
+						else{
+							if(gameState['battleTeam1']['battleLog']['target2'] != 'self'){
+								battleLog += "<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']);
+							}
+							else{
+								battleLog += "<br>You are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']);
+							}
+						}
+					}
+				}
+			}
+		}
+		else{
+			if(gameState['battleTeam1']['battleLog']['hit'] == false){
+				battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>" + "but missed!";
+			}
+			else{
+				if(gameState['battleTeam1']['battleLog']['target'] == 'Foe'){
+					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
+					if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
+						battleLog += " and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
+					}
+					else if(gameState['battleTeam1']['battleLog']['target2'] == 'Self'){
+						battleLog += "!<br>you are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
+					} 
+				}
+				else if(gameState['battleTeam1']['battleLog']['target'] == 'Self'){
+					battleLog = "you used " + gameState['battleTeam1']['battleLog']['move'] + "...<br>You are now " + Object.keys(gameState['battleTeam1']['battleLog']['effect']);
+					if(gameState['battleTeam1']['battleLog']['target2'] == 'Self'){
+						battleLog += " and " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
+					}
+					else if(gameState['battleTeam1']['battleLog']['target2'] == 'Foe'){
+						battleLog += "!<br>Foe is now " + Object.keys(gameState['battleTeam1']['battleLog']['effect2']) + "!";
+					}
+				}
+			}
+		}
+		document.getElementById('battleLog').innerHTML = battleLog;
+	}
 	</script>
 </head>
 <body>
@@ -103,3 +177,11 @@
 	<button id='move4Btn'><b>move4</b></button>
 	<label for='move4' id=move4Label>move4</label>
 </div>
+<div>
+	<p id='battleLog'>Select a move or change animalmon!</p>
+</div>
+<div id='enchantBattle'>
+    <iframe style="border: 0; margin: 0; padding: 0;" src="../../battle.html" height="320" width="320"></iframe>
+</div>
+</body>
+
