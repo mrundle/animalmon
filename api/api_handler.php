@@ -135,6 +135,7 @@
 	}
 
 	function handleMove($move){
+		$_SESSION['battleLog'] = '';
 		if($_SESSION['battleTeam1'][$_SESSION['battleTeam1']['currentAnimalmon']]['STATS']['SPEED'] > $_SESSION['battleTeam2'][$_SESSION['battleTeam2']['currentAnimalmon']]['STATS']['SPEED']){
 			$_SESSION['battleLog'] = '';
 			moveTypeCalculation('battleTeam1', $move);
