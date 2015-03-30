@@ -30,16 +30,16 @@ function moveTypeCalculation($team, $move){
 		if($_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] < 1) {
 			$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
 		}
-		$target = $moveAttributes['TARGET'];
-		$effect = $moveAttributes['EFFECT'];
-		$target2 = $moveAttributes['TARGET2'];
-		$effect2 = $moveAttributes['EFFECT2'];
+		$target = key($moveAttributes['TARGET']);
+		$effect = key($moveAttributes['EFFECT']);
+		$target2 = key($moveAttributes['TARGET2']);
+		$effect2 = key($moveAttributes['EFFECT2']);
 	}
 	else{
-		$target = $moveAttributes['TARGET'];
-		$effect = $moveAttributes['EFFECT'];
-		$target2 = $moveAttributes['TARGET2'];
-		$effect2 = $moveAttributes['EFFECT2'];
+		$target = key($moveAttributes['TARGET']);
+		$effect = key($moveAttributes['EFFECT']);
+		$target2 = key($moveAttributes['TARGET2']);
+		$effect2 = key($moveAttributes['EFFECT2']);
 	}
 	if($effect != null){
 		if($effect == 'Gathering Power'){
