@@ -102,9 +102,8 @@
 		$('#currentAnimalmon2').text(gameState['battleTeam2']['currentAnimalmon'] + " ------ Health: "+ gameState['battleTeam2'][gameState['battleTeam2']['currentAnimalmon']]['STATS']['HEALTH'] + "/" + gameState['battleTeam2'][gameState['battleTeam2']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
 		//set current moveset
 		var moves = Object.keys(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES']);
-		var numMoves = moves.length;
 		for(var i = 0; i < 4; i++){
-			if( i < numMoves){
+			if( moves[i] != null){
 				$('#move' + (i+1) + 'Btn').text(moves[i]);
 				$('#move' + (i+1) + 'Label').text("Power Points: " + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] + "/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['POWER_POINTS']);
 				if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] < 1){
