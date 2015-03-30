@@ -151,9 +151,12 @@
 	}
 
 	function handleSwap($animalmon){
+		$prevAnimalmon = $_SESSION['battleTeam1']['currentAnimalmon'];
 		$_SESSION['battleTeam1']['currentAnimalmon'] = $animalmon;
 		$_SESSION['battleLog'] = $animalmon . " was swapped in!<br>";
-		AIMoveCalculation('battleTeam2');
+		if($_SESSION['battleTeam1'][$prevAnimalmon]['STATS']['HEALTH'] != 0{
+			AIMoveCalculation('battleTeam2');
+		}
 		return $_SESSION;
 	}
 
