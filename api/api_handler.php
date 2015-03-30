@@ -154,7 +154,7 @@
 		$prevAnimalmon = $_SESSION['battleTeam1']['currentAnimalmon'];
 		$_SESSION['battleTeam1']['currentAnimalmon'] = $animalmon;
 		$_SESSION['battleLog'] = $animalmon . " was swapped in!<br>";
-		if($_SESSION['battleTeam1'][$prevAnimalmon]['STATS']['HEALTH'] != 0{
+		if($_SESSION['battleTeam1'][$prevAnimalmon]['STATS']['HEALTH'] != 0){
 			AIMoveCalculation('battleTeam2');
 		}
 		return $_SESSION;
