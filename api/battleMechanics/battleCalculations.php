@@ -30,17 +30,32 @@ function moveTypeCalculation($team, $move){
 		if($_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] < 1) {
 			$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
 		}
-		$_SESSION[$team]['battleLog']['target'] = $moveAttributes['TARGET'];
-		$_SESSION[$team]['battleLog']['effect'] = $moveAttributes['EFFECT'];
-		$_SESSION[$team]['battleLog']['target2'] = $moveAttributes['TARGET2'];
-		$_SESSION[$team]['battleLog']['effect2'] = $moveAttributes['EFFECT2'];
+		$target = $moveAttributes['TARGET'];
+		$effect = $moveAttributes['EFFECT'];
+		$target2 = $moveAttributes['TARGET2'];
+		$effect2 = $moveAttributes['EFFECT2'];
 	}
 	else{
-		$_SESSION[$team]['battleLog']['move_type'] = 'status';
-		$_SESSION[$team]['battleLog']['target'] = $moveAttributes['TARGET'];
-		$_SESSION[$team]['battleLog']['effect'] = $moveAttributes['EFFECT'];
-		$_SESSION[$team]['battleLog']['target2'] = $moveAttributes['TARGET2'];
-		$_SESSION[$team]['battleLog']['effect2'] = $moveAttributes['EFFECT2'];
+		$target = $moveAttributes['TARGET'];
+		$effect = $moveAttributes['EFFECT'];
+		$target2 = $moveAttributes['TARGET2'];
+		$effect2 = $moveAttributes['EFFECT2'];
+	}
+	if($effect != null){
+		if($effect == 'Gathering Power'){
+			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $move . " just got stronger!<br>";
+		}
+		else{
+			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $target . " is now " . $effect . "!<br>";
+		}
+		if($effect2 != null){
+			if($effect2 == 'Gathering Power'){
+				$_SESSION['battleLog'] = $_SESSION['battleLog'] . $move . " just got stronger!<br>";
+			}
+			else{
+				$_SESSION['battleLog'] = $_SESSION['battleLog'] . $target2 . " is now " . $effect2 . "!<br>";
+			}
+		}
 	}
 }
 function accuracyCalculation($baseAccuracy, $statAccuracy, $statEvasion){
