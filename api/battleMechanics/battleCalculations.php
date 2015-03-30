@@ -24,7 +24,7 @@ function moveTypeCalculation($team, $move){
 	if($moveAttributes['BASE_DAMAGE'] != 0){
 		$damage = damageCalculation($team, $moveAttributes['BASE_DAMAGE'], $moveAttributes['CRITICAL_HIT'], $selfAttributes['ATTACK'], $foeAttributes['DEFENSE'], $selfAttributes['SPEED'], $foeAttributes['SPEED']);
 
-		$_SESSION['battleLog'] = $_SESSION['battleLog'] . "and hit for " . $damage . "!<br>";
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . "hit " . $foeAnimalmon . " for " . $damage . "!<br>";
 
 		$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] -= $damage;
 		if($_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] < 1) {
