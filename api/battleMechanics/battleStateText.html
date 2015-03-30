@@ -79,22 +79,18 @@
 	function handleMoveClick(buttonClicked){
 
 		move = document.getElementById(buttonClicked + 'Btn').innerHTML;
-		if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][move]['CURRENT_POWER_POINTS'] < 1){
-			window.alert('THAT MOVE HAS NO MORE POWERPOINTS!!! :(');
-		}else{
-			var to_send = {};
-			to_send.type = 'move';
-			to_send.move = move
-	    
-			var to_send_JSON = JSON.stringify(to_send);
+		var to_send = {};
+		to_send.type = 'move';
+		to_send.move = move
+    
+		var to_send_JSON = JSON.stringify(to_send);
 
-			// make the POST request
-			$.post('../../api.php',to_send)
-			.done(function(data){
-				updateGameStateRep(data);
-				updateBattleLog(data);
-			});
-		}
+		// make the POST request
+		$.post('../../api.php',to_send)
+		.done(function(data){
+			updateGameStateRep(data);
+			updateBattleLog(data);
+		});
 	}
 
 	function updateGameStateRep(data){
