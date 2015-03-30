@@ -95,7 +95,7 @@
 
 	function updateGameStateRep(data){
 		//set current animalmon
-//		window.alert(data);
+		window.alert(data);
 		parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
 		$('#currentAnimalmon1').text(gameState['battleTeam1']['currentAnimalmon'] + " ------ Health: "+ gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] + "/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
@@ -105,7 +105,6 @@
 		var numMoves = moves.length;
 		for(var i = 0; i < 4; i++){
 			if( i < numMoves){
-				window.alert(i);
 				$('#move' + (i+1) + 'Btn').text(moves[i]);
 				$('#move' + (i+1) + 'Label').text("Power Points: " + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] + "/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['POWER_POINTS']);
 				if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] < 1){
