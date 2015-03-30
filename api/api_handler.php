@@ -135,16 +135,15 @@
 	}
 
 	function handleMove($move){
-		$_SESSION['battleTeam1']['battleLog']['action'] = 'move';
-		$_SESSION['battleTeam1']['battleLog']['move'] = $move;
-		moveTypeCalculation('battleTeam1');
-		powerPointCalculation('battleTeam1');
+		$_SESSION['battleLog'] = '';
+		moveTypeCalculation('battleTeam1', $move);
+		powerPointCalculation('battleTeam1', $move);
 		return $_SESSION;
 	}
 
 	function handleSwap($animalmon){
 		$_SESSION['battleTeam1']['currentAnimalmon'] = $animalmon;
-		return $_SESSION;
+		return $_
 	}
 
 ?>

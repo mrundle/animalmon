@@ -1,15 +1,20 @@
 <?php
 session_start();
-function moveTypeCalculation($team){
+function moveTypeCalculation($team, $move){
 	if($team == 'battleTeam1'){
 		$foeTeam = 'battleTeam2';
 	}
 	else{
 		$foeTeam = 'battleTeam1';
 	}
-	$moveAttributes = $_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$_SESSION[$team]['battleLog']['move']];
+	$selfAnimalmon = $_SESSION[$team]['currentAnimalmon']
+	$foeAnimalmon = $_SESSION[$foeTeam]['currentAnimalmon']
+	$moveAttributes = $_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$move];
 	$selfAttributes = $_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['STATS'];
 	$foeAttributes = $_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS'];
+
+	$_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " used " . $move . "...<br>";
+
 	if($moveAttributes['TARGET'] == 'Foe'){
 		hitCalculation($team, $moveAttributes['BASE_ACCURACY'], $selfAttributes['ACCURACY'], $foeAttributes['EVASION']);
 	}
@@ -17,9 +22,10 @@ function moveTypeCalculation($team){
 		hitCalculation($team, 100, 1, 1);
 	}
 	if($moveAttributes['BASE_DAMAGE'] != 0){
-		$_SESSION[$team]['battleLog']['move_type'] = 'damage';
 		$damage = damageCalculation($team, $moveAttributes['BASE_DAMAGE'], $moveAttributes['CRITICAL_HIT'], $selfAttributes['ATTACK'], $foeAttributes['DEFENSE'], $selfAttributes['SPEED'], $foeAttributes['SPEED']);
-		$_SESSION[$team]['battleLog']['damage'] = $damage;
+
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . "and hit for " . $damage . "!<br>";
+
 		$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] -= $damage;
 		if($_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] < 1) {
 			$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
@@ -45,10 +51,7 @@ function damageCalculation($team, $baseDamage, $critChance, $statAttack, $statDe
 	$modifier = 1.0;
 	if(critCalculation($critChance, $originSpeed, $targetSpeed) == TRUE){
 		$modifier += 0.5;
-		$_SESSION[$team]['battleLog']['crit'] = TRUE;
-	}
-	else{
-		$_SESSION[$team]['battleLog']['crit'] = FALSE;
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . "CRITICAL HIT!!!<br>";
 	}
 	$finalDamage = (($statAttack/$statDefense) * $baseDamage) * $modifier;//calculate the final damage
 	return $finalDamage;
@@ -63,15 +66,14 @@ function critCalculation($critChance, $originSpeed, $targetSpeed){
 }
 function hitCalculation($team, $baseAccuracy, $statAccuracy, $statEvasion){
 	if(rand() % 100 < accuracyCalculation($baseAccuracy, $statAccuracy, $statEvasion)){
-		$_SESSION[$team]['battleLog']['hit'] = TRUE;
 		return TRUE;
 	}
 	else{
-		$_SESSION[$team]['battleLog']['hit'] = FALSE;
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . "but missed!<br>";
 		return FALSE;
 	}
 }
-function powerPointCalculation($team){
-	$_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$_SESSION[$team]['battleLog']['move']]['CURRENT_POWER_POINTS']--;
+function powerPointCalculation($team, $move){
+	$_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$move]['CURRENT_POWER_POINTS']--;
 }
 ?>

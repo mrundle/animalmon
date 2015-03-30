@@ -135,7 +135,7 @@
 	function updateBattleLog(data){
 		parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
-//		window.alert(Object.keys(gameState['battleTeam1']['battleLog']['effect']));
+		window.alert(gameState["battleLog"]);
 		var battleLog = gameState["battleLog"];
 /*		if(gameState['battleTeam1']['battleLog']['move_type'] == 'damage'){
 			if(gameState['battleTeam1']['battleLog']['hit'] == false){
