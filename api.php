@@ -178,6 +178,17 @@
 			}
 			break;
 
+		case 'swap':
+			$gameState = handleSwap($_POST['animalmon']);
+			if($gameState == NULL){
+				$result['message'] = 'Something went wrong';
+				$result['status'] = 'fail';
+			}
+			else{
+				$result['gameState'] = $gameState;
+			}
+			break;
+
 		default:
 			$result['message'] = 'unrecognized api call type';
 			$result['status'] = 'fail';

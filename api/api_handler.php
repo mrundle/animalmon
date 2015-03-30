@@ -142,4 +142,9 @@
 		return $_SESSION;
 	}
 
+	function handleSwap($animalmon){
+		$_SESSION['battleTeam1']['currentAnimalmon'] = $animalmon;
+		return $_SESSION;
+	}
+
 ?>
