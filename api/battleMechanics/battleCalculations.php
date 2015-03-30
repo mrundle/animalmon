@@ -7,8 +7,8 @@ function moveTypeCalculation($team, $move){
 	else{
 		$foeTeam = 'battleTeam1';
 	}
-	$selfAnimalmon = $_SESSION[$team]['currentAnimalmon']
-	$foeAnimalmon = $_SESSION[$foeTeam]['currentAnimalmon']
+	$selfAnimalmon = $_SESSION[$team]['currentAnimalmon'];
+	$foeAnimalmon = $_SESSION[$foeTeam]['currentAnimalmon'];
 	$moveAttributes = $_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$move];
 	$selfAttributes = $_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['STATS'];
 	$foeAttributes = $_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS'];
