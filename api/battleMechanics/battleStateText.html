@@ -104,7 +104,7 @@
 		var moves = Object.keys(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES']);
 		var numMoves = moves.length;
 		for(var i = 0; i < 4; i++){
-			if( i < numMoves - 1){
+			if( i < numMoves){
 				$('#move' + (i+1) + 'Btn').text(moves[i]);
 				$('#move' + (i+1) + 'Label').text("Power Points: " + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] + "/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['POWER_POINTS']);
 				if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] < 1){
