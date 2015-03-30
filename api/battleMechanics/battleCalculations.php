@@ -30,15 +30,15 @@ function moveTypeCalculation($team, $move){
 		if($_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] < 1) {
 			$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
 		}
-		$target = key($moveAttributes['TARGET']);
+		$target = $moveAttributes['TARGET'];
 		$effect = key($moveAttributes['EFFECT']);
-		$target2 = key($moveAttributes['TARGET2']);
+		$target2 = $moveAttributes['TARGET2'];
 		$effect2 = key($moveAttributes['EFFECT2']);
 	}
 	else{
-		$target = key($moveAttributes['TARGET']);
+		$target = $moveAttributes['TARGET'];
 		$effect = key($moveAttributes['EFFECT']);
-		$target2 = key($moveAttributes['TARGET2']);
+		$target2 = $moveAttributes['TARGET2'];
 		$effect2 = key($moveAttributes['EFFECT2']);
 	}
 	if($effect != null){
