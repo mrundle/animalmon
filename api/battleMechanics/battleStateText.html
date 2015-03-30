@@ -103,7 +103,7 @@
 		//set current moveset
 		var moves = Object.keys(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES']);
 		for(var i = 0; i < 4; i++){
-			if( moves[i] != ''){
+			if( moves[i] != '' || moves[i] != null){
 				window.alert(moves[i]);
 				$('#move' + (i+1) + 'Btn').text(moves[i]);
 				$('#move' + (i+1) + 'Label').text("Power Points: " + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] + "/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['POWER_POINTS']);
