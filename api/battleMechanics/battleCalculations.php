@@ -42,6 +42,10 @@ function moveTypeCalculation($team, $move){
 		$effect2 = key($moveAttributes['EFFECT2']);
 	}
 	if($effect != null){
+		if($target == "Self") $target = $selfAnimalmon;
+		else $target = $foeAnimalmon;
+		if($target2 == "Self") $target2 = $selfAnimalmon;
+		else $target2 = $foeAnimalmon;
 		if($effect == 'Gathering Power'){
 			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $move . " just got stronger!<br>";
 		}
