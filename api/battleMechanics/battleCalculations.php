@@ -16,12 +16,12 @@ function moveTypeCalculation($team, $move){
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " used " . $move . "...<br>";
 
 	if($moveAttributes['TARGET'] == 'Foe'){
-		hitCalculation($team, $moveAttributes['BASE_ACCURACY'], $selfAttributes['ACCURACY'], $foeAttributes['EVASION']);
+		$hit = hitCalculation($team, $moveAttributes['BASE_ACCURACY'], $selfAttributes['ACCURACY'], $foeAttributes['EVASION']);
 	}
 	else{
-		hitCalculation($team, 100, 1, 1);
+		$hit = hitCalculation($team, 100, 1, 1);
 	}
-	if($moveAttributes['BASE_DAMAGE'] != 0){
+	if($moveAttributes['BASE_DAMAGE'] != 0 && $hit){
 		$damage = damageCalculation($team, $moveAttributes['BASE_DAMAGE'], $moveAttributes['CRITICAL_HIT'], $selfAttributes['ATTACK'], $foeAttributes['DEFENSE'], $selfAttributes['SPEED'], $foeAttributes['SPEED']);
 
 		$_SESSION['battleLog'] = $_SESSION['battleLog'] . $move . " hit " . $foeAnimalmon . " for " . $damage . "!<br>";
@@ -41,7 +41,7 @@ function moveTypeCalculation($team, $move){
 		$target2 = $moveAttributes['TARGET2'];
 		$effect2 = key($moveAttributes['EFFECT2']);
 	}
-	if($effect != null){
+	if($effect != null && $hit){
 		if($target == "Self") $target = $selfAnimalmon;
 		else $target = $foeAnimalmon;
 		if($target2 == "Self") $target2 = $selfAnimalmon;
