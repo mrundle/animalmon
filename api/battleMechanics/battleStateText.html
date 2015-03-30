@@ -122,7 +122,9 @@
 			if(animalmon[i] == gameState['battleTeam1']['currentAnimalmon'] || gameState['battleTeam1'][animalmon[i]]['STATS']['HEALTH'] == 0){
 				document.getElementById('animalmon'+ (i+1) + 'Btn').disabled = true;
 			}
-			document.getElementById('animalmon'+ (i+1) + 'Btn').disabled = false;
+			else{
+				document.getElementById('animalmon'+ (i+1) + 'Btn').disabled = false;
+			}
 		}
 	}
 
