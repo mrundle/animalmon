@@ -143,7 +143,7 @@
 
 	function handleSwap($animalmon){
 		$_SESSION['battleTeam1']['currentAnimalmon'] = $animalmon;
-		return $_
+		return $_SESSION;
 	}
 
 ?>
