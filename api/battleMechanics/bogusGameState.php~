@@ -1,6 +1,0 @@
-<?php
-session_start();
-$_SESSION['battleTeam1']['currentAnimalmon'] = Hippopotamus;
-print_r($_SESSION);
-echo "<br>Testing Battles: <a href=http://csevm03.crc.nd.edu:8503/project/api/battleMechanics/battleStateText.html>CLICK HERE</a>";
-?>
