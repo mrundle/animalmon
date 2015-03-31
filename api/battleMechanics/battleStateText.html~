@@ -220,13 +220,13 @@
             var to_send_JSON = JSON.stringify(to_send);
 
             // Set up animal assoc array
-            animal_images = {}
+            animal_images = new Object()
 
             // make the POST request
             $.post('http://csevm03.crc.nd.edu:8503/project/api.php',to_send)
             .done(function(data){
                 parsed_data = JSON.parse(data);
-		        alert(JSON.stringify(parsed_data['animals']['NAME']));
+		        //alert(JSON.stringify(parsed_data['animals']['NAME']));
                 if (parsed_data["status"] === "pass") {
                     var animals = parsed_data['animals']['NAME'];
                     var images = parsed_data['animals']['IMG'];	
@@ -243,7 +243,7 @@
             .fail(function() {
                 alert( "error" );
             });
-
+            alert("1 " + animal_images);
             return animal_images;
         }
             
@@ -252,13 +252,12 @@
             
             enchant(); // initialize
             var game = new Core(320, 320);
-            var animals = {}
             var animal_pictures = {}
-            animal_pictures = load_animals(game);
+            var animal_pictures = load_animals(game);
             game.preload('../../img/chara1.png');
             game.preload('../../img/apple.png');
             game.fps = 20;
-
+            alert("2 " + JSON.stringify(animal_pictures));
             game.onload = function(){
                 // Make a new class for Animal
                 var Animal = enchant.Class.create(enchant.Sprite, {
@@ -268,7 +267,10 @@
                         game.rootScene.addChild(this); // add to canvas
                     }
                 });
-                
+                // Add the animals
+                for(var key in animal_pictures){
+                    animals[key] = new Animal(animal_pictures[key]);
+                }
 
                 // make new class for player
                 var Player = enchant.Class.create(enchant.Sprite, {
@@ -338,7 +340,7 @@
                     game.stop();
                 });
             }
-            
+            //alert(animals);
             game.start(); // start the game!
         }
 
