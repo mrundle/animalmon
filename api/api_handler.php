@@ -27,21 +27,24 @@
 		}
 	}
 
+	// Checks if a secret exists in the PLAYER table of the database.
+	// If so, returns the corresponding username.
+	// If not, returns null.
+	// USES: Checking secret existence, matching secret to a username.
 	function secret_exists($secret){
 		// get access to db
 		global $conn;
 	
 		// check if the secret exists
-		$query_string = "SELECT count(*) FROM PLAYER WHERE secret = '" . (string)$secret . "'";
+		$query_string = "SELECT username FROM PLAYER WHERE secret = '" . (string)$secret . "'";// group by username";
 		$query = oci_parse($conn, $query_string);
 		oci_execute($query);
 		$num_results = oci_fetch_all($query,$results);
-		
-		if($results['COUNT(*)'][0] == 0){
-			return false;
+		if(count($results['USERNAME']) != 1){
+			return null;
 		}
 		else{
-			return true;
+			return $results['USERNAME'][0];
 		}
 	}
 

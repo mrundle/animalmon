@@ -1,0 +1,7 @@
+To resize photos, use ImageMagick (installed using `yum install ImageMagick`):
+
+  mogrify -resize 100x100 image.jpg
+
+You can also use the wildcard:
+
+  mogrify -resize 250x250 *

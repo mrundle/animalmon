@@ -25,6 +25,8 @@
     <script>
     $(document).ready(function(){
 
+		var username = ""; // variable to store the user's username
+
         // make sure user is authenticated
         var to_send = {};
         to_send.type = 'authenticate';
@@ -35,10 +37,14 @@
         else{
             // make the POST request
             $.post('api.php',to_send)
-            .done(function(data){     
+            .done(function(data){    
                 parsed_data = JSON.parse(data);
-                if (parsed_data["status"] != "pass"){
-                    window.location = "index.html";
+                if (parsed_data['status'] != 'pass'){
+                    window.location = 'index.html';
+                }
+                else{
+                    username = parsed_data['username'];
+                    $('#statsBtn').html(username + '\'s stats');
                 }
             });
         }
@@ -73,7 +79,7 @@
 
     <div class="row">
         <div class="four columns offset-by-four">
-            <button class="u-full-width" id='statsBtn'>MY STATS</button>
+            <button class="u-full-width" id='statsBtn'><!-- FILLED DYNAMICALLY WITH USERNAME --></button>
         </div>
     </div>
     
