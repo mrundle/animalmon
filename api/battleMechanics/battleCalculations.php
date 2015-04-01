@@ -106,7 +106,7 @@ function AIMoveCalculation($team){
 function AISwapAnimalmon($team){
 	$deadAnimalmon = $_SESSION[$team]['currentAnimalmon'];
 	$animalmonArray = array_keys($_SESSION[$team]);
-	unset($animalmonArray[6]);
+	unset($animalmonArray[array_search('currentAnimalmon')];
 	foreach($animalmonArray as $animalmon){
 		$_SESSION['battleLog'] = $_SESSION['battleLog'] . "HERE" . $animalmon;
 		if($_SESSION[$team][$animalmon]['STATS']['HEALTH'] > 0){
