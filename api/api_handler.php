@@ -143,7 +143,7 @@
 			$_SESSION['battleLog'] = '';
 			moveTypeCalculation('battleTeam1', $move);
 			powerPointCalculation('battleTeam1', $move);
-			if($_SESSION['battleTeam1'][$_SESSION['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] == 0){
+			if($_SESSION['battleTeam2'][$_SESSION['battleTeam2']['currentAnimalmon']]['STATS']['HEALTH'] == 0){
 				AISwapAnimalmon('battleTeam2');
 			}
 			else {
@@ -154,7 +154,7 @@
 			AIMoveCalculation('battleTeam2');
 			moveTypeCalculation('battleTeam1', $move);
 			powerPointCalculation('battleTeam1', $move);
-			if($_SESSION['battleTeam1'][$_SESSION['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] == 0){
+			if($_SESSION['battleTeam2'][$_SESSION['battleTeam2']['currentAnimalmon']]['STATS']['HEALTH'] == 0){
 				AISwapAnimalmon('battleTeam2');
 			}
 		}
