@@ -73,8 +73,14 @@
 
         // Finally, build the visual enchant representation
         var initial_start = false;
-        build_enchant(initial_start);
+        //build_enchant(initial_start);
         initial_start = true;
+        var animal_images = new Object();
+        alert(typeof animal_images);
+        load_animals(animal_images);
+        alert(animal_images.toSource());
+        alert(animal_images.toSource()); 
+        alert(animal_images.toSource()); 
 	});
 
 	function handleAnimalmonClick(buttonClicked){
@@ -156,6 +162,11 @@
 		var battleLog = gameState["battleLog"];
 		document.getElementById('battleLog').innerHTML = battleLog;
 	}
+
+    function visually_represent(){
+        alert('test');
+    }
+
 	</script>
 </head>
 <body>
@@ -209,141 +220,16 @@
 <center>
 <div id='enchant-stage'>
     <!--<iframe style="border: 0; margin: 0; padding: 0;" src="../../battle.html" height="320" width="320"></iframe>-->
-    <script type="text/javascript">
+    <canvas id='myCanvas' width='500' height='500'></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        var imageObj = new Image();
 
-        function load_animals(game){
-            
-            // set up the JSON to send to the API
-            var to_send = {};
-            to_send.type = "view_animal_options";
-            to_send.secret = localStorage.getItem("secret");
-            var to_send_JSON = JSON.stringify(to_send);
-
-            // Set up animal assoc array
-            animal_images = new Object()
-
-            // make the POST request
-            $.post('http://csevm03.crc.nd.edu:8503/project/api.php',to_send)
-            .done(function(data){
-                parsed_data = JSON.parse(data);
-		        //alert(JSON.stringify(parsed_data['animals']['NAME']));
-                if (parsed_data["status"] === "pass") {
-                    var animals = parsed_data['animals']['NAME'];
-                    var images = parsed_data['animals']['IMG'];	
-                    for(var i = 0; i < animals.length; i++){
-                      var name = String(animals[i]);
-                      var image = 'http://csevm03.crc.nd.edu:8503/img/animals/200x200/' + String(images[i]);
-                      game.preload(image);
-                      animal_images[name] = image;
-                    }
-                } else {
-                    alert("Loading animal images failed: " + parsed_data['message']);
-                }
-            })
-            .fail(function() {
-                alert( "error" );
-            });
-            alert("1 " + animal_images);
-            return animal_images;
-        }
-            
-
-        function build_enchant(initial_start){
-            
-            enchant(); // initialize
-            var game = new Core(320, 320);
-            var animal_pictures = {}
-            var animal_pictures = load_animals(game);
-            game.preload('../../img/chara1.png');
-            game.preload('../../img/apple.png');
-            game.fps = 20;
-            alert("2 " + JSON.stringify(animal_pictures));
-            game.onload = function(){
-                // Make a new class for Animal
-                var Animal = enchant.Class.create(enchant.Sprite, {
-                    initialize: function(img_path){
-                        enchant.Sprite.call(this,32,32)
-                        this.image = game.assets[img_path];
-                        game.rootScene.addChild(this); // add to canvas
-                    }
-                });
-                // Add the animals
-                for(var key in animal_pictures){
-                    animals[key] = new Animal(animal_pictures[key]);
-                }
-
-                // make new class for player
-                var Player = enchant.Class.create(enchant.Sprite, {
-                    initialize: function(){
-                        enchant.Sprite.call(this, 32, 32);
-                        this.image = game.assets['../../img/chara1.png'];
-                        this.frame = 5;                   // set image data
-                        game.rootScene.addChild(this);     // add to canvas
-                    }
-                });
-
-                // make new class for apple
-                var Apple = enchant.Class.create(enchant.Sprite, {
-                    initialize: function(){
-                        enchant.Sprite.call(this, 16, 16);
-                        this.image = game.assets['../../img/apple.png']; // set image
-                        this.moveTo(16, player.y + 8);       // move to the position
-                        this.tl.moveBy(320, 0, 30);        // set movement
-                        this.frame = 15;                   // set image data
-                        game.rootScene.addChild(this);     // add to canvas
-                    }
-                });
-
-                // make new class for enemy
-                var Enemy = enchant.Class.create(enchant.Sprite, {
-                    initialize: function(){
-                        enchant.Sprite.call(this, 32, 32);
-                        this.image = game.assets['../../img/chara1.png']; // set image
-                        this.moveTo(320, Math.floor(Math.random() * 320)); // set position
-                        this.scaleX = -1;
-                        this.tl.moveBy(-360, 0, 160);      // set movement
-                        game.rootScene.addChild(this);     // canvas
-                    }
-                });
-
-                var player = new Player();
-
-                // generate enemy every 60 frames
-                game.rootScene.tl.then(function() {
-                    var enemy = new Enemy();
-                }).delay(30).loop();                    // wait 60 frames and loop it!
-
-                // add event listener (called when click/touch started)
-                game.rootScene.on('touchstart', function(evt){
-                    player.y = evt.localY;    // set position to touch-y position
-                    var apple = new Apple();
-                });
-
-                // add event listener (called when click/touch moved)
-                game.rootScene.on('touchmove', function(evt){
-                    player.y = evt.localY;    // set position to touch-y position
-                });
-        
-                var score = 0;
-        
-                game.rootScene.on('enterframe', function(){
-                    var hits = Apple.intersect(Enemy);
-                    for(var i = 0, len = hits.length; i < len; i++){
-                        game.rootScene.removeChild(hits[i][0]);
-                        game.rootScene.removeChild(hits[i][1]);
-                        score ++;
-                    }
-                });
-        
-                player.tl.delay(game.fps * 10).then(function(){
-                    alert('game over! score: ' + score);
-                    game.stop();
-                });
-            }
-            //alert(animals);
-            game.start(); // start the game!
-        }
-
+      imageObj.onload = function() {
+        context.drawImage(imageObj, 69, 50);
+      };
+      imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
     </script>
 </div>
 </center>

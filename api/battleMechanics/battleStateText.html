@@ -72,15 +72,7 @@
 		});
 
         // Finally, build the visual enchant representation
-        var initial_start = false;
-        //build_enchant(initial_start);
-        initial_start = true;
-        var animal_images = new Object();
-        alert(typeof animal_images);
-        load_animals(animal_images);
-        alert(animal_images.toSource());
-        alert(animal_images.toSource()); 
-        alert(animal_images.toSource()); 
+        visually_represent();
 	});
 
 	function handleAnimalmonClick(buttonClicked){
@@ -163,35 +155,10 @@
 		document.getElementById('battleLog').innerHTML = battleLog;
 	}
 
-    function load_animals(animal_images){
-            // set up the JSON to send to the API
-            var to_send = {};
-            to_send.type = "view_animal_options";
-            to_send.secret = localStorage.getItem("secret");
-            var to_send_JSON = JSON.stringify(to_send);
+    function visually_represent(){
+        alert('test');
+    }
 
-            // make the POST request
-            $.post('http://csevm03.crc.nd.edu:8503/project/api.php',to_send)
-            .done(function(data){
-                parsed_data = JSON.parse(data);
-		        //alert(JSON.stringify(parsed_data['animals']['NAME']));
-                if (parsed_data["status"] === "pass") {
-                    var animals = parsed_data['animals']['NAME'];
-                    var images = parsed_data['animals']['IMG'];	
-                    for(var i = 0; i < animals.length; i++){
-                      var name = String(animals[i]);
-                      var image = 'http://csevm03.crc.nd.edu:8503/img/animals/200x200/' + String(images[i]);
-                      animal_images[name] = image;
-                    }
-                } else {
-                    alert("Loading animal images failed: " + parsed_data['message']);
-                }
-            })
-            .fail(function() {
-                alert( "error" );
-            });
-
-        }
 	</script>
 </head>
 <body>
