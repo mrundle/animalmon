@@ -109,10 +109,11 @@ function AISwapAnimalmon($team){
 	if($key = array_search('currentAnimalmon', $animalmonArray) !== false){
 		unset($animalmonArray[$key]);
 	}
+	$_SESSION['battleLog'] = $_SESSION['battleLog'] . print_r($animalmonArray);
 	foreach($animalmonArray as $animalmon){
 		if($_SESSION[$team][$animalmon]['STATS']['HEALTH'] > 0){
 			$_SESSION[$team]['currentAnimalmon'] = $animalmon;
-			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $deadAnimalmon . " Died!<br>" . $animalmon . "was swapped in!<br>";
+			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $animalmon . "was swapped in!<br>";
 			return;
 		}
 	}
