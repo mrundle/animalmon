@@ -1,8 +1,8 @@
 <head>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <?php
-        echo 'test';
-    ?>
+    <script>
+        var CANVAS_HEIGHT = 200;
+    </script>
 	<script>
 	$(document).ready(function(){
 		// jQuery methods go here
@@ -74,6 +74,7 @@
 		});
 
         // Finally, build the visual enchant representation
+        $('#gameCanvas').width(100).height(100)
         visually_represent();
 	});
 
