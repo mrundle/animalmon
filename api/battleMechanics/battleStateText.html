@@ -170,11 +170,16 @@
         animal_one.onload = function(){
             context.drawImage(animal_one, 0, CANVAS_HEIGHT - 200); // place bottom left
         };
-        var animal_one_name = state['battleTeam1']['currentAnimalmon'].toLowerCase().replace(/ /g, '');
+        var animal_one_name = state['battleTeam1']['currentAnimalmon'].toLowerCase().replace(/ /g,'');
         animal_one.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/200x200/" + animal_one_name + ".jpg";
 
         // Display second player's animal
         var animal_two = new Image();
+        animal_two.onload = function(){
+            context.drawImage(animal_two, CANVAS_WIDTH - 200, 0); // place top right
+        };
+        var animal_two_name = state['battleTeam2']['currentAniamlmon'].toLowerCase().replace(/ /g,'');
+        animal_two.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/200x200/" + animal_two_name + ".jpg";
         
     }
 
