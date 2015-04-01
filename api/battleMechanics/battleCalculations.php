@@ -102,4 +102,18 @@ function powerPointCalculation($team, $move){
 function AIMoveCalculation($team){
 	moveTypeCalculation($team, array_rand($_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES']));
 }
+
+function AISwapAnimalmon($team){
+	$deadAnimalmon = $_SESSION[$team]['currentAnimalmon'];
+	$animalmonArray = array_keys($_Session[$team]);
+	if(($key = array_search('currentAnimalmon', $animalmonArray) !== false) unset($animalmonArray[$key]);
+	foreach($animalmonArray as $animalmon){
+		if($_SESSION[$team][$animalmon]['STATS']['HEALTH'] > 0){
+			$_SESSION[$team]['currentAnimalmon'] = $animalmon;
+			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $deadAnimalmon . " Died!<br>" . $animalmon . "was swapped in!<br>";
+			return;
+		}
+	}
+	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "YOU WIN!!!!!!!!!!<br>";
+}
 ?>
