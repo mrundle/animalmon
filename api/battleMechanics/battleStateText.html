@@ -169,7 +169,7 @@
         // Display first player's animal
         var animal_one = new Image();
         animal_one.onload = function(){
-            context.drawImage(animal_one, 0, CANVAS_HEIGHT - 200 - ANIMAL_PADDING); // place bottom left
+            context.drawImage(animal_one, 0 + ANIMAL_PADDING, CANVAS_HEIGHT - 200 - ANIMAL_PADDING); // place bottom left
         };
         var animal_one_name = state['battleTeam1']['currentAnimalmon'].toLowerCase().replace(/ /g,'');
         animal_one.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/200x200/" + animal_one_name + ".jpg";
