@@ -210,19 +210,9 @@
 	<p id='battleLog'>Select a move or change animalmon!</p>
 </div>
 <center>
-<div id='enchant-stage'>
+<div id='canvasHolder' style="border-style:solid;border-width:5px;">
     <!--<iframe style="border: 0; margin: 0; padding: 0;" src="../../battle.html" height="320" width="320"></iframe>-->
     <canvas id='myCanvas' width='500' height='500'></canvas>
-    <script>
-        var canvas = document.getElementById('myCanvas');
-        var context = canvas.getContext('2d');
-        var imageObj = new Image();
-
-      imageObj.onload = function() {
-        context.drawImage(imageObj, 69, 50);
-      };
-      imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
-    </script>
 </div>
 </center>
 </body>
