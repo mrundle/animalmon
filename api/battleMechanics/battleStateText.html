@@ -74,9 +74,8 @@
 			handleAnimalmonClick('animalmon6');
 		});
 
-        // Finally, build the visual enchant representation
+        // Set up the game canvas
         $('#gameCanvas').prop({width: CANVAS_WIDTH, height: CANVAS_HEIGHT})
-        visually_represent();
 	});
 
 	function handleAnimalmonClick(buttonClicked){
@@ -149,6 +148,9 @@
 				document.getElementById('animalmon'+ (i+1) + 'Btn').disabled = false;
 			}
 		}
+
+        // Now that the gamestate has been updated, lets visually represent it
+        visually_represent(gameState);
 	}
 
 	function updateBattleLog(data){
@@ -159,7 +161,7 @@
 		document.getElementById('battleLog').innerHTML = battleLog;
 	}
 
-    function visually_represent(){
+    function visually_represent(state){
         var canvas = document.getElementById('gameCanvas');
         var context = canvas.getContext('2d');
 
@@ -168,7 +170,7 @@
         animal_one.onload = function(){
             context.drawImage(animal_one, 0, CANVAS_HEIGHT - 200); // place bottom left
         };
-        var animal_one_name = gameState['battleTeam1']['currentAnimalmon'];
+        var animal_one_name = state['battleTeam1']['currentAnimalmon'];
         alert(animal_one_name);
         animal_one.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/200x200/elk.jpg";
     }
