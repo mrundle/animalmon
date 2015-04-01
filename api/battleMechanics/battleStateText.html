@@ -165,14 +165,19 @@
         var canvas = document.getElementById('gameCanvas');
         var context = canvas.getContext('2d');
 
-        // It puts the animal on its canvas
+        // Display first player's animal
         var animal_one = new Image();
         animal_one.onload = function(){
             context.drawImage(animal_one, 0, CANVAS_HEIGHT - 200); // place bottom left
         };
-        var animal_one_name = state['battleTeam1']['currentAnimalmon'];
+        var animal_one_name = "Poison Frog";//state['battleTeam1']['currentAnimalmon'];
+        animal_one_name = animal_one_name.toLowerCase().replace(/ /g, '');
         alert(animal_one_name);
         animal_one.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/200x200/elk.jpg";
+
+        // Display second player's animal
+        var animal_two = new Image();
+        
     }
 
 	</script>
