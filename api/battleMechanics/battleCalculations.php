@@ -112,7 +112,7 @@ function AISwapAnimalmon($team){
 	foreach($animalmonArray as $animalmon){
 		if($_SESSION[$team][$animalmon]['STATS']['HEALTH'] > 0){
 			$_SESSION[$team]['currentAnimalmon'] = $animalmon;
-			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $animalmon . "was swapped in!<br>";
+			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $animalmon . " was swapped in!<br>";
 			return;
 		}
 	}
