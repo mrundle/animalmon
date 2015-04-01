@@ -166,6 +166,9 @@
         var context = canvas.getContext('2d');
         var ANIMAL_PADDING = 30;
 
+        // CLEAR THE CANVAS
+        context.clearRect(0, 0, CANVAS_HEIGHT, CANVAS_WIDTH);
+
         // Display first player's animal
         var animal_one = new Image();
         animal_one.onload = function(){
