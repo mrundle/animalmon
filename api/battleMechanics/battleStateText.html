@@ -1,8 +1,8 @@
 <head>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>
-        var CANVAS_HEIGHT = 200;
-        var CANVAS_WIDTH = 200;
+        var CANVAS_HEIGHT = 500;
+        var CANVAS_WIDTH = 500;
     </script>
 	<script>
 	$(document).ready(function(){
@@ -166,7 +166,7 @@
         // It puts the animal on its canvas
         var animal_one = new Image();
         animal_one.onload = function(){
-            context.drawImage(animal_one, 0, 0);
+            context.drawImage(animal_one, 0, CANVAS_HEIGHT - 200); // place bottom left
         };
         animal_one.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/200x200/elk.jpg";
     }
