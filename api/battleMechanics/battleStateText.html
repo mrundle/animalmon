@@ -1,9 +1,25 @@
 <head>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src='../../js/enchant.js'></script>
+    <script>
+        var CANVAS_HEIGHT = 500;
+        var CANVAS_WIDTH = 500;
+    </script>
 	<script>
 	$(document).ready(function(){
 		// jQuery methods go here
+
+        // jQuery error handler
+        $(window).on("error", function(evt) {
+            console.log("jQuery error event:", evt);
+            var e = evt.originalEvent; // get the javascript event
+            console.log("original event:", e);
+            if (e.message) { 
+                alert("Error:\n\t" + e.message + "\nLine:\n\t" + e.lineno + "\nFile:\n\t" + e.filename);
+            } else {
+                alert("Error:\n\t" + e.type + "\nElement:\n\t" + (e.srcElement || e.target));
+            }
+        });
+
 		// set up the JSON to send to the API
 		var to_send = {};
 		to_send.type = 'update';
@@ -58,7 +74,8 @@
 			handleAnimalmonClick('animalmon6');
 		});
 
-
+        // Set up the game canvas
+        $('#gameCanvas').prop({width: CANVAS_WIDTH, height: CANVAS_HEIGHT})
 	});
 
 	function handleAnimalmonClick(buttonClicked){
@@ -131,6 +148,9 @@
 				document.getElementById('animalmon'+ (i+1) + 'Btn').disabled = false;
 			}
 		}
+
+        // Now that the gamestate has been updated, lets visually represent it
+        visually_represent(gameState);
 	}
 
 	function updateBattleLog(data){
@@ -140,6 +160,33 @@
 		var battleLog = gameState["battleLog"];
 		document.getElementById('battleLog').innerHTML = battleLog;
 	}
+
+    function visually_represent(state){
+        var canvas = document.getElementById('gameCanvas');
+        var context = canvas.getContext('2d');
+        var ANIMAL_PADDING = 30;
+
+        // CLEAR THE CANVAS
+        context.clearRect(0, 0, CANVAS_HEIGHT, CANVAS_WIDTH);
+
+        // Display first player's animal
+        var animal_one = new Image();
+        animal_one.onload = function(){
+            context.drawImage(animal_one, 0 + ANIMAL_PADDING, CANVAS_HEIGHT - 200 - ANIMAL_PADDING); // place bottom left
+        };
+        var animal_one_name = state['battleTeam1']['currentAnimalmon'].toLowerCase().replace(/ /g,'');
+        animal_one.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/200x200/" + animal_one_name + ".jpg";
+
+        // Display second player's animal
+        var animal_two = new Image();
+        animal_two.onload = function(){
+            context.drawImage(animal_two, CANVAS_WIDTH - 200 - ANIMAL_PADDING, 0 + ANIMAL_PADDING); // place top right
+        };
+        var animal_two_name = state['battleTeam2']['currentAnimalmon'].toLowerCase().replace(/ /g,'');
+        animal_two.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/200x200/" + animal_two_name + ".jpg";
+        
+    }
+
 	</script>
 </head>
 <body>
@@ -191,9 +238,7 @@
 	<p id='battleLog'>Select a move or change animalmon!</p>
 </div>
 <center>
-<div id='enchantBattle'>
-    <iframe style="border: 0; margin: 0; padding: 0;" src="../../battle.html" height="320" width="320"></iframe>
-</div>
+    <canvas id='gameCanvas' width='500' height='500' style="border:1px solid #000000;"></canvas>
 </center>
 </body>
 

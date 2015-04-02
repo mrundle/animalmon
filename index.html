@@ -68,14 +68,12 @@
             // make the POST request
             $.post('api.php',to_send)
             .done(function(data){
-
                	if(GLOBAL_DEBUG_ON){
 			alert('API returned: ' + data);
 		}   	
                	var parsed_data = JSON.parse(data);
 		
                	if (parsed_data["status"] == "pass") {
-			alert("Login successful!");
 	    		var secret = parsed_data['secret'];
                    	localStorage.setItem("secret", secret);
                    	window.location = "home.html";
@@ -115,16 +113,13 @@
             $.post('api.php',to_send)
             .done(function(data){
 
-                // ebugging purposes
-                alert(data);
-
                 parsed_data = JSON.parse(data);
                 if (parsed_data["status"] === "pass") {
                     alert("User creation and login successful!");
-                    localStorage.setItem("secret", secret);
+                    localStorage.setItem("secret", parsed_data['secret']);
                     window.location = "home.html";
                 } else {
-                    alert("User creation unsuccessful.");
+                    alert("User creation unsuccessful: " + parsed_data['message']);
                 }
             });
         });
