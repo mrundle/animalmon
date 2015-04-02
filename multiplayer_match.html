@@ -28,8 +28,10 @@
     <script>
     $(document).ready(function(){
 
-        // hide found_match message
+        // hide found_match message and ready button
         $('#found_message').hide();
+		$('#readyBtn').hide();
+		$('#stopBtn').hide();
 
         
         // FOR TESTING PURPOSES, REMOVE BELOW CODE LATER
@@ -51,7 +53,8 @@
     		}
 		});
 
-        $('#testBtn').click(function(){
+		// looks for a match
+        function look_for_match() {
             // set up the JSON to send to the API
             var to_send = {};
             to_send.type = 'find_match';
@@ -75,6 +78,9 @@
                         alert("Match found!");
 						$('#waiting_message').hide();
 						$('#found_message').show();
+						$('#readyBtn').show();
+						$('#stopBtn').hide();
+						clearInterval(interval_control);			
                     } else if (match_status == "not_found") {
                         alert("Match not found.");
                     } else {
@@ -87,9 +93,24 @@
                 }
 		
             });
-	
-        });
+        }
+		
+		// interval control variable
+		var interval_control;
 
+		// Looks for a match
+		$('#startBtn').click(function(){
+			interval_control = setInterval(look_for_match, 2000);
+			$('#startBtn').hide();
+			$('#stopBtn').show();
+		});
+
+		// Stops looking for a match
+		$('#stopBtn').click(function(){
+			clearInterval(interval_control);
+			$('#stopBtn').hide();
+			$('#startBtn').show();
+		});
 
     });
 	</script>
@@ -111,8 +132,9 @@
         <h3> Match found! </h3>
     </div>
     
-    <button id='testBtn'>Test</button>
-
+    <button id='startBtn'>Find a match</button>
+	<button id='stopBtn'>Stop looking</button>
+	<button id='readyBtn'>Ready</button>
 
   </center>
 
