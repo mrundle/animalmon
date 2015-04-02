@@ -118,7 +118,104 @@
 		// return the secret
 		return $secret;
 	}
-  
+
+
+	// multiplayer functions
+    
+    // returns username given secret
+    function get_username($secret){
+		
+		// get access to the db
+		global $conn;
+		
+
+		$query_string = "select username from player where secret = '" . $secret . "'";
+		$query = oci_parse($conn, $query_string);
+		$pass = oci_execute($query);
+		$num_results = oci_fetch_all($query, $results);
+		if($num_results != 1){
+			return NULL;
+		}
+		else{
+			return $results['USERNAME'][0];;
+		}	
+		
+	}
+	
+	// finds a match
+	function find_match($secret){
+		
+		// get access to the db
+		global $conn;
+
+		// add user to "waiting" table
+	    $username = get_username($secret);
+		if ($username == NULL) {
+			$results['match_status'] = "ERROR: username not found matching secret.";
+			return $results;
+		}
+		$query_string = "insert into waiting (username, creation_time) values ('" . $username . "',LOCALTIMESTAMP)";
+		$query = oci_parse($conn, $query_string);
+		$pass = oci_execute($query);
+		if(!$pass){
+			return NULL;
+		}
+
+		// look for match in waiting table
+		// current time difference set to 30 seconds for testing purposes
+		// ultimately will be 2 seconds
+		$query_string = "select w.username as USERNAME from waiting w where w.username != '" . $username . "' and (extract(second from LOCALTIMESTAMP-w.creation_time)) < 2";
+		$query = oci_parse($conn, $query_string);
+		oci_execute($query);
+		$num_results = oci_fetch_all($query, $query_results);
+		if ($num_results < 1){
+			$results['match_status'] = "not_found";
+		} else {
+			$player2_username = $query_results['USERNAME'][0];
+			create_match($username, $player2_username);
+			$results['match_status'] = "found";
+		}
+
+		return $results;
+	}
+
+	// checks for a current match. If none found, creates one
+	function create_match($username, $other_username){
+
+		// get access to teh db
+		global $conn;
+		
+		// Get my team id from $_SESSION so I can insert the data
+		//$my_team_id = $_SESSION['my_team_id'];
+		$my_team_id = 1;
+		
+		// check for a current match
+		// current matches are matches made within the last 4 seconds (two 2-second periods)
+		$query_string = "select * from matches where player2_username = '" . $username . "' and (extract(second from LOCALTIMESTAMP-creation_time)) < 4";
+		$query = oci_parse($conn, $query_string);
+		oci_execute($query);
+		$num_results = oci_fetch_all($query, $results);
+		if ($num_results < 1) {
+			
+			// create match
+			$query_string = "insert into matches(player1_username, player2_username, player1_team, creation_time) values ('" . $username . "','" . $other_username . "'," . $my_team_id . ",LOCALTIMESTAMP)";
+			$query = oci_parse($conn, $query_string);
+			$pass = oci_execute($query);
+			return;
+
+		} else {
+			
+			// add team to row to join match
+			$match_id = $results['MATCH_ID'][0];
+			$query_string = "update matches set player2_team = " . $my_team_id . " where match_id = " . $match_id;
+			$query = oci_parse($conn, $query_string);
+			$pass = oci_execute($query);
+			return;	
+	
+		}
+	}
+
+	 
   function set_animals($animals){
     foreach($animals as $animal){
       $_SESSION['battleTeam1'][$animal] = NULL; 
