@@ -36,7 +36,7 @@
         
         // FOR TESTING PURPOSES, REMOVE BELOW CODE LATER
         // setting a fake secret to avoid actually logging in
-        localStorage.setItem("secret","123856179");
+        // localStorage.setItem("secret","123856179");
         // FOR TESTING PURPOSES, REMOVE ABOVE CODE LATER 
 
 
@@ -52,6 +52,9 @@
         		alert("Error:\n\t" + e.type + "\nElement:\n\t" + (e.srcElement || e.target));
     		}
 		});
+
+		// used later to confirm match, defined here for scoping purposes
+		var match_id;
 
 		// looks for a match
         function look_for_match() {
@@ -75,14 +78,15 @@
 				    var match_results = parsed_data['match_results'];
                     var match_status = parsed_data['match_results']['match_status'];
                     if (match_status == "found") {
-                        alert("Match found!");
+                        // alert("Match found!");
+						match_id = parsed_data['match_results']['match_id'];
 						$('#waiting_message').hide();
 						$('#found_message').show();
 						$('#readyBtn').show();
 						$('#stopBtn').hide();
 						clearInterval(interval_control);			
                     } else if (match_status == "not_found") {
-                        alert("Match not found.");
+                        // alert("Match not found.");
                     } else {
                         alert("Error, invalid match status returned: " + match_status);
                     }
@@ -110,6 +114,48 @@
 			clearInterval(interval_control);
 			$('#stopBtn').hide();
 			$('#startBtn').show();
+		});
+
+		// Select ready and start match
+		$('#readyBtn').click(function(){
+            // set up the JSON to send to the API
+            var to_send = {};
+            to_send.type = 'confirm_match';
+            to_send.secret = localStorage.getItem("secret");
+            to_send.match_id = match_id;
+            var to_send_JSON = JSON.stringify(to_send);
+
+            // make the POST request
+            $.post('api.php',to_send)
+            .done(function(data){
+
+               	if(GLOBAL_DEBUG_ON){
+					alert("API returned: " + data);
+				}   	
+               	var parsed_data = JSON.parse(data);
+		
+               	if (parsed_data["status"] == "pass") {
+				    var match_results = parsed_data['match_results'];
+                    var match_status = parsed_data['match_results']['match_status'];
+                    if (match_status == "found") {
+                    	alert("Starting match!");
+						alert("Multiplayer battle not implemented yet :(");
+						
+						// REDIRECT TO BATTLE PAGE AND API CALLS TO BUILD BATTLE STATES GO HERE
+	
+					} else if (match_status == "not_found") {
+                        alert("Error: match not ready, click ready again or relogin.");
+						
+						alert("match_id = " + match_id);
+
+                    } else {
+                        alert("Error, invalid match status returned: " + match_status);
+                    }
+                }
+				else {
+					alert("API call unsuccessful: " + parsed_data['message']);
+                }
+			});
 		});
 
     });

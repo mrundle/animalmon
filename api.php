@@ -142,7 +142,7 @@
             $secret = $_POST['secret'];
 			$match_results = find_match($secret);
 			if($match_results == NULL){
-				$result['message'] = 'failed to get determine';
+				$result['message'] = 'find_match function call failed';
 				$result['status'] = 'fail';
 			}
 			else{
@@ -151,6 +151,33 @@
 
 			break;
 
+	case 'confirm_match':
+
+			// Make sure user secret exists
+			if(!isset($_POST['secret'])){
+				$result['message'] = 'secret not stored or passed correctly';
+				$result['status'] = 'fail';
+				break;
+			}
+			else if(!secret_exists($_POST['secret'])) {
+				$result['message'] = 'secret ' . $_POST['secret'] .' does not exist in the database';
+				$result['status'] = 'fail';
+				break;
+			}
+            
+            $secret = $_POST['secret'];
+			$match_id = $_POST['match_id'];
+			$match_results = confirm_match($secret, $match_id);
+			if($match_results == NULL){
+				$result['message'] = 'confirm_match function call faileded';
+				$result['status'] = 'fail';
+			}
+			else{
+				$result['match_results'] = $match_results;
+			}
+
+			break;
+ 
 
 		case 'startgame':
     		session_unset();
