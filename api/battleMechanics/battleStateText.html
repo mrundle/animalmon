@@ -1,9 +1,32 @@
+<!DOCTYPE html>
 <head>
+
+	<title>Animalmon</title>
+
+	<!-- FONT -->
+	<link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../dist/css/normalize.css">
+	<link rel="stylesheet" href="../../dist/css/skeleton.css">
+	<link rel="stylesheet" href="../../css/custom.css">
+	<link rel="stylesheet" href="../../css/animalmon.css">
+
+	<!-- IMPORT JQUERY (from Google CDN)
+	----------------------------------------- -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>
-        var CANVAS_HEIGHT = 500;
-        var CANVAS_WIDTH = 500;
-    </script>
+
+	<!-- INCLUDE OTHER JAVASCRIPT FILES
+	----------------------------------------- -->
+	<script type='text/javascript' src='../../js/debug.js'></script> <!-- GLOBAL DEBUG VARIABLE -->
+
+
+	<script>
+		// Set up HTML5 Canvas variables
+		var CANVAS_HEIGHT = 500;
+		var CANVAS_WIDTH = 500;
+	</script>
+
 	<script>
 	$(document).ready(function(){
 		// jQuery methods go here
@@ -74,8 +97,8 @@
 			handleAnimalmonClick('animalmon6');
 		});
 
-        // Set up the game canvas
-        $('#gameCanvas').prop({width: CANVAS_WIDTH, height: CANVAS_HEIGHT})
+		// Set up the game canvas
+		$('#gameCanvas').prop({width: CANVAS_WIDTH, height: CANVAS_HEIGHT})
 	});
 
 	function handleAnimalmonClick(buttonClicked){
@@ -95,8 +118,8 @@
 
 	//a move was just clicked
 	function handleMoveClick(buttonClicked){
-
-		move = document.getElementById(buttonClicked + 'Btn').innerHTML;
+		// Grab the move (from the VALUE of the button)
+		move = $('#' + buttonClicked + 'Btn').val();
 		var to_send = {};
 		to_send.type = 'move';
 		to_send.move = move
@@ -112,29 +135,39 @@
 	}
 
 	function updateGameStateRep(data){
-		//set current animalmon
-//		window.alert(data);
+
 		parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
-		$('#currentAnimalmon1').text(gameState['battleTeam1']['currentAnimalmon'] + " ------ Health: "+ gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] + "/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
-		$('#currentAnimalmon2').text(gameState['battleTeam2']['currentAnimalmon'] + " ------ Health: "+ gameState['battleTeam2'][gameState['battleTeam2']['currentAnimalmon']]['STATS']['HEALTH'] + "/" + gameState['battleTeam2'][gameState['battleTeam2']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
+		/*		
+		$('#currentAnimalmon1').text(gameState['battleTeam1']['currentAnimalmon'] + " ------ Health: " + 
+ 			gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] + "/" + 
+			gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
+		$('#currentAnimalmon2').text(gameState['battleTeam2']['currentAnimalmon'] + " ------ Health: " +
+			gameState['battleTeam2'][gameState['battleTeam2']['currentAnimalmon']]['STATS']['HEALTH'] + "/" + 
+			gameState['battleTeam2'][gameState['battleTeam2']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
+		*/
 		//set current moveset
 		var moves = Object.keys(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES']);
 		for(var i = 0; i < 4; i++){
 			if(moves[i]){
-				$('#move' + (i+1) + 'Btn').text(moves[i]);
-				$('#move' + (i+1) + 'Label').text("Power Points: " + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] + "/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['POWER_POINTS']);
-				if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] < 1 || gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] == 0){
+				var cur_pp = gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'];
+				var tot_pp = gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['POWER_POINTS'];
+				$('#move' + (i+1) + 'Btn').text(moves[i] + " (" + cur_pp + "/" + tot_pp + ")");
+				$('#move' + (i+1) + 'Btn').val(moves[i]);
+				//$('#move' + (i+1) + 'Label').text("Power Points: " + 
+				//gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] + 					//"/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['POWER_POINTS']);
+				if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] < 1 || 
+				   gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] == 0){
 					document.getElementById('move'+ (i+1) + 'Btn').disabled = true;
 				}
 				else{
 					document.getElementById('move'+ (i+1) + 'Btn').disabled = false;
 				}
 				document.getElementById('move'+ (i+1) + 'Btn').style.visibility = 'visible';
-				document.getElementById('move'+ (i+1) + 'Label').style.visibility = 'visible';
+				//document.getElementById('move'+ (i+1) + 'Label').style.visibility = 'visible';
 			} else {
 				document.getElementById('move'+ (i+1) + 'Btn').style.visibility = 'hidden';
-				document.getElementById('move'+ (i+1) + 'Label').style.visibility = 'hidden';
+				//document.getElementById('move'+ (i+1) + 'Label').style.visibility = 'hidden';
 			}
 		}
 		var animalmon = Object.keys(gameState['battleTeam1']);
@@ -161,84 +194,146 @@
 		document.getElementById('battleLog').innerHTML = battleLog;
 	}
 
-    function visually_represent(state){
-        var canvas = document.getElementById('gameCanvas');
-        var context = canvas.getContext('2d');
-        var ANIMAL_PADDING = 30;
+	function visually_represent(state){
+		var canvas = document.getElementById('gameCanvas');
+		var context = canvas.getContext('2d');
+		var ANIMAL_PADDING = 30;
+		var HEALTH_PADDING = 5;
+		var HEALTH_HEIGHT = ANIMAL_PADDING - (2*HEALTH_PADDING);
+		var ANIMAL_DIM = 200;
 
-        // CLEAR THE CANVAS
-        context.clearRect(0, 0, CANVAS_HEIGHT, CANVAS_WIDTH);
+		// CLEAR THE CANVAS
+		context.clearRect(0, 0, CANVAS_HEIGHT, CANVAS_WIDTH);
 
-        // Display first player's animal
-        var animal_one = new Image();
-        animal_one.onload = function(){
-            context.drawImage(animal_one, 0 + ANIMAL_PADDING, CANVAS_HEIGHT - 200 - ANIMAL_PADDING); // place bottom left
-        };
-        var animal_one_name = state['battleTeam1']['currentAnimalmon'].toLowerCase().replace(/ /g,'');
-        animal_one.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/200x200/" + animal_one_name + ".jpg";
+		// Display first player's animal (bottom left)
+		var animal_one = new Image();
+		animal_one.onload = function(){
+			// place bottom left
+			context.drawImage(animal_one, ANIMAL_PADDING, CANVAS_HEIGHT - ANIMAL_DIM - ANIMAL_PADDING, ANIMAL_DIM, ANIMAL_DIM);
+	
+			// Display first player's health
+			var curr_hp = Math.round(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH']);
+			var max_hp = Math.round(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
+			var healthstring = curr_hp + "/" + max_hp;
+			context.beginPath();
+			context.rect(ANIMAL_PADDING, CANVAS_HEIGHT - ANIMAL_PADDING + HEALTH_PADDING, ANIMAL_DIM, HEALTH_HEIGHT);
+			context.fillStyle = getColor(curr_hp/max_hp);
+			context.fillRect(ANIMAL_PADDING, CANVAS_HEIGHT - ANIMAL_PADDING + HEALTH_PADDING, ANIMAL_DIM * (curr_hp/max_hp), HEALTH_HEIGHT);
+			context.lineWidth = 1;
+			context.strokeStyle = 'black';
+			context.stroke();
+			context.font = '15px Raleway';
+			context.fillStyle = 'black';
+			context.textAlign = 'center';
+      			context.fillText(healthstring, ANIMAL_PADDING + (ANIMAL_DIM / 2), CANVAS_HEIGHT - HEALTH_PADDING - (HEALTH_HEIGHT / 2) + 5);
 
-        // Display second player's animal
-        var animal_two = new Image();
-        animal_two.onload = function(){
-            context.drawImage(animal_two, CANVAS_WIDTH - 200 - ANIMAL_PADDING, 0 + ANIMAL_PADDING); // place top right
-        };
-        var animal_two_name = state['battleTeam2']['currentAnimalmon'].toLowerCase().replace(/ /g,'');
-        animal_two.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/200x200/" + animal_two_name + ".jpg";
-        
-    }
+			// Display first player's animalmon's name
+			var animalmon_name = gameState['battleTeam1']['currentAnimalmon'];
+			context.font = 'bold 18px Raleway';
+			context.fillText(animalmon_name, ANIMAL_PADDING + (ANIMAL_DIM/2), CANVAS_HEIGHT - ANIMAL_PADDING - ANIMAL_DIM - 5);
+		};
+		var animal_one_name = state['battleTeam1']['currentAnimalmon'].toLowerCase().replace(/ /g,'');
+		animal_one.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/originals/" + animal_one_name + ".jpg";
+
+		// Display second player's animal
+		var animal_two = new Image();
+		animal_two.onload = function(){
+			// place top right
+			context.drawImage(animal_two, CANVAS_WIDTH - ANIMAL_DIM - ANIMAL_PADDING, 0 + ANIMAL_PADDING, ANIMAL_DIM, ANIMAL_DIM); 
+
+			// Display second player's animalmon's health
+			var curr_hp = Math.round(gameState['battleTeam2'][gameState['battleTeam2']['currentAnimalmon']]['STATS']['HEALTH']);
+			var max_hp = Math.round(gameState['battleTeam2'][gameState['battleTeam2']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
+			var healthstring = curr_hp + "/" + max_hp;
+			var HEALTH_X = CANVAS_WIDTH - ANIMAL_PADDING - ANIMAL_DIM;
+			var HEALTH_Y = ANIMAL_PADDING + ANIMAL_DIM + HEALTH_PADDING;
+			context.beginPath();
+			context.rect(HEALTH_X, HEALTH_Y, ANIMAL_DIM, HEALTH_HEIGHT);
+			context.fillStyle = getColor(curr_hp/max_hp);
+			context.fillRect(HEALTH_X, HEALTH_Y, ANIMAL_DIM * (curr_hp/max_hp), HEALTH_HEIGHT);
+			context.lineWidth = 1;
+			context.strokeStyle = 'black';
+			context.stroke();
+			context.font = '15px Raleway';
+			context.fillStyle = 'black';
+			context.textAlign = 'center';
+      			context.fillText(healthstring, HEALTH_X + (ANIMAL_DIM / 2), HEALTH_Y + (HEALTH_HEIGHT / 2) + 5);
+
+			// Display second player's animalmon's name
+			var animalmon_name = gameState['battleTeam2']['currentAnimalmon'];
+			context.font = 'bold 18px Raleway';
+			context.fillText(animalmon_name, CANVAS_WIDTH - ANIMAL_PADDING - (ANIMAL_DIM/2), ANIMAL_PADDING - 5);
+		};
+		var animal_two_name = state['battleTeam2']['currentAnimalmon'].toLowerCase().replace(/ /g,'');
+		animal_two.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/originals/" + animal_two_name + ".jpg";
+
+	}
+
+	// Converts a pct health to a color value
+	function getColor(value){
+		//value from 0 to 1
+		value = 1 - value;
+		var hue=((1-value)*120).toString(10);
+		return ["hsl(",hue,",100%,50%)"].join("");
+	}
 
 	</script>
 </head>
 <body>
-
+<container>
 <center>
-	<h2>BATTLE TEST DRIVER</h2>
+	<h3>BATTLE TEST DRIVER</h3>
 </center>
 
 <hr style="margin-top:30px; margin-bottom:30px;">
-<div>
+<!--<div>
 	<p><b>Your Current Animalmon:</b></p>
 	<p id='currentAnimalmon1'></p>
 </div>
 <div>
 	<p><b>Foes Current Animalmon:</b></p>
 	<p id='currentAnimalmon2'></p>
-</div>
-<div>
-	<label for='moves'><b>MOVES</b></label>
-</div>
-<div>
-	<button id='move1Btn'><b>move1</b></button>
-	<label for='move1' id=move1Label>move1</label>
-</div>
-<div>
-	<button id='move2Btn'><b>move2</b></button>
-	<label for='move2' id=move2Label>move2</label>
-</div>
-<div>
-	<button id='move3Btn'><b>move3</b></button>
-	<label for='move3' id=move3Label>move3</label>
-</div>
-<div>
-	<button id='move4Btn'><b>move4</b></button>
-	<label for='move4' id=move4Label>move4</label>
-</div>
-<div>
-	<label for='animalmon'><b>ANIMALMON</b></label>
-</div>
-<div>
-	<button id='animalmon1Btn'><b>animalmon1</b></button>
-	<button id='animalmon2Btn'><b>animalmon2</b></button>
-	<button id='animalmon3Btn'><b>animalmon3</b></button>
-	<button id='animalmon4Btn'><b>animalmon4</b></button>
-	<button id='animalmon5Btn'><b>animalmon5</b></button>
-	<button id='animalmon6Btn'><b>animalmon6</b></button>
-</div>
-<div>
-	<p id='battleLog'>Select a move or change animalmon!</p>
+</div>-->
+<center>
+	<canvas id='gameCanvas' width='500' height='500' style="border:1px solid #000000; display: inline-block; vertical-align:top;"></canvas>
+	<p id='battleLog' style="overflow: auto; width:200px; height:500px; border:1px solid #000000; display: inline-block; vertical-align:top;">Select a move or change animalmon!</p>
+</center>
+<center>
+	<div>
+		<label for='moves'><b>MOVES</b></label>
+	</div>
+</center>
+<div class="row">
+	<div class="two columns offset-by-two">
+		<button id='move1Btn' class='u-full-width'><b>move1</b></button>
+		<!--<label for='move1' id=move1Label>move1</label>-->
+	</div>
+	<div class="two columns">
+		<button id='move2Btn' class='u-full-width'><b>move2</b></button>
+		<!--<label for='move2' id=move2Label>move2</label>-->
+	</div>
+	<div class="two columns">
+		<button id='move3Btn' class='u-full-width'><b>move3</b></button>
+		<!--<label for='move3' id=move3Label>move3</label>-->
+	</div>
+	<div class="two columns">
+		<button id='move4Btn' class='u-full-width'><b>move4</b></button>
+		<!--<label for='move4' id=move4Label>move4</label>-->
+	</div>
 </div>
 <center>
-    <canvas id='gameCanvas' width='500' height='500' style="border:1px solid #000000;"></canvas>
+	<div>
+		<label for='animalmon'><b>ANIMALMON</b></label>
+	</div>
+	<div>
+		<button id='animalmon1Btn'><b>animalmon1</b></button>
+		<button id='animalmon2Btn'><b>animalmon2</b></button>
+		<button id='animalmon3Btn'><b>animalmon3</b></button>
+		<button id='animalmon4Btn'><b>animalmon4</b></button>
+		<button id='animalmon5Btn'><b>animalmon5</b></button>
+		<button id='animalmon6Btn'><b>animalmon6</b></button>
+	</div>
 </center>
+</container>
 </body>
 

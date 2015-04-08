@@ -61,7 +61,7 @@
         });
 
         $('#selectBtn').click(function(){
-            alert('click');
+
             var num_checked = 0;
             var animals_chosen = [];
             // Count how many animals are chosen
@@ -75,7 +75,6 @@
                 alert('You need to select 6 animals!');
             }
             else{
-                alert('here we go');
                 // send the chosen animals to the server
                 var to_send = {};
                 to_send.type = "startgame";
@@ -92,7 +91,7 @@
                     parsed_data = JSON.parse(data);
 		
                     if (parsed_data["status"] === "pass") {
-                      alert('success!');
+                      
                       // redirect to the battle page
 		      window.location.replace('./api/battleMechanics/battleStateText.html');
                     }
@@ -133,8 +132,11 @@
         </tbody>
     </table>
     </center>
-   
-    <button id='selectBtn'>Battle!</button>
+<div class="row" style="padding-bottom:60px;">
+    <div class="four columns offset-by-four">
+        <button id='selectBtn' class="button-primary u-full-width">Battle!</button>
+    </div>
+</div>
 </container>
 </body>
 </html>

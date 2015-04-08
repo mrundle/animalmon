@@ -12,3 +12,9 @@
   background:      -o-linear-gradient(90deg, #780206 10%, #061161 90%); /* Opera 11.10+ */
   background:         linear-gradient(90deg, #780206 10%, #061161 90%); /* W3C */
 }
+
+button[disabled] {
+    background:#ccc;
+    border-color: #ccc;
+    text-shadow:none;
+}
