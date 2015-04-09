@@ -167,14 +167,39 @@
 		// look for match in waiting table
 		// current time difference set to 30 seconds for testing purposes
 		// ultimately will be 2 seconds
-		$query_string = "select w.username as USERNAME from waiting w where w.username != '" . $username . "' and (extract(second from LOCALTIMESTAMP-w.creation_time)) < 2";
+		$query_string = "select w.username as USERNAME from waiting w where w.username != '" . $username . "' and time_diff_seconds(LOCALTIMESTAMP, w.creation_time) < 2";
 		$query = oci_parse($conn, $query_string);
 		oci_execute($query);
-		$num_results = oci_fetch_all($query, $query_results);
+		$num_results = oci_fetch_all($query, $waiting_results);
 		if ($num_results < 1){
 			$results['match_status'] = "not_found";
 		} else {
-			$player2_username = $query_results['USERNAME'][0];
+			
+         	// get list of matches that you are not in
+			$query_string = "select player1_username as PLAYER1_USERNAME, player2_username as PLAYER2_USERNAME from matches where player1_username != '" . $username . "' and player2_username != '" . $username . "' and time_diff_seconds(LOCALTIMESTAMP, creation_time) < 4";
+			$query = oci_parse($conn, $query_string);
+			oci_execute($query);
+			$num_results = oci_fetch_all($query, $match_results);
+			$player2_username = "";
+			if ($num_results < 1){
+				$player2_username = $waiting_results['USERNAME'][0];
+			} else {
+				// Find a player that is not already in a match
+				foreach($waiting_results['USERNAME'] as $key => $waiting_user){
+					
+					if (!in_array($waiting_user, $match_results['PLAYER1_USERNAME']) and !in_array($waiting_user, $match_results['PLAYER2_USERNAME'])) {
+						$player2_username = $waiting_user;
+						break;
+					}
+
+				}
+
+				if ($player2_username == "") {
+					$results['match_status'] = "not_found";
+					return $results;
+				}
+			}
+
 			$match_id = create_match($username, $player2_username);
 			$results['match_status'] = "found";
 			$results['match_id'] = $match_id;
@@ -194,7 +219,7 @@
 		$my_team_id = 1;
 	
 		// check to see if you have already created the match
-		$query_string = "select * from matches where player1_username = '" . $username . "' and (extract(second from LOCALTIMESTAMP-creation_time)) < 4";
+		$query_string = "select * from matches where player1_username = '" . $username . "' and time_diff_seconds(LOCALTIMESTAMP, creation_time) < 4";
 		$query = oci_parse($conn, $query_string);
 		oci_execute($query);
 		$num_results = oci_fetch_all($query, $results);
@@ -204,7 +229,7 @@
 	
 		// check for a current match
 		// current matches are matches made within the last 4 seconds (two 2-second periods)
-		$query_string = "select * from matches where player2_username = '" . $username . "' and (extract(second from LOCALTIMESTAMP-creation_time)) < 4";
+		$query_string = "select * from matches where player2_username = '" . $username . "' and time_diff_seconds(LOCALTIMESTAMP, creation_time) < 4";
 		$query = oci_parse($conn, $query_string);
 		oci_execute($query);
 		$num_results = oci_fetch_all($query, $results);
@@ -216,7 +241,7 @@
 			oci_execute($query);
 			
 			// grab match id
-			$query_string = "select match_id from matches where player1_username = '" . $username . "' and player2_username = '" . $other_username . "' and extract(second from LOCALTIMESTAMP-creation_time) < 2";
+			$query_string = "select match_id from matches where player1_username = '" . $username . "' and player2_username = '" . $other_username . "' and time_diff_seconds(LOCALTIMESTAMP, creation_time) < 2";
 			$query = oci_parse($conn, $query_string);
 			oci_execute($query);
 			oci_fetch_all($query, $results);
