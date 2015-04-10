@@ -21,7 +21,7 @@
     <script type='text/javascript' src='js/debug.js'></script> 
 
     <!-- GLOBAL DEBUG VARIABLE -->
-    <script> var GLOBAL_DEBUG_ON = true; </script>
+    <script> var GLOBAL_DEBUG_ON = false; </script>
 
     <!-- JQUERY SCRIPT
     ----------------------------------------- -->
@@ -32,6 +32,7 @@
         $('#found_message').hide();
 		$('#readyBtn').hide();
 		$('#stopBtn').hide();
+        $('#restartBtn').hide();
 
         
         // FOR TESTING PURPOSES, REMOVE BELOW CODE LATER
@@ -83,6 +84,7 @@
 						$('#waiting_message').hide();
 						$('#found_message').show();
 						$('#readyBtn').show();
+                        $('#restartBtn').show();
 						$('#stopBtn').hide();
 						clearInterval(interval_control);			
                     } else if (match_status == "not_found") {
@@ -158,6 +160,16 @@
 			});
 		});
 
+        // Try again if match fails to start
+		$('#restartBtn').click(function(){
+			$('#readyBtn').hide();
+            $('#restartBtn').hide();
+            $('#found_message').hide();
+            $('#waiting_message').show();
+			$('#startBtn').show();
+		});
+
+
     });
 	</script>
 </head>
@@ -181,6 +193,7 @@
     <button id='startBtn'>Find a match</button>
 	<button id='stopBtn'>Stop looking</button>
 	<button id='readyBtn'>Ready</button>
+    <button id='restartBtn'>Try Again</button>
 
   </center>
 
