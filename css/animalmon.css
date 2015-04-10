@@ -5,6 +5,27 @@
   linear-gradient(#eee .1em, transparent .1em);
   background-size: 100% 1.2em;
 }
+
+.carbon_background{
+	background:
+	linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+	linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+	linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+	linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+	linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+	linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+	background-color: #131313;
+	background-size: 20px 20px;
+}
+
+.green_background{
+	background: rgb(164, 192, 87);
+}
+
+.white_background{
+	background: #FFFFFF;
+}
+
 .rb_gradient{
   background: -webkit-linear-gradient(90deg, #780206 10%, #061161 90%); /* Chrome 10+, Saf5.1+ */
   background:    -moz-linear-gradient(90deg, #780206 10%, #061161 90%); /* FF3.6+ */
@@ -17,4 +38,16 @@ button[disabled] {
     background:#ccc;
     border-color: #ccc;
     text-shadow:none;
+}
+
+.battle_options{
+
+border: 2px rgb(89,89,89) solid;
+
+background: rgb(217, 112, 112);
+
+-moz-box-shadow: inset 0px 0px 21px 0px rgb(128,128,128);
+-webkit-box-shadow: inset 0px 0px 21px 0px rgb(128,128,128);
+box-shadow: inset 0px 0px 21px 0px rgb(128,128,128);
+
 }

@@ -5,7 +5,7 @@
 
 	<!-- FONT -->
 	<link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
-
+	
 	<!-- CSS -->
 	<link rel="stylesheet" href="dist/css/normalize.css">
 	<link rel="stylesheet" href="dist/css/skeleton.css">
@@ -191,7 +191,7 @@
 		gameState = parsed_data["gameState"];
 //		window.alert(gameState["battleLog"]);
 		var battleLog = gameState["battleLog"];
-		document.getElementById('battleLog').innerHTML = battleLog;
+		document.getElementById('battleLog').innerHTML = battleLog.toUpperCase();
 	}
 
 	function visually_represent(state){
@@ -230,7 +230,7 @@
 			// Display first player's animalmon's name
 			var animalmon_name = gameState['battleTeam1']['currentAnimalmon'];
 			context.font = 'bold 18px Raleway';
-			context.fillText(animalmon_name, ANIMAL_PADDING + (ANIMAL_DIM/2), CANVAS_HEIGHT - ANIMAL_PADDING - ANIMAL_DIM - 5);
+			context.fillText(animalmon_name.toUpperCase(), ANIMAL_PADDING + (ANIMAL_DIM/2), CANVAS_HEIGHT - ANIMAL_PADDING - ANIMAL_DIM - 5);
 		};
 		var animal_one_name = state['battleTeam1']['currentAnimalmon'].toLowerCase().replace(/ /g,'');
 		animal_one.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/originals/" + animal_one_name + ".jpg";
@@ -262,7 +262,7 @@
 			// Display second player's animalmon's name
 			var animalmon_name = gameState['battleTeam2']['currentAnimalmon'];
 			context.font = 'bold 18px Raleway';
-			context.fillText(animalmon_name, CANVAS_WIDTH - ANIMAL_PADDING - (ANIMAL_DIM/2), ANIMAL_PADDING - 5);
+			context.fillText(animalmon_name.toUpperCase(), CANVAS_WIDTH - ANIMAL_PADDING - (ANIMAL_DIM/2), ANIMAL_PADDING - 5);
 		};
 		var animal_two_name = state['battleTeam2']['currentAnimalmon'].toLowerCase().replace(/ /g,'');
 		animal_two.src = "http://csevm03.crc.nd.edu:8503/project/img/animals/originals/" + animal_two_name + ".jpg";
@@ -279,59 +279,38 @@
 
 	</script>
 </head>
-<body>
+<body class="green_background">
 <container>
 <center>
-	<h3>BATTLE TEST DRIVER</h3>
-</center>
-
-<hr style="margin-top:30px; margin-bottom:30px;">
-<!--<div>
-	<p><b>Your Current Animalmon:</b></p>
-	<p id='currentAnimalmon1'></p>
-</div>
-<div>
-	<p><b>Foes Current Animalmon:</b></p>
-	<p id='currentAnimalmon2'></p>
-</div>-->
-<center>
-	<canvas id='gameCanvas' width='500' height='500' style="border:1px solid #000000; display: inline-block; vertical-align:top;"></canvas>
-	<p id='battleLog' style="overflow: auto; width:200px; height:500px; border:1px solid #000000; display: inline-block; vertical-align:top;">Select a move or change animalmon!</p>
-</center>
-<center>
-	<div>
-		<label for='moves'><b>MOVES</b></label>
-	</div>
-</center>
-<div class="row">
-	<div class="two columns offset-by-two">
-		<button id='move1Btn' class='u-full-width'><b>move1</b></button>
-		<!--<label for='move1' id=move1Label>move1</label>-->
-	</div>
-	<div class="two columns">
-		<button id='move2Btn' class='u-full-width'><b>move2</b></button>
-		<!--<label for='move2' id=move2Label>move2</label>-->
-	</div>
-	<div class="two columns">
-		<button id='move3Btn' class='u-full-width'><b>move3</b></button>
-		<!--<label for='move3' id=move3Label>move3</label>-->
-	</div>
-	<div class="two columns">
-		<button id='move4Btn' class='u-full-width'><b>move4</b></button>
-		<!--<label for='move4' id=move4Label>move4</label>-->
-	</div>
-</div>
-<center>
-	<div>
-		<label for='animalmon'><b>ANIMALMON</b></label>
-	</div>
-	<div>
-		<button id='animalmon1Btn'><b>animalmon1</b></button>
-		<button id='animalmon2Btn'><b>animalmon2</b></button>
-		<button id='animalmon3Btn'><b>animalmon3</b></button>
-		<button id='animalmon4Btn'><b>animalmon4</b></button>
-		<button id='animalmon5Btn'><b>animalmon5</b></button>
-		<button id='animalmon6Btn'><b>animalmon6</b></button>
+	<div class="white_background" style="border:1px solid #000000; margin:30px; width:800px; border-radius: 25px">
+	<center style="margin-top:30px">
+		<canvas id='gameCanvas' width='500' height='500' style="border:1px solid #000000; display: inline-block; vertical-align:top; border-radius: 25px; padding: 10px;"></canvas>
+		<p id='battleLog' style="overflow: auto; width:200px; height:500px; border:1px solid #000000; display: inline-block; vertical-align:top; border-radius: 25px; padding: 10px;">SELECT A MOVE OR CHANGE ANIMALMON!</p>
+	</center>
+	<center>
+		<div>
+			<center>
+				<label for='moves'><b>MOVES</b></label>
+			</center>
+			<center>
+			<button id='move1Btn'><b>move1</b></button>
+				<button id='move2Btn'><b>move2</b></button>
+				<button id='move3Btn'><b>move3</b></button>
+				<button id='move4Btn'><b>move4</b></button>
+			</center>
+			<center>
+				<label for='animalmon'><b>ANIMALMON</b></label>
+			</center>
+			<center>
+				<button id='animalmon1Btn'><b>animalmon1</b></button>
+				<button id='animalmon2Btn'><b>animalmon2</b></button>
+				<button id='animalmon3Btn'><b>animalmon3</b></button>
+				<button id='animalmon4Btn'><b>animalmon4</b></button>
+				<button id='animalmon5Btn'><b>animalmon5</b></button>
+				<button id='animalmon6Btn'><b>animalmon6</b></button>
+			</center>
+		</div>
+	</center>
 	</div>
 </center>
 </container>
