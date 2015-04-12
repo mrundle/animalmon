@@ -18,7 +18,10 @@
 
     <!-- INCLUDE OTHER JAVASCRIPT FILES
     ----------------------------------------- -->
-    <script type='text/javascript' src='js/debug.js'></script> <!-- GLOBAL DEBUG VARIABLE -->
+    <script type='text/javascript' src='js/debug.js'></script> 
+
+    <!-- GLOBAL DEBUG VARIABLE -->
+    <script> var GLOBAL_DEBUG_ON = false; </script>
 
     <!-- JQUERY SCRIPT
     ----------------------------------------- -->
@@ -35,7 +38,12 @@
         // make the POST request
         $.post('api.php',to_send)
         .done(function(data){
-            parsed_data = JSON.parse(data);
+            
+			if(GLOBAL_DEBUG_ON){
+				alert('API returned: ' + data);
+			}   	
+
+			parsed_data = JSON.parse(data);
             if (parsed_data["status"] == "pass"){
                 window.location = "home.html";
             }
@@ -69,8 +77,8 @@
             $.post('api.php',to_send)
             .done(function(data){
                	if(GLOBAL_DEBUG_ON){
-			alert('API returned: ' + data);
-		}   	
+					alert('API returned: ' + data);
+				}   	
                	var parsed_data = JSON.parse(data);
 		
                	if (parsed_data["status"] == "pass") {

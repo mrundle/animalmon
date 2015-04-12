@@ -15,8 +15,9 @@
 		global $conn;
 
 		// check if the user exists
-		$query_string = "SELECT pwdhash FROM PLAYER WHERE username = '" . $username . "'";
+		$query_string = "SELECT pwdhash FROM PLAYER WHERE username = :username_bv";
 		$query = oci_parse($conn, $query_string);
+        oci_bind_by_name($query, ":username_bv", $username);
 		oci_execute($query);
 		$num_results = oci_fetch_all($query, $results);
 		if($num_results != 1){
@@ -36,8 +37,9 @@
 		global $conn;
 	
 		// check if the secret exists
-		$query_string = "SELECT username FROM PLAYER WHERE secret = '" . (string)$secret . "'";// group by username";
+		$query_string = "SELECT username FROM PLAYER WHERE secret = :secret_bv"; // group by username";
 		$query = oci_parse($conn, $query_string);
+        oci_bind_by_name($query, ":secret_bv", $secret);
 		oci_execute($query);
 		$num_results = oci_fetch_all($query,$results);
 		if(count($results['USERNAME']) != 1){
@@ -52,8 +54,10 @@
 		// get access to db
 		global $conn;
 
-		$query_string = "UPDATE PLAYER SET SECRET = '" . $secret . "' where username = '" .$username . "'";
+		$query_string = "UPDATE PLAYER SET SECRET = :secret_bv where username = :username_bv";
 		$query = oci_parse($conn, $query_string);
+        oci_bind_by_name($query, ":secret_bv", $secret);
+        oci_bind_by_name($query, ":username_bv", $username);
 		$pass = oci_execute($query);
 		return $pass;
 	}
@@ -62,7 +66,7 @@
 	function login($username,$password){
 		// get access to the db
 		global $conn;
-
+    
 		// check if user exists
 		$pwdhash = user_exists($username);
 		if($pwdhash == NULL){
@@ -99,8 +103,11 @@
 			return NULL;
 		}
 
-		$query_string = "INSERT INTO PLAYER (USERNAME, PWDHASH) VALUES ('" . $username . "','" . (string)md5($password) . "')";
+	    $pwdhash = (string)md5($password);
+        $query_string = "INSERT INTO PLAYER (USERNAME, PWDHASH) VALUES (:username_bv, :pwdhash_bv)";
 		$query = oci_parse($conn, $query_string);
+        oci_bind_by_name($query, ":username_bv", $username);
+        oci_bind_by_name($query, ":pwdhash_bv", $pwdhash);
 		$pass = oci_execute($query);
 
 		if(!$pass){
@@ -131,7 +138,6 @@
 		// get access to the db
 		global $conn;
 		
-
 		$query_string = "select username from player where secret = '" . $secret . "'";
 		$query = oci_parse($conn, $query_string);
 		$pass = oci_execute($query);

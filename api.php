@@ -34,8 +34,12 @@
 				$result['status'] = 'fail';
 				break;	
 			}
-			
-			$secret = login($_POST['username'], $_POST['password']);
+		    
+            // clean username and password
+            $username = addslashes($_POST['username']);
+            $password = addslashes($_POST['password']);
+	
+			$secret = login($username, $password);
 
 			if($secret == NULL){
 				$result['message'] = 'username or password invalid';
@@ -63,7 +67,11 @@
 				break;	
 			}
 
-			$secret = create_user($_POST['username'], $_POST['password']);
+            // clean username and password
+            $username = addslashes($_POST['username']);
+            $password = addslashes($_POST['password']);
+
+			$secret = create_user($username, $password);
 			
 			if($secret == NULL){
 				$result['message'] = 'username already exists';
@@ -88,8 +96,11 @@
                 break;
             }     
 
+            // clean secret
+            $secret = addslashes($_POST['secret']);
+
             // Validate secret
-			$username = secret_exists($_POST['secret']);
+			$username = secret_exists($secret);
             if(is_null($username)){
                 $result['message'] = 'invalid secret';
                 $result['status'] = 'fail';
@@ -108,8 +119,12 @@
 				$result['status'] = 'fail';
 				break;
 			}
-			else if(!secret_exists($_POST['secret'])) {
-				$result['message'] = 'secret ' . $_POST['secret'] .' does not exist in the database';
+			
+            // clean secret
+            $secret = addslashes($_POST['secret']);
+
+            if(!secret_exists($secret)) {
+				$result['message'] = 'secret ' . $secret .' does not exist in the database';
 				$result['status'] = 'fail';
 				break;
 			}
@@ -133,13 +148,16 @@
 				$result['status'] = 'fail';
 				break;
 			}
-			else if(!secret_exists($_POST['secret'])) {
-				$result['message'] = 'secret ' . $_POST['secret'] .' does not exist in the database';
+			
+            // clean secret
+            $secret = addslashes($_POST['secret']);
+
+            if(!secret_exists($secret)) {
+				$result['message'] = 'secret ' . $secret .' does not exist in the database';
 				$result['status'] = 'fail';
 				break;
 			}
             
-            $secret = $_POST['secret'];
 			$match_results = find_match($secret);
 			if($match_results == NULL){
 				$result['message'] = 'find_match function call failed';
@@ -153,20 +171,27 @@
 
 	case 'confirm_match':
 
-			// Make sure user secret exists
+			// Make sure user secret and match_id exists
 			if(!isset($_POST['secret'])){
 				$result['message'] = 'secret not stored or passed correctly';
 				$result['status'] = 'fail';
 				break;
+			} else if(!isset($_POST['match_id'])){
+				$result['message'] = 'match id not stored or passed correctly';
+				$result['status'] = 'fail';
+				break;
 			}
-			else if(!secret_exists($_POST['secret'])) {
-				$result['message'] = 'secret ' . $_POST['secret'] .' does not exist in the database';
+
+            // clean secret and match_id
+            $secret = addslashes($_POST['secret']);
+			$match_id = addslashes($_POST['match_id']);
+
+            if(!secret_exists($secret)) {
+				$result['message'] = 'secret ' . $secret .' does not exist in the database';
 				$result['status'] = 'fail';
 				break;
 			}
             
-            $secret = $_POST['secret'];
-			$match_id = $_POST['match_id'];
 			$match_results = confirm_match($secret, $match_id);
 			if($match_results == NULL){
 				$result['message'] = 'confirm_match function call faileded';
@@ -181,33 +206,37 @@
 
 		case 'startgame':
     		session_unset();
-      // Make sure user secret exists
+			// Make sure user secret exists
 			if(!isset($_POST['secret'])){
 				$result['message'] = 'secret not stored or passed correctly';
 				$result['status'] = 'fail';
 				break;
 			}
-			else if(!secret_exists($_POST['secret'])) {
-				$result['message'] = 'secret ' . $_POST['secret'] .' does not exist in the database';
+			
+            // clean secret
+            $secret = addslashes($_POST['secret']);
+
+            if(!secret_exists($secret)) {
+				$result['message'] = 'secret ' . $secret .' does not exist in the database';
 				$result['status'] = 'fail';
 				break;
 			}
       
-      // Make sure animal input is set
-      if(!isset($_POST['animals'])){
-        $result['message'] = 'animals array not set';
-        $result['status'] = 'fail';
-      }
-      else if(count($_POST['animals']) != 6){
-        $result['message'] = 'need 6 animals';
-        $result['status'] = 'fail';
-      }
+			// Make sure animal input is set
+      		if(!isset($_POST['animals'])){
+        		$result['message'] = 'animals array not set';
+        		$result['status'] = 'fail';
+      		}
+      		else if(count($_POST['animals']) != 6){
+        		$result['message'] = 'need 6 animals';
+        		$result['status'] = 'fail';
+      		}
       
-      // Set the users animals
-      set_animals($_POST['animals']);
-      $result['status'] = 'pass';
+      		// Set the users animals
+      		set_animals($_POST['animals']);
+      		$result['status'] = 'pass';
       
-      break;
+      		break;
 
 		case 'update':
 			$gameState = updateGameState();
