@@ -9,7 +9,7 @@
         // get access to db
         global $conn;
         
-        $query_string = "select name, img from animal";
+        $query_string = "select name, img, health, attack, defense, accuracy, evasion, speed, type, type2 from animal, stats where animal.name = stats.animal";
         $query = oci_parse($conn, $query_string);
 
         oci_execute($query);

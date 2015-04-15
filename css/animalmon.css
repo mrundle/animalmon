@@ -51,3 +51,21 @@ background: rgb(217, 112, 112);
 box-shadow: inset 0px 0px 21px 0px rgb(128,128,128);
 
 }
+
+/* @group tablesorter */
+
+.header {
+  cursor: pointer;
+}
+
+.headerSortDown:after {
+  content: " ▾";
+  font-family: Arial, sans-serif;
+}
+
+.headerSortUp:after {
+  content: " ▴";
+  font-family: Arial, sans-serif;
+}
+
+/* @end */

@@ -19,7 +19,7 @@
 }
 
 .green_background{
-background: rgb(164, 192, 87);
+	background: rgb(164, 192, 87);
 }
 
 .white_background{
