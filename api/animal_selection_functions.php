@@ -18,4 +18,15 @@
         return $results;        
     }
 
+    function list_animals(){
+        // get access to db
+        global $conn;
+        $query_string = "select name from animal";
+        $query = oci_parse($conn, $query_string);
+        oci_execute($query);
+        $reults = array();
+        oci_fetch_all($query, $results);
+        return $results;
+    }
+
 ?>
