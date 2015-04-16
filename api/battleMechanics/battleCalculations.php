@@ -97,13 +97,14 @@ function statusSwitchCase($team, $foeTeam, $target, $effect){
 			break;
 		case "Death":
 			$_SESSION[$foeTeam][$target]['STATS']['HEALTH'] = 0;
+			$_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
 			break;
 		case "Infected":
 			break;
 		case "Bleeding":
 			break;
 		case "Hasted":
-			$_SESION[$team][$target]['STATS']['SPEED'] *= 1.50;
+			$_SESSION[$team][$target]['STATS']['SPEED'] *= 1.50;
 			break;
 		case "Brave":
 			$_SESSION[$team][$target]['STATS']['ATTACK'] *= 1.50;
