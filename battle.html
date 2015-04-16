@@ -135,8 +135,12 @@
 	}
 
 	function updateGameStateRep(data){
-		if(GLOBAL_DEBUG_ON)window.alert(data);
-		parsed_data = JSON.parse(data);
+		if(GLOBAL_DEBUG_ON){
+            window.alert(data);       
+        }
+        //$('#tmp_p').text(data);
+		
+        parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
 
 		//set current moveset
@@ -176,9 +180,9 @@
         visually_represent(gameState);
 
         // Check if the game is over
-        if("winStatus" in parsed_data){
+        if("winStatus" in gameState){
 	    alert('game over');
-            if(parsed_data['winStatus'] === "WIN"){
+            if(gameState['winStatus'] === "WIN"){
                 alert('You won!');
                 alert('handle win condition, take them home...');
             }
@@ -314,6 +318,7 @@
 		</div>
 	</center>
 	</div>
+    <p id='tmp_p'>Test</p>
 </center>
 </container>
 </body>
