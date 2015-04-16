@@ -18,7 +18,10 @@
 
     <!-- INCLUDE OTHER JAVASCRIPT FILES
     ----------------------------------------- -->
-    <script type='text/javascript' src='js/debug.js'></script> <!-- GLOBAL DEBUG VARIABLE -->
+    <script type='text/javascript' src='js/debug.js'></script>
+
+    <!-- GLOBAL DEBUG VARIABLE -->
+    <script> var GLOBAL_DEBUG_ON = false; </script>
 
     <!-- JQUERY SCRIPT
     ----------------------------------------- -->
@@ -87,9 +90,16 @@
                 alert('You need to select 6 animals!');
             }
             else{
+                var multiplayer_flag = localStorage.getItem("multiplayer_flag");
                 // send the chosen animals to the server
                 var to_send = {};
-                to_send.type = "startgame";
+                if(multiplayer_flag == "true") {
+                    to_send.type = "multiplayer_make_team";
+                } else if (multiplayer_flag == "false") {
+                    to_send.type = "startgame";
+                } else {
+                    alert("Error: multiplayer flag not set correctly prior to team selection.");
+                }
                 to_send.secret = localStorage.getItem("secret");
                 to_send.animals = animals_chosen;
                 var to_send_JSON = JSON.stringify(to_send);
@@ -103,9 +113,17 @@
                     parsed_data = JSON.parse(data);
 		
                     if (parsed_data["status"] === "pass") {
-                      
-                      // redirect to the battle page
-		      window.location.replace('http://csevm03.crc.nd.edu:8503/project/battle.html');
+                        
+                        var multiplayer_flag = localStorage.getItem("multiplayer_flag");
+                        if (multiplayer_flag == "false") {
+                            // redirect to the battle page
+		                    window.location.replace('battle.html');
+                        } else if (multiplayer_flag == "true") {
+                            // redirect to multiplayer page
+                            window.location.replace('multiplayer_match.html');
+                        } else {
+                            alert("Error: multiplayer flag not set correctly prior to team selection.");
+                        }
                     }
                     else{
                       alert('fail...' + data);

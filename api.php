@@ -238,6 +238,41 @@
       
       		break;
 
+        # saves the battle team to the database. similar to start game, except the actual game creation logic is postponned until a match is made
+		case 'multiplayer_make_team':
+    		session_unset();
+			// Make sure user secret exists
+			if(!isset($_POST['secret'])){
+				$result['message'] = 'secret not stored or passed correctly';
+				$result['status'] = 'fail';
+				break;
+			}
+			
+            // clean secret
+            $secret = addslashes($_POST['secret']);
+
+            if(!secret_exists($secret)) {
+				$result['message'] = 'secret ' . $secret .' does not exist in the database';
+				$result['status'] = 'fail';
+				break;
+			}
+      
+			// Make sure animal input is set
+      		if(!isset($_POST['animals'])){
+        		$result['message'] = 'animals array not set';
+        		$result['status'] = 'fail';
+      		}
+      		else if(count($_POST['animals']) != 6){
+        		$result['message'] = 'need 6 animals';
+        		$result['status'] = 'fail';
+      		}
+      
+      		// Set the users animals
+      		multiplayer_make_team($_POST['animals'], $secret);
+      		$result['status'] = 'pass';
+      
+      		break;
+
 		case 'update':
 			$gameState = updateGameState();
 			if($gameState == NULL){

@@ -293,15 +293,50 @@
 	}
 
 	 
-  function set_animals($animals){
-    foreach($animals as $animal){
-      $_SESSION['battleTeam1'][$animal] = NULL; 
+    function set_animals($animals){
+
+        // put in session array
+        foreach($animals as $animal){
+            $_SESSION['battleTeam1'][$animal] = NULL; 
+        }
+	    # NEED TO RANDOMIZE THIS
+        $_SESSION['battleTeam2'] = array('Bear'=>NULL, 'Parasite'=>NULL, 'Spider'=>NULL, 'Elk'=>NULL, 'Poison Frog'=>NULL, 'Falcon' => NULL);
+	    getSessionAnimalmon();
+	    $_SESSION['battleTeam2']['currentAnimalmon'] = 'Bear';
+	    $_SESSION['battleTeam1']['currentAnimalmon'] = $animal;
     }
-	$_SESSION['battleTeam2'] = array('Bear'=>NULL, 'Parasite'=>NULL, 'Spider'=>NULL, 'Elk'=>NULL, 'Poison Frog'=>NULL, 'Falcon' => NULL);
-	getSessionAnimalmon();
-	$_SESSION['battleTeam2']['currentAnimalmon'] = 'Bear';
-	$_SESSION['battleTeam1']['currentAnimalmon'] = $animal;
-  }
+
+    function multiplayer_make_team($animals, $secret){
+        
+        // get access to the db
+        global $conn;
+
+  		// get user
+	    $username = get_username($secret);
+		if ($username == NULL) {
+			$results['match_status'] = "ERROR: username not found matching secret.";
+			return $results;
+		}
+ 
+        // put in database
+        $animal_1 = $animals[0];
+        $animal_2 = $animals[1];
+        $animal_3 = $animals[2];
+        $animal_4 = $animals[3];
+        $animal_5 = $animals[4];
+        $animal_6 = $animals[5];
+
+        $query_string = "insert into teams(username, creation_time, animal_1, animal_2, animal_3, animal_4, animal_5, animal_6) values('" . $username . "',LOCALTIMESTAMP, '" . $animal_1 . "','" . $animal_2 . "','" . $animal_3 . "','" . $animal_4 . "','" . $animal_5 . "','" . $animal_6 . "')";
+        $query = oci_parse($conn, $query_string);
+        oci_execute($query);
+
+	    $query_string = "select team_id from teams where username = '" . $username . "' and time_diff_seconds(LOCALTIMESTAMP, creation_time) < 2";
+	    $query = oci_parse($conn, $query_string);
+		oci_execute($query);
+		oci_fetch_all($query, $query_results);
+		$my_team_id = $query_results['TEAM_ID'][0];
+        $SESSION['my_team_id'] = $my_team_id;
+    }
 
 	function updateGameState(){
 		return $_SESSION;

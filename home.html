@@ -54,11 +54,13 @@
         });
 
         $('#onePlayerBtn').click(function(){
+            localStorage.setItem("multiplayer_flag","false");
             window.location = "team_selection.html";
         });
 
         $('#twoPlayerBtn').click(function(){
-            window.location = "multiplayer_match.html";
+            localStorage.setItem("multiplayer_flag", "true");
+            window.location = "team_selection.html";
         });
 
         $('#logoutBtn').click(function(){
