@@ -42,7 +42,7 @@ function moveTypeCalculation($team, $move){
 		$target2 = $moveAttributes['TARGET2'];
 		$effect2 = key($moveAttributes['EFFECT2']);
 	}
-	statusCalculation($target, $effect, $target2, $target2, $team, $foeTeam, $selfAnimalmon, $foeAnimalmon, $move);
+	statusCalculations($target, $effect, $target2, $target2, $team, $foeTeam, $selfAnimalmon, $foeAnimalmon, $move);
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "<br><br>";
 
 }
