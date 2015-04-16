@@ -53,6 +53,7 @@ function statusCalculations($target, $effect, $target2, $effect2, $target2, $tea
 		if($target2 == "Self") $target2 = $selfAnimalmon;
 		else $target2 = $foeAnimalmon;
 		if($effect == 'Gathering Power'){
+			$_SESSION[$team][$selfAnimalmon][$move]['MOVES'][$move]['BASE_DAMAGE'] += 5;
 			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $move . " just got stronger!<br>";
 		}
 		else{
@@ -60,6 +61,7 @@ function statusCalculations($target, $effect, $target2, $effect2, $target2, $tea
 		}
 		if($effect2 != null){
 			if($effect2 == 'Gathering Power'){
+				$_SESSION[$team][$selfAnimalmon][$move]['MOVES'][$move]['BASE_DAMAGE'] += 5;
 				$_SESSION['battleLog'] = $_SESSION['battleLog'] . $move . " just got stronger!<br>";
 			}
 			else{
@@ -118,5 +120,6 @@ function AISwapAnimalmon($team){
 		}
 	}
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "YOU WIN!!!!!!!!!!<br>";
+	$_SESSION['winStatus'] = "WIN";
 }
 ?>
