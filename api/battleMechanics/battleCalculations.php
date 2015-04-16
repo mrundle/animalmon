@@ -75,8 +75,8 @@ function statusCalculations($target, $effect, $target2, $effect2, $target2, $tea
 function statusSwitchCase($team, $foeTeam, $target, $effect){
 	switch($effect){
 		case "Intimidation":
-			$_SESSION[$foeTeam][$target]['STATUS']['ATTACK'] *= 0.75;
-			$_SESSION[$foeTeam][$target]['STATUS']['DEFENSE'] *= 0.75;
+			$_SESSION[$foeTeam][$target]['STATS']['ATTACK'] *= 0.75;
+			$_SESSION[$foeTeam][$target]['STATS']['DEFENSE'] *= 0.75;
 			break;
 	}
 }
