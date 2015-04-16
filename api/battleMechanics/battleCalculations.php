@@ -27,10 +27,6 @@ function moveTypeCalculation($team, $move){
 		$_SESSION['battleLog'] = $_SESSION['battleLog'] . $move . " hit " . $foeAnimalmon . " for " . $damage . "!<br>";
 
 		$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] -= $damage;
-		if($_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] < 1) {
-			$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
-			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $foeAnimalmon . " fainted!<br>";
-		}
 		$target = $moveAttributes['TARGET'];
 		$effect = key($moveAttributes['EFFECT']);
 		$target2 = $moveAttributes['TARGET2'];
@@ -43,6 +39,10 @@ function moveTypeCalculation($team, $move){
 		$effect2 = key($moveAttributes['EFFECT2']);
 	}
 	statusCalculations($target, $effect, $target2, $effect2, $target2, $team, $foeTeam, $selfAnimalmon, $foeAnimalmon, $move, $hit);
+	if($_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] < 1) {
+		$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . $foeAnimalmon . " fainted!<br>";
+	}
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "<br><br>";
 
 }
@@ -78,6 +78,43 @@ function statusSwitchCase($team, $foeTeam, $target, $effect){
 			$_SESSION[$foeTeam][$target]['STATS']['ATTACK'] *= 0.75;
 			$_SESSION[$foeTeam][$target]['STATS']['DEFENSE'] *= 0.75;
 			break;
+		case "Poisoned":
+			break;
+		case "Hibernation":
+			break;
+		case "Stealth":
+			break;
+		case "Sure Footed":
+			$_SESSION[$team][$target]['STATS']['SPEED'] *= 1.25;
+			$_SESSION[$team][$target]['STATS']['EVASION'] *= 1.25;
+			break;
+		case "Slowed":
+			$_SESSION[$foeTeam][$target]['STATS']['SPEED'] *= 0.75;
+			$_SESSION[$foeTeam][$target]['STATS']['EVASION'] *= 0.75;
+			break;
+		case "Blinded":
+			$_SESSION[$foeTeam][$target]['STATS']['ACCURACY'] *= 0.50;
+			break;
+		case "Death":
+			$_SESSION[$foeTeam][$target]['STATS']['HEALTH'] = 0;
+			break;
+		case "Infected":
+			break;
+		case "Bleeding":
+			break;
+		case "Hasted":
+			$_SESION[$team][$target]['STATS']['SPEED'] *= 1.50;
+			break;
+		case "Brave":
+			$_SESSION[$team][$target]['STATS']['ATTACK'] *= 1.50;
+			break;
+		case "Enraged":
+			$_SESSION[$team][$target]['STATS']['EVASION'] *= 0.75;
+			$_SESSION[$team][$target]['STATS']['DEFENSE'] *= 0.75;
+			break;
+		case "Focused":
+			$_SESSION[$team][$target]['STATS']['ACCURACY'] *= 1.50;
+			break;			
 	}
 }
 function accuracyCalculation($baseAccuracy, $statAccuracy, $statEvasion){
