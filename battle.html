@@ -135,17 +135,14 @@
 	}
 
 	function updateGameStateRep(data){
-		window.alert(data);
-		parsed_data = JSON.parse(data);
+		if(GLOBAL_DEBUG_ON){
+            window.alert(data);       
+        }
+        //$('#tmp_p').text(data);
+		
+        parsed_data = JSON.parse(data);
 		gameState = parsed_data["gameState"];
-		/*		
-		$('#currentAnimalmon1').text(gameState['battleTeam1']['currentAnimalmon'] + " ------ Health: " + 
- 			gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] + "/" + 
-			gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
-		$('#currentAnimalmon2').text(gameState['battleTeam2']['currentAnimalmon'] + " ------ Health: " +
-			gameState['battleTeam2'][gameState['battleTeam2']['currentAnimalmon']]['STATS']['HEALTH'] + "/" + 
-			gameState['battleTeam2'][gameState['battleTeam2']['currentAnimalmon']]['STATS']['MAX_HEALTH']);
-		*/
+
 		//set current moveset
 		var moves = Object.keys(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES']);
 		for(var i = 0; i < 4; i++){
@@ -154,8 +151,7 @@
 				var tot_pp = gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['POWER_POINTS'];
 				$('#move' + (i+1) + 'Btn').text(moves[i] + " (" + cur_pp + "/" + tot_pp + ")");
 				$('#move' + (i+1) + 'Btn').val(moves[i]);
-				//$('#move' + (i+1) + 'Label').text("Power Points: " + 
-				//gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] + 					//"/" + gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['POWER_POINTS']);
+				
 				if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] < 1 || 
 				   gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] == 0){
 					document.getElementById('move'+ (i+1) + 'Btn').disabled = true;
@@ -164,10 +160,8 @@
 					document.getElementById('move'+ (i+1) + 'Btn').disabled = false;
 				}
 				document.getElementById('move'+ (i+1) + 'Btn').style.visibility = 'visible';
-				//document.getElementById('move'+ (i+1) + 'Label').style.visibility = 'visible';
 			} else {
 				document.getElementById('move'+ (i+1) + 'Btn').style.visibility = 'hidden';
-				//document.getElementById('move'+ (i+1) + 'Label').style.visibility = 'hidden';
 			}
 		}
 		var animalmon = Object.keys(gameState['battleTeam1']);
@@ -184,6 +178,17 @@
 
         // Now that the gamestate has been updated, lets visually represent it
         visually_represent(gameState);
+
+        // Check if the game is over
+        if("winStatus" in gameState){
+            if(gameState['winStatus'] === "WIN"){
+                alert('You won!');
+                window.location.replace('./home.html');
+            }
+            else{
+                alert('You lose, how sad.');
+            }
+        }
 	}
 
 	function updateBattleLog(data){
@@ -312,6 +317,7 @@
 		</div>
 	</center>
 	</div>
+    <p id='tmp_p'><!--FOR DEBUGGIN PURPOSES, REMOVE--></p>
 </center>
 </container>
 </body>

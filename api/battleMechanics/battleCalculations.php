@@ -42,31 +42,43 @@ function moveTypeCalculation($team, $move){
 		$target2 = $moveAttributes['TARGET2'];
 		$effect2 = key($moveAttributes['EFFECT2']);
 	}
-	statusCalculation($target, $effect, $target2, $target2, $team, $foeTeam, $selfAnimalmon, $foeAnimalmon, $move);
+	statusCalculations($target, $effect, $target2, $effect2, $target2, $team, $foeTeam, $selfAnimalmon, $foeAnimalmon, $move, $hit);
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "<br><br>";
 
 }
-function statusCalculations($target, $effect, $target2, $target2, $team, $foeTeam, $selfAnimalmon, $foeAnimalmon, $move){
+function statusCalculations($target, $effect, $target2, $effect2, $target2, $team, $foeTeam, $selfAnimalmon, $foeAnimalmon, $move, $hit){
 	if($effect != null && $hit && $_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] > 0){
 		if($target == "Self") $target = $selfAnimalmon;
 		else $target = $foeAnimalmon;
 		if($target2 == "Self") $target2 = $selfAnimalmon;
 		else $target2 = $foeAnimalmon;
 		if($effect == 'Gathering Power'){
+			$_SESSION[$team][$selfAnimalmon]['MOVES'][$move]['BASE_DAMAGE'] += 5;
 			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $move . " just got stronger!<br>";
 		}
 		else{
+			statusSwitchCase($team, $foeTeam, $target, $effect, $selfAnimalmon, $foeAnimalmon);
 			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $target . " is now " . $effect . "!<br>";
 		}
 		if($effect2 != null){
 			if($effect2 == 'Gathering Power'){
+				$_SESSION[$team][$selfAnimalmon]['MOVES'][$move]['BASE_DAMAGE'] += 5;
 				$_SESSION['battleLog'] = $_SESSION['battleLog'] . $move . " just got stronger!<br>";
 			}
 			else{
+				statusSwitchCase($team, $foeTeam, $target2, $effect2, $selfAnimalmon, $foeAnimalmon);
 				$_SESSION['battleLog'] = $_SESSION['battleLog'] . $target2 . " is now " . $effect2 . "!<br>";
 			}
 		}
 	}	
+}
+function statusSwitchCase($team, $foeTeam, $target, $effect){
+	switch($effect){
+		case "Intimidation":
+			$_SESSION[$foeTeam][$target]['STATS']['ATTACK'] *= 0.75;
+			$_SESSION[$foeTeam][$target]['STATS']['DEFENSE'] *= 0.75;
+			break;
+	}
 }
 function accuracyCalculation($baseAccuracy, $statAccuracy, $statEvasion){
 	$finalAccuracy = ($statAccuracy/$statEvasion) * $baseAccuracy; //calculate the final accuracy
@@ -118,5 +130,6 @@ function AISwapAnimalmon($team){
 		}
 	}
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "YOU WIN!!!!!!!!!!<br>";
+	$_SESSION['winStatus'] = "WIN";
 }
 ?>
