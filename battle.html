@@ -181,10 +181,9 @@
 
         // Check if the game is over
         if("winStatus" in gameState){
-	    alert('game over');
             if(gameState['winStatus'] === "WIN"){
                 alert('You won!');
-                alert('handle win condition, take them home...');
+                window.location.replace('./home.html');
             }
             else{
                 alert('You lose, how sad.');
@@ -318,7 +317,7 @@
 		</div>
 	</center>
 	</div>
-    <p id='tmp_p'>Test</p>
+    <p id='tmp_p'><!--FOR DEBUGGIN PURPOSES, REMOVE--></p>
 </center>
 </container>
 </body>
