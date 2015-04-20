@@ -8,6 +8,7 @@
 	require 'animal_selection_functions.php'; // function library related to selecting animals for your battle team
 	require 'battleMechanics/battleCalculations.php'; //function library related to calculating everything that happens when a move is clicked
 	require 'battleMechanics/getAnimalmonInfo.php'; //function library related to getting all info related to animals
+    require 'stats.php'; // function library related to pulling stats for each player
 
 	// returns pw hash if user exists, else NULL
 	function user_exists($username){

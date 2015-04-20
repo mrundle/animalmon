@@ -306,6 +306,34 @@
 			}
 			break;
 
+        case 'stats':
+            // Make sure user secret exists
+			if(!isset($_POST['secret'])){
+				$result['message'] = 'secret not stored or passed correctly';
+				$result['status'] = 'fail';
+				break;
+			}
+			
+            // clean secret
+            $secret = addslashes($_POST['secret']);
+
+            if(!secret_exists($secret)) {
+				$result['message'] = 'secret ' . $secret .' does not exist in the database';
+				$result['status'] = 'fail';
+				break;
+			}
+            
+			$stats_results = user_stats($secret);
+			if($stats_results == NULL){
+				$result['message'] = 'user_stats function call failed';
+				$result['status'] = 'fail';
+			}
+			else{
+				$result['stats_results'] = $stats_results;
+			}
+
+            break;
+
 		default:
 			$result['message'] = 'unrecognized api call type';
 			$result['status'] = 'fail';

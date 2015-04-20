@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head>
+
+    <title>Animalmon</title>
+
+    <!-- FONT -->
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="dist/css/normalize.css">
+    <link rel="stylesheet" href="dist/css/skeleton.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/animalmon.css">
+
+    <!-- IMPORT JQUERY (from Google CDN)
+    ----------------------------------------- -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- INCLUDE OTHER JAVASCRIPT FILES
+    ----------------------------------------- -->
+    <script type='text/javascript' src='js/debug.js'></script> <!-- GLOBAL DEBUG VARIABLE -->
+
+    <!-- JQUERY SCRIPT
+    ----------------------------------------- -->
+    <script>
+    $(document).ready(function(){
+        
+        // Get the user's stats from the API
+        var to_send = {};
+        to_send.type = 'stats';
+        to_send.secret = localStorage.getItem("secret");
+        
+        if(to_send.secret == ""){
+            window.location = "index.html";
+        }
+        else{
+            // make the POST request
+            $.post('api.php',to_send)
+            .done(function(data){
+                var parsed_data = JSON.parse(data);
+                var stats_results = parsed_data['stats_results'];
+                if (parsed_data['status'] != 'pass'){
+                    window.location = 'index.html';
+                }
+                else{
+                    // Fill in the returned stats information
+                    $('#stats_caption').html(stats_results['USERNAME']);
+                    $('#user_wins').html(stats_results['NUM_WINS']);
+                    $('#user_losses').html(stats_results['NUM_LOSES']);
+                }
+            });
+        }
+        
+        $('#backBtn').click(function(){
+            window.location = "home.html";
+        });
+
+    });
+</script>
+</head>
+<body>
+    <container>
+        <!-- INCLUDE THE HEADER -->
+        <script src='js/header.js'></script>
+
+        <center>
+            <caption><b id='stats_caption'>test</b></caption>
+            <table>
+            <tbody>
+                <tr>
+                    <td>Wins</td>
+                    <td id='user_wins'></td>
+                </tr>
+                <tr>
+                    <td>Losses</td>
+                    <td id='user_losses'></td>
+                </tr>
+            </tbody>
+            <table>
+
+            <button id='backBtn'>Back</button>
+        </center>
+
+    </container>
+</body>
+</html>
