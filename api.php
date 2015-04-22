@@ -107,7 +107,7 @@
             }
             else{
                 $result['status'] = 'pass';
-                $result['username'] = $username;
+                $result['username'] = stripslashes($username);
             }
             break;
 	

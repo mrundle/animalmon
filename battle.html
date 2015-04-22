@@ -43,6 +43,25 @@
             }
         });
 
+        // Authenticate
+        // (And send back to index.html if not authenticated)
+        var to_send = {};
+        to_send.type = 'authenticate';
+        to_send.secret = localStorage.getItem("secret");
+        if(to_send.secret == ""){
+            window.location = "index.html";
+        }
+        else{
+            // make the POST request
+            $.post('api.php',to_send)
+            .done(function(data){    
+                parsed_data = JSON.parse(data);
+                if (parsed_data['status'] != 'pass'){
+                    window.location = 'index.html';
+                }
+            });
+        }
+
 		// set up the JSON to send to the API
 		var to_send = {};
 		to_send.type = 'update';
