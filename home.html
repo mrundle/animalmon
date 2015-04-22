@@ -58,9 +58,8 @@
             window.location = "team_selection.html";
         });
 
-        $('#twoPlayerBtn').click(function(){
-            localStorage.setItem("multiplayer_flag", "true");
-            window.location = "team_selection.html";
+        $('#browseBtn').click(function(){
+            window.location = "browse.php";
         });
 
         $('#logoutBtn').click(function(){
@@ -87,13 +86,13 @@
     
     <div class="row">
         <div class="four columns offset-by-four">
-            <button class="u-full-width" id='onePlayerBtn'>SINGLE PLAYER</button>
+            <button class="u-full-width" id='onePlayerBtn'>PLAY</button>
         </div>
     </div>
     
     <div class="row">
         <div class="four columns offset-by-four">
-            <button class="u-full-width" id='twoPlayerBtn'>FIND MATCH ONLINE</button>
+            <button class="u-full-width" id='browseBtn'>BROWSE</button>
         </div>
     </div>
 
