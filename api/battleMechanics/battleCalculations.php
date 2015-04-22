@@ -126,19 +126,19 @@ function statusCalculations($target, $effect, $target2, $effect2, $target2, $tea
 }
 function statusSwitchCase($team, $foeTeam, $target, $effect){
 	switch($effect){
-		case "Intimidation":
+		case "Intimidated":
 			$_SESSION[$foeTeam][$target]['STATS']['ATTACK'] *= 0.75;
 			$_SESSION[$foeTeam][$target]['STATS']['DEFENSE'] *= 0.75;
 			break;
 		case "Poisoned":
 			$_SESSION[$foeTeam][$target]['STATUS']['POISON'] = 3;
 			break;
-		case "Hibernation":
+		case "Hibernating":
 			if($_SESSION[$team][$target]['STATUS']['HIBERNATE'] != 1){
 				$_SESSION[$team][$target]['STATUS']['HIBERNATE'] = 2;
 			}
 			break;
-		case "Stealth":
+		case "Stealthed":
 			$_SESSION[$team][$target]['STATUS']['STEALTHED'] = true;
 			break;
 		case "Sure Footed":
@@ -152,7 +152,7 @@ function statusSwitchCase($team, $foeTeam, $target, $effect){
 		case "Blinded":
 			$_SESSION[$foeTeam][$target]['STATS']['ACCURACY'] *= 0.50;
 			break;
-		case "Death":
+		case "KOd":
 			$_SESSION[$foeTeam][$target]['STATS']['HEALTH'] = 0;
 			$_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
 			break;
