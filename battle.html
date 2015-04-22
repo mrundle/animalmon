@@ -153,7 +153,8 @@
 				$('#move' + (i+1) + 'Btn').val(moves[i]);
 				
 				if(gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['MOVES'][moves[i]]['CURRENT_POWER_POINTS'] < 1 || 
-				   gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] == 0){
+				   gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATS']['HEALTH'] == 0 || 
+				   (gameState['battleTeam1'][gameState['battleTeam1']['currentAnimalmon']]['STATUS']['HIBERNATE'] > 0 && $('#move' + (i+1) + 'Btn').val() != 'Hibernate')){
 					document.getElementById('move'+ (i+1) + 'Btn').disabled = true;
 				}
 				else{

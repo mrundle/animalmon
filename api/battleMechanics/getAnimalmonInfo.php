@@ -105,6 +105,13 @@ function getSessionAnimalmon(){
 				$_SESSION[$team][$animalmon]['MOVES'][$move]['EFFECT'][$move_stats['EFFECT']] = NULL;
 				$_SESSION[$team][$animalmon]['MOVES'][$move]['TARGET2'] = $move_stats['TARGET2'];
 				$_SESSION[$team][$animalmon]['MOVES'][$move]['EFFECT2'][$move_stats['EFFECT2']] = NULL;
+
+				$_SESSION[$team][$animalmon]['STATUS']['POISON'] = 0;
+				$_SESSION[$team][$animalmon]['STATUS']['BLEEDING']['STACKS'] = 0;
+				$_SESSION[$team][$animalmon]['STATUS']['BLEEDING']['DURATION'] = 0;
+				$_SESSION[$team][$animalmon]['STATUS']['INFECTED'] = false;
+				$_SESSION[$team][$animalmon]['STATUS']['STEALTHED'] = false;
+				$_SESSION[$team][$animalmon]['STATUS']['HIBERNATE'] = 0;
 	
 				// fetch the effect descriptions
 				$query_string = "SELECT * FROM EFFECTS WHERE NAME = '" . $move_stats["EFFECT"] . "'";

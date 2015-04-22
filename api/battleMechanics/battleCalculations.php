@@ -13,10 +13,26 @@ function moveTypeCalculation($team, $move){
 	$selfAttributes = $_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['STATS'];
 	$foeAttributes = $_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS'];
 
+	if($_SESSION[$team][$selfAnimalmon]['STATUS']['STEALTHED'] == true){
+		$moveAttributes['BASE_ACCURACY'] *= 1.1;
+		$moveAttributes['BASE_DAMAGE'] *= 1.1;
+		$_SESSION[$team][$selfAnimalmon]['STATUS']['STEALTHED'] = false;
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " is no longer stealthed!<br>";
+	}
+
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " used " . $move . "...<br>";
 
 	if($moveAttributes['TARGET'] == 'Foe'){
-		$hit = hitCalculation($team, $moveAttributes['BASE_ACCURACY'], $selfAttributes['ACCURACY'], $foeAttributes['EVASION']);
+		if($_SESSION[$foeTeam][$foeAnimalmon]['STATUS']['STEALTHED'] == true){
+			$_SESSION['battleLog'] = $_SESSION['battleLog'] . "but " . $foeAnimalmon . " is stealthed!<br>";
+			$hit = false;
+		}
+		elseif($_SESSION[$foeTeam][$foeAnimalmon]['STATUS']['HIBERNATE'] > 0){
+			$hit = hitCalculation($team, 100, 1, 1);
+		}
+		else{
+			$hit = hitCalculation($team, $moveAttributes['BASE_ACCURACY'], $selfAttributes['ACCURACY'], $foeAttributes['EVASION']);
+		}
 	}
 	else{
 		$hit = hitCalculation($team, 100, 1, 1);
@@ -39,12 +55,48 @@ function moveTypeCalculation($team, $move){
 		$effect2 = key($moveAttributes['EFFECT2']);
 	}
 	statusCalculations($target, $effect, $target2, $effect2, $target2, $team, $foeTeam, $selfAnimalmon, $foeAnimalmon, $move, $hit);
+	ailmentCalculations($team, $selfAnimalmon);
 	if($_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] < 1) {
 		$_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
 		$_SESSION['battleLog'] = $_SESSION['battleLog'] . $foeAnimalmon . " fainted!<br>";
 	}
+	if($_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] < 1) {
+		$_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] = 0;
+	}
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "<br><br>";
 
+}
+function ailmentCalculations($team, $selfAnimalmon){
+	if($_SESSION[$team][$selfAnimalmon]['STATUS']['POISON'] > 0){
+		$_SESSION[$team][$selfAnimalmon]['STATUS']['POISON']--;
+		$_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] -= 5;
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " is poisoned and took 5 damage!<br>";
+		if($_SESSION[$team][$selfAnimalmon]['STATUS']['POISON'] == 0) $_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " is no longer poisoned!<br>";
+	}
+	if($_SESSION[$team][$selfAnimalmon]['STATUS']['BLEEDING']['DURATION'] > 0){
+		$_SESSION[$team][$selfAnimalmon]['STATUS']['BLEEDING']['DURATION']--;
+		$_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] -= $_SESSION[$team][$selfAnimalmon]['STATUS']['BLEEDING']['STACKS'];
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " is bleeding and took " . $_SESSION[$team][$selfAnimalmon]['STATUS']['BLEEDING']['STACKS'] . " damage!<br>";
+		if($_SESSION[$team][$selfAnimalmon]['STATUS']['BLEEDING']['DURATION'] == 0){
+			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " is no longer bleeding!<br>";
+			$_SESSION[$team][$selfAnimalmon]['STATUS']['BLEEDING']['STACKS'] = 0;
+		}
+	}
+	if($_SESSION[$team][$selfAnimalmon]['STATUS']['INFECTED'] == true){
+		$_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] -= $_SESSION[$team][$selfAnimalmon]['STATS']['MAX_HEALTH'] / 4;
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " is infected and took " . $_SESSION[$team][$selfAnimalmon]['STATS']['MAX_HEALTH'] / 4 . " damage!<br>";
+	}
+	if($_SESSION[$team][$selfAnimalmon]['STATUS']['HIBERNATE'] > 0){
+		$_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] += $_SESSION[$team][$selfAnimalmon]['STATS']['MAX_HEALTH'] / 4;
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " is in a deep sleep and recovered " . $_SESSION[$team][$selfAnimalmon]['STATS']['MAX_HEALTH'] / 4 . " health!<br>";
+		$_SESSION[$team][$selfAnimalmon]['STATUS']['HIBERNATE']--;
+		if($_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] > $_SESSION[$team][$selfAnimalmon]['STATS']['MAX_HEALTH']){
+			$_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] = $_SESSION[$team][$selfAnimalmon]['STATS']['MAX_HEALTH'];
+		}
+		if($_SESSION[$team][$selfAnimalmon]['STATUS']['HIBERNATE'] == 0){
+			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $selfAnimalmon . " is no longer hibernating!<br>";
+		}
+	}
 }
 function statusCalculations($target, $effect, $target2, $effect2, $target2, $team, $foeTeam, $selfAnimalmon, $foeAnimalmon, $move, $hit){
 	if($effect != null && $hit && $_SESSION[$foeTeam][$_SESSION[$foeTeam]['currentAnimalmon']]['STATS']['HEALTH'] > 0){
@@ -58,7 +110,7 @@ function statusCalculations($target, $effect, $target2, $effect2, $target2, $tea
 		}
 		else{
 			statusSwitchCase($team, $foeTeam, $target, $effect, $selfAnimalmon, $foeAnimalmon);
-			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $target . " is now " . $effect . "!<br>";
+			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $target . " is " . $effect . "!<br>";
 		}
 		if($effect2 != null){
 			if($effect2 == 'Gathering Power'){
@@ -67,7 +119,7 @@ function statusCalculations($target, $effect, $target2, $effect2, $target2, $tea
 			}
 			else{
 				statusSwitchCase($team, $foeTeam, $target2, $effect2, $selfAnimalmon, $foeAnimalmon);
-				$_SESSION['battleLog'] = $_SESSION['battleLog'] . $target2 . " is now " . $effect2 . "!<br>";
+				$_SESSION['battleLog'] = $_SESSION['battleLog'] . $target2 . " is " . $effect2 . "!<br>";
 			}
 		}
 	}	
@@ -79,10 +131,15 @@ function statusSwitchCase($team, $foeTeam, $target, $effect){
 			$_SESSION[$foeTeam][$target]['STATS']['DEFENSE'] *= 0.75;
 			break;
 		case "Poisoned":
+			$_SESSION[$foeTeam][$target]['STATUS']['POISON'] = 3;
 			break;
 		case "Hibernation":
+			if($_SESSION[$team][$target]['STATUS']['HIBERNATE'] != 1){
+				$_SESSION[$team][$target]['STATUS']['HIBERNATE'] = 2;
+			}
 			break;
 		case "Stealth":
+			$_SESSION[$team][$target]['STATUS']['STEALTHED'] = true;
 			break;
 		case "Sure Footed":
 			$_SESSION[$team][$target]['STATS']['SPEED'] *= 1.25;
@@ -100,8 +157,11 @@ function statusSwitchCase($team, $foeTeam, $target, $effect){
 			$_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['STATS']['HEALTH'] = 0;
 			break;
 		case "Infected":
+			$_SESSION[$foeTeam][$target]['STATUS']['INFECTED'] = true;
 			break;
 		case "Bleeding":
+			$_SESSION[$foeTeam][$target]['STATUS']['BLEEDING']['STACKS']++;
+			$_SESSION[$foeTeam][$target]['STATUS']['BLEEDING']['DURATION'] = 5;
 			break;
 		case "Hasted":
 			$_SESSION[$team][$target]['STATS']['SPEED'] *= 1.50;
@@ -150,10 +210,16 @@ function hitCalculation($team, $baseAccuracy, $statAccuracy, $statEvasion){
 }
 function powerPointCalculation($team, $move){
 	$_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$move]['CURRENT_POWER_POINTS']--;
+	if($_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['STATUS']['HIBERNATE'] == 1) $_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES'][$move]['CURRENT_POWER_POINTS']++;
 }
 
 function AIMoveCalculation($team){
-	moveTypeCalculation($team, array_rand($_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES']));
+	if($_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['STATUS']['HIBERNATE'] == 1){
+		moveTypeCalculation($team, 'Hibernate');
+	}
+	else{
+		moveTypeCalculation($team, array_rand($_SESSION[$team][$_SESSION[$team]['currentAnimalmon']]['MOVES']));
+	}
 }
 
 function AISwapAnimalmon($team){
