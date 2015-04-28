@@ -140,6 +140,37 @@
 
 			break;
 
+    case 'view_my_teams':
+            
+			// Make sure user secret exists
+			if(!isset($_POST['secret'])){
+				$result['message'] = 'secret not stored or passed correctly';
+				$result['status'] = 'fail';
+				break;
+			}
+			
+            // clean secret
+            $secret = addslashes($_POST['secret']);
+
+            if(!secret_exists($secret)) {
+				$result['message'] = 'secret ' . $secret .' does not exist in the database';
+				$result['status'] = 'fail';
+				break;
+			}
+            $username = get_username($secret);
+			$teams = view_my_teams($username);
+			if($teams == NULL){
+				$result['message'] = 'failed to get teams';
+				$result['status'] = 'fail';
+			}
+			else{
+				$result['teams'] = $teams;
+			}
+
+			break;
+
+
+
     case 'find_match':
             
 			// Make sure user secret exists
@@ -233,10 +264,41 @@
       		}
       
       		// Set the users animals
-      		set_animals($_POST['animals']);
+      		set_animals($_POST['animals'], $secret);
       		$result['status'] = 'pass';
       
       		break;
+
+		case 'startgame_with_team':
+    		session_unset();
+			// Make sure user secret exists
+			if(!isset($_POST['secret'])){
+				$result['message'] = 'secret not stored or passed correctly';
+				$result['status'] = 'fail';
+				break;
+			}
+			
+            // clean secret
+            $secret = addslashes($_POST['secret']);
+
+            if(!secret_exists($secret)) {
+				$result['message'] = 'secret ' . $secret .' does not exist in the database';
+				$result['status'] = 'fail';
+				break;
+			}
+      
+			// Make sure team input is set
+      		if(!isset($_POST['team_id'])){
+        		$result['message'] = 'team id not set';
+        		$result['status'] = 'fail';
+      		}
+      
+      		// Set the users animals
+      		set_animals_with_team($_POST['team_id'], $secret);
+      		$result['status'] = 'pass';
+      
+      		break;
+
 
         # saves the battle team to the database. similar to start game, except the actual game creation logic is postponned until a match is made
 		case 'multiplayer_make_team':

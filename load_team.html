@@ -52,7 +52,7 @@
             
             // set up the JSON to send to the API
             var to_send = {};
-            to_send.type = "view_animal_options";
+            to_send.type = "view_my_teams";
             to_send.secret = localStorage.getItem("secret");
             var to_send_JSON = JSON.stringify(to_send);
 	
@@ -67,25 +67,20 @@
                 parsed_data = JSON.parse(data);
 		        
                 if (parsed_data["status"] === "pass") {
-                    var animals = parsed_data['animals']['NAME'];
-                    var images = parsed_data['animals']['IMG'];
-                    var healths = parsed_data['animals']['HEALTH'];
-                    var attacks = parsed_data['animals']['ATTACK'];
-                    var defenses = parsed_data['animals']['DEFENSE'];
-                    var accuracies = parsed_data['animals']['ACCURACY'];
-                    var evasions = parsed_data['animals']['EVASION'];
-                    var speeds = parsed_data['animals']['SPEED'];
-                    var types = parsed_data['animals']['TYPE'];
+                    var team_ids = parsed_data['teams']['TEAM_ID'];
+                    var animal_1s = parsed_data['teams']['ANIMAL_1'];
+                    var animal_2s = parsed_data['teams']['ANIMAL_2'];
+                    var animal_3s = parsed_data['teams']['ANIMAL_3'];
+                    var animal_4s = parsed_data['teams']['ANIMAL_4'];
+                    var animal_5s = parsed_data['teams']['ANIMAL_5'];
+                    var animal_6s = parsed_data['teams']['ANIMAL_6'];
                     
-                    for(var i = 0; i < animals.length; i++){
-                      var name = String(animals[i]);
-                      var image = './img/animals/100x100/' + String(images[i]);
-                      var checkbox = "<input type='checkbox' value='" + name + "'></input>";
-                      var image = "<img src='" + image + "' width=100 height=100>";
-                      var row = "<tr><td>" + checkbox + "</td><td>" + name + "</td><td>" + image + "</td><td>" + String(types[i]) + 
-                                "</td><td>" + String(healths[i]) + "</td><td>" + String(attacks[i]) +
-                                "</td><td>" + String(defenses[i]) + "</td><td>" + String(accuracies[i]) +
-                                "</td><td>" + String(evasions[i]) + "</td><td>" + String(speeds[i]) + "</td></tr>";
+                    for(var i = 0; i < team_ids.length; i++){
+                      var team_id = String(team_ids[i]);
+                      var radio = "<input type='radio' name='group1' value='" + team_id + "'></input>";
+                      var row = "<tr><td>" + radio + "</td><td>" + String(animal_1s[i]) + "</td><td>" + String(animal_2s[i]) + "</td><td>" + String(animal_3s[i]) + 
+                                "</td><td>" + String(animal_4s[i]) + "</td><td>" + String(animal_5s[i]) +
+                                "</td><td>" + String(animal_6s[i]) + "</td></tr>";
                       $( "#animal_options_table").find('tbody').append(row);
                     }
                 } else {
@@ -97,16 +92,16 @@
         $('#selectBtn').click(function(){
 
             var num_checked = 0;
-            var animals_chosen = [];
+            var teams_chosen = [];
             // Count how many animals are chosen
-            $('input[type=checkbox]').each(function(){
+            $('input[type=radio]').each(function(){
                 if(this.checked){
                     num_checked = num_checked + 1;
-                    animals_chosen.push($(this).val());
+                    teams_chosen.push($(this).val());
                 }
             });
-            if(num_checked != 6){
-                alert('You need to select 6 animals!');
+            if(num_checked != 1){
+                alert('You need to select a team!');
             }
             else{
                 var multiplayer_flag = localStorage.getItem("multiplayer_flag");
@@ -115,12 +110,12 @@
                 if(multiplayer_flag == "true") {
                     to_send.type = "multiplayer_make_team";
                 } else if (multiplayer_flag == "false") {
-                    to_send.type = "startgame";
+                    to_send.type = "startgame_with_team";
                 } else {
                     alert("Error: multiplayer flag not set correctly prior to team selection.");
                 }
                 to_send.secret = localStorage.getItem("secret");
-                to_send.animals = animals_chosen;
+                to_send.team_id = teams_chosen[0];
                 var to_send_JSON = JSON.stringify(to_send);
                 // make the POST request
                 $.post('api.php',to_send)
@@ -151,9 +146,6 @@
             }
         });
 
-        $('#loadBtn').click(function(){
-            window.location.replace('load_team.html');
-        });
 
     });
 
@@ -174,15 +166,12 @@
         <thead>
             <tr>
                 <td></td>
-                <td data-sort="string">ANIMAL</td>
-                <td></td>
-                <td data-sort="string">TYPE</td>
-				<td data-sort="int">HP</td>
-				<td data-sort="int">ATT</td>
-                <td data-sort="int">DEF</td>
-				<td data-sort="int">ACC</td>
-				<td data-sort="int">EVA</td>
-				<td data-sort="int">SPE</td>
+                <td data-sort="string">Animal 1</td>
+                <td>Animal 2</td>
+                <td data-sort="string">Animal 3</td>
+				<td data-sort="int">Animal 4</td>
+				<td data-sort="int">Animal 5</td>
+                <td data-sort="int">Animal 6</td>
             <tr>
         </thead>
         <tbody>
@@ -193,7 +182,6 @@
 <div class="row" style="padding-bottom:60px;">
     <div class="four columns offset-by-four">
         <button id='selectBtn' class="button-primary u-full-width">Battle!</button>
-        <button id='loadBtn' class="button-primary u-full-width">Load Preselected Team</button>
     </div>
 </div>
 </container>

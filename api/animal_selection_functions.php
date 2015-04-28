@@ -29,4 +29,20 @@
         return $results;
     }
 
+    // Used to view list of my teams
+    function view_my_teams($username) {
+        // get access to db
+        global $conn; 
+
+        $query_string = "select team_id, animal_1, animal_2, animal_3, animal_4, animal_5, animal_6 from teams where username = '" . $username . "'";
+        $query = oci_parse($conn, $query_string);
+
+        oci_execute($query);
+        $results = array();
+        oci_fetch_all($query, $results);
+        return $results;        
+    }
+
+
+
 ?>
