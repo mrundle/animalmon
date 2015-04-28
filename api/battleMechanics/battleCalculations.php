@@ -63,6 +63,19 @@ function moveTypeCalculation($team, $move){
 	if($_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] < 1) {
 		$_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] = 0;
 	}
+
+	$animalmonArray = array_keys($_SESSION[$team]);
+	$deadCount = 0;
+	unset($animalmonArray[array_search('currentAnimalmon', $animalmonArray)]);
+	foreach($animalmonArray as $animalmon){
+		if($_SESSION[$team][$animalmon]['STATS']['HEALTH'] == 0){
+			$deadCount++;
+		}
+	}
+	if($deadCount == 6){
+		$_SESSION['battleLog'] = $_SESSION['battleLog'] . "YOU LOST!!!!<br>";
+		$_SESSION['winStatus'] = "LOSE";
+	}
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "<br><br>";
 
 }

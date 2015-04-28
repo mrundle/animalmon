@@ -26,6 +26,25 @@
 
     <script>
     $(document).ready(function(){
+
+        // Authenticate
+        // (And send back to index.html if not authenticated)
+        var to_send = {};
+        to_send.type = 'authenticate';
+        to_send.secret = localStorage.getItem("secret");
+        if(to_send.secret == ""){
+            window.location = "index.html";
+        }
+        else{
+            // make the POST request
+            $.post('api.php',to_send)
+            .done(function(data){    
+                parsed_data = JSON.parse(data);
+                if (parsed_data['status'] != 'pass'){
+                    window.location = 'index.html';
+                }
+            });
+        }
     
         $('#animalToggleBtn').click(function(){
 			$('#animalTableDiv').slideToggle();
@@ -47,6 +66,20 @@
             }
         });
 
+        $('#effectsToggleBtn').click(function(){
+            $('#effectsTableDiv').slideToggle();
+            if($('#effectsToggleBtn').html() === "Effects: Show"){
+                $('#effectsToggleBtn').html("Effects: Hide");
+            }
+            else{
+                $('#effectsToggleBtn').html('Effects: Show');
+            }
+        });
+
+        $('#backBtn').click(function(){
+            window.location = './home.html';
+        });
+
     });
     </script>
 
@@ -59,6 +92,8 @@
     <script src="./js/header.js"></script>
 
     <center>
+
+    <button id='backBtn'>Back to the Main Menu</button>
 
     <!-- ANIMALS TABLE -->
     <div>
@@ -139,7 +174,40 @@
     
     <!-- EFFECTS TABLE -->
     <div>
-
+        <button id='effectsToggleBtn'>Effects: Hide</button>
+    </div>
+    <div id='effectsTableDiv'>
+    <table id='effectsTable'>
+        <?php
+            $query_string = "select name, stackable, description from effects";
+            $query = oci_parse($conn,$query_string);
+            oci_execute($query);
+            $is_first = true;
+            while (($row = oci_fetch_array($query, OCI_ASSOC)) != false) {
+					if($is_first){
+						$keys = array_keys($row);
+						echo '<thead><tr>';
+						foreach($keys as $key){
+							echo '<td><b>' . $key . '</b></td>';	
+						}
+						echo '</tr></thead><tbody>';
+						$is_first = false;
+					}
+    					// Use the uppercase column names for the associative array indices
+					echo '<tr>';
+    					foreach($keys as $key){
+						if(array_key_exists($key,$row)){
+							echo '<td>' . $row[$key] . '</td>';
+						}
+						else{
+							echo '<td>-</td>';
+						}			
+					}
+					echo '</tr>';
+			}
+            echo '</tbody>';
+        ?>
+    </table>
     </div>
 
     </center>

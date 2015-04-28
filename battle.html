@@ -21,6 +21,14 @@
 	<script type='text/javascript' src='js/debug.js'></script> <!-- GLOBAL DEBUG VARIABLE -->
 
 
+	<!-- AUDIO CONTROLS
+	----------------------------------------- -->
+	<audio controls autoplay>
+		<source src="http://csevm03.crc.nd.edu:8503/project/audio/battle.ogg" type="audio/ogg">
+	Your browser does not support the audio element.
+	</audio>
+
+
 	<script>
 		// Set up HTML5 Canvas variables
 		var CANVAS_HEIGHT = 500;
@@ -115,6 +123,10 @@
 		$('#animalmon6Btn').click(function(){
 			handleAnimalmonClick('animalmon6');
 		});
+
+        $('#backBtn').click(function(){
+            window.location = './home.html';
+        });
 
 		// Set up the game canvas
 		$('#gameCanvas').prop({width: CANVAS_WIDTH, height: CANVAS_HEIGHT})
@@ -313,6 +325,10 @@
 		<p id='battleLog' style="overflow: auto; width:200px; height:500px; border:1px solid #000000; display: inline-block; vertical-align:top; border-radius: 25px; padding: 10px;">SELECT A MOVE OR CHANGE ANIMALMON!</p>
 	</center>
 	<center>
+        <div>
+            <button id='backBtn'>Back to the Main Menu</button>
+        </div>
+
 		<div>
 			<center>
 				<label for='moves'><b>MOVES</b></label>
