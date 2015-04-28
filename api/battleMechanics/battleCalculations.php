@@ -64,11 +64,11 @@ function moveTypeCalculation($team, $move){
 		$_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] = 0;
 	}
 
-	$animalmonArray = array_keys($_SESSION[$team]);
+	$animalmonArray = array_keys($_SESSION['battleTeam1']);
 	$deadCount = 0;
 	unset($animalmonArray[array_search('currentAnimalmon', $animalmonArray)]);
 	foreach($animalmonArray as $animalmon){
-		if($_SESSION[$team][$animalmon]['STATS']['HEALTH'] == 0){
+		if($_SESSION['battleTeam1'][$animalmon]['STATS']['HEALTH'] == 0){
 			$deadCount++;
 		}
 	}
