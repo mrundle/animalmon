@@ -1,1 +1,1 @@
-GLOBAL_DEBUG_ON = true;
+GLOBAL_DEBUG_ON = false;

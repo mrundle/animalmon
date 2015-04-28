@@ -124,6 +124,10 @@
 			handleAnimalmonClick('animalmon6');
 		});
 
+        $('#backBtn').click(function(){
+            window.location = './home.html';
+        });
+
 		// Set up the game canvas
 		$('#gameCanvas').prop({width: CANVAS_WIDTH, height: CANVAS_HEIGHT})
 	});
@@ -321,6 +325,10 @@
 		<p id='battleLog' style="overflow: auto; width:200px; height:500px; border:1px solid #000000; display: inline-block; vertical-align:top; border-radius: 25px; padding: 10px;">SELECT A MOVE OR CHANGE ANIMALMON!</p>
 	</center>
 	<center>
+        <div>
+            <button id='backBtn'>Back to the Main Menu</button>
+        </div>
+
 		<div>
 			<center>
 				<label for='moves'><b>MOVES</b></label>
