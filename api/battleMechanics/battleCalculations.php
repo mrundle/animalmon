@@ -242,9 +242,13 @@ function AISwapAnimalmon($team){
 	$deadAnimalmon = $_SESSION['battleTeam2']['currentAnimalmon'];
 	$animalmonArray = array_keys($_SESSION['battleTeam2']);
 	unset($animalmonArray[array_search('currentAnimalmon', $animalmonArray)]);
-    //echo $animalmonArray;
+    $i = 0;
 	foreach($animalmonArray as $animalmon){
-		if($_SESSION['battleTeam2'][$animalmon]['STATS']['HEALTH'] > 0){
+		$i += 1;
+        if($i > 6){
+            break;
+        }
+    	if($_SESSION['battleTeam2'][$animalmon]['STATS']['HEALTH'] > 0){
 			$_SESSION['battleTeam2']['currentAnimalmon'] = $animalmon;
 			$_SESSION['battleLog'] = $_SESSION['battleLog'] . $animalmon . " was swapped in!<br>";
 			return;
