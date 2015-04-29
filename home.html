@@ -72,37 +72,38 @@
 </head>
 <body>
 <container>
+    <!-- INCLUDE THE HEADER -->
+    <script src='js/header.js'></script>
+
     <center>
-        <img src="http://img1.wikia.nocookie.net/__cb20100714172711/u__/unanswers/images/thumb/8/88/Real_animals_made_to_look_like_pokemon.png/500px-Real_animals_made_to_look_like_pokemon.png" alt="Insert cool picture here.">
-        <h1>Animalmon!</h1>
-        <hr style="margin-top:30px; margin-bottom:30px;">
+        <div class="row">
+            <div class="four columns offset-by-four">
+                <button class="u-full-width" id='statsBtn'><!-- FILLED DYNAMICALLY WITH USERNAME --></button>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="four columns offset-by-four">
+                <button class="u-full-width" id='onePlayerBtn'>PLAY</button>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="four columns offset-by-four">
+                <button class="u-full-width" id='browseBtn'>BROWSE</button>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="four columns offset-by-four">
+                <button class="u-full-width" id='logoutBtn'>LOG OUT</button>
+            </div>
+        </div>
+    
     </center>
 
-    <div class="row">
-        <div class="four columns offset-by-four">
-            <button class="u-full-width" id='statsBtn'><!-- FILLED DYNAMICALLY WITH USERNAME --></button>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="four columns offset-by-four">
-            <button class="u-full-width" id='onePlayerBtn'>PLAY</button>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="four columns offset-by-four">
-            <button class="u-full-width" id='browseBtn'>BROWSE</button>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="four columns offset-by-four">
-            <button class="u-full-width" id='logoutBtn'>LOG OUT</button>
-        </div>
-    </div>
-
-</center>
+    <!-- INCLUDE THE FOOTER -->
+    <script src='js/footer.js'></script>
 </container>
 </body>
 </html>

@@ -212,6 +212,8 @@
 
     </center>
 
+  <!-- INCLUDE THE FOOTER -->
+  <script src='js/footer.js'></script>
 
 </container>
 </body>

@@ -37,6 +37,9 @@
             // make the POST request
             $.post('api.php',to_send)
             .done(function(data){
+                if(GLOBAL_DEBUG_ON){
+                    alert(data);
+                }
                 var parsed_data = JSON.parse(data);
                 var stats_results = parsed_data['stats_results'];
                 if (parsed_data['status'] != 'pass'){
@@ -84,6 +87,9 @@
             <table>
             </div>
         </center>
+
+    <!-- INCLUDE THE FOOTER -->
+    <script src='js/footer.js'></script>
 
     </container>
 </body>

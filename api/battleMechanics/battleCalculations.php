@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 function moveTypeCalculation($team, $move){
 	if($team == 'battleTeam1'){
 		$foeTeam = 'battleTeam2';
@@ -75,6 +76,8 @@ function moveTypeCalculation($team, $move){
 	if($deadCount == 6){
 		$_SESSION['battleLog'] = $_SESSION['battleLog'] . "YOU LOST!!!!<br>";
 		$_SESSION['winStatus'] = "LOSE";
+        // update the user wins
+        updateWins($_SESSION['username'], false); // This function is in ../stats.php
 	}
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "<br><br>";
 
@@ -248,5 +251,7 @@ function AISwapAnimalmon($team){
 	}
 	$_SESSION['battleLog'] = $_SESSION['battleLog'] . "YOU WIN!!!!!!!!!!<br>";
 	$_SESSION['winStatus'] = "WIN";
+    // Update users wins
+    updateWins($_SESSION['username'], true);  // This function is in ../stats.php
 }
 ?>

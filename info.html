@@ -20,6 +20,18 @@
     ----------------------------------------- -->
     <script type='text/javascript' src='js/debug.js'></script> <!-- GLOBAL DEBUG VARIABLE -->
 
+     <!-- JQUERY SCRIPT
+    ----------------------------------------- -->
+    <script>
+    $(document).ready(function(){
+
+        $('#backBtn').click(function(){
+            window.location = "home.html";
+        });
+
+    });
+</script>
+
 </head>
 <body>
 <container>
@@ -28,6 +40,11 @@
     <script src="./js/header.js"></script>
 
     <center>
+
+        <div>
+            <button id='backBtn'>Back to the Main Menu</button>
+        </div>
+
         <table>
             <thead>
                 <tr>

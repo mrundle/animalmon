@@ -251,7 +251,10 @@
 				$result['message'] = 'secret ' . $secret .' does not exist in the database';
 				$result['status'] = 'fail';
 				break;
-			}
+			}else{
+                // Save username to session
+                $_SESSION['username'] = secret_exists($secret);
+            }
       
 			// Make sure animal input is set
       		if(!isset($_POST['animals'])){
@@ -285,7 +288,10 @@
 				$result['message'] = 'secret ' . $secret .' does not exist in the database';
 				$result['status'] = 'fail';
 				break;
-			}
+			}else{
+                // Save username to session
+                $_SESSION['username'] = secret_exists($secret);
+            }
       
 			// Make sure team input is set
       		if(!isset($_POST['team_id'])){

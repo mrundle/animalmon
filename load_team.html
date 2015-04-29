@@ -146,6 +146,9 @@
             }
         });
 
+        $('#backBtn').click(function(){
+            window.location = './team_selection.html';
+        });
 
     });
 
@@ -162,6 +165,7 @@
 <body>
 <container>
     <center>
+    <button id='backBtn'>Back to team selection</button>
     <table id='animal_options_table' class="tablesorter">
         <thead>
             <tr>
@@ -177,13 +181,10 @@
         <tbody>
 
         </tbody>
-    </table>
+        </table>
+        <button id='selectBtn'>Battle!</button>
     </center>
-<div class="row" style="padding-bottom:60px;">
-    <div class="four columns offset-by-four">
-        <button id='selectBtn' class="button-primary u-full-width">Battle!</button>
-    </div>
-</div>
+
 </container>
 </body>
 </html>

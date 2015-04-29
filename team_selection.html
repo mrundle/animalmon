@@ -164,46 +164,49 @@
 
     </script>
   
-
-    <center style="font-family:Helvetica">
-	    <title>Animalmon</title>
-	    <img src="http://img1.wikia.nocookie.net/__cb20100714172711/u__/unanswers/images/thumb/8/88/Real_animals_made_to_look_like_pokemon.png/500px-Real_animals_made_to_look_like_pokemon.png" alt="Insert cool picture here.">
-	    <h1>Animalmon!</h1>
-    </center>
-    <hr style="margin-top:30px; margin-bottom:30px;">
 </head>
 <body>
 <container>
+
+    <!-- INCLUDE THE HEADER -->
+    <script src='js/header.js'></script>
+
     <center>
         <div>
             <button id='backBtn'>Back to the Main Menu</button>
         </div>
-    <table id='animal_options_table' class="tablesorter">
-        <thead>
-            <tr>
-                <td></td>
-                <td data-sort="string">ANIMAL</td>
-                <td></td>
-                <td data-sort="string">TYPE</td>
-				<td data-sort="int">HP</td>
-				<td data-sort="int">ATT</td>
-                <td data-sort="int">DEF</td>
-				<td data-sort="int">ACC</td>
-				<td data-sort="int">EVA</td>
-				<td data-sort="int">SPE</td>
-            <tr>
-        </thead>
-        <tbody>
+        <div>
+            <button id='loadBtn'>Load Preselected Team</button>
+        </div>
+        <div>
+            <p>or, manually select a team of 6 below!
+        </div>
+        <table id='animal_options_table' class="tablesorter">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td data-sort="string">ANIMAL</td>
+                    <td></td>
+                    <td data-sort="string">TYPE</td>
+		    		<td data-sort="int">HP</td>
+		    		<td data-sort="int">ATT</td>
+                    <td data-sort="int">DEF</td>
+		    		<td data-sort="int">ACC</td>
+		    		<td data-sort="int">EVA</td>
+		    		<td data-sort="int">SPE</td>
+                <tr>
+            </thead>
+            <tbody>
+    
+            </tbody>
+        </table>
 
-        </tbody>
-    </table>
+        <button id='selectBtn'>Battle!</button>
     </center>
-<div class="row" style="padding-bottom:60px;">
-    <div class="four columns offset-by-four">
-        <button id='selectBtn' class="button-primary u-full-width">Battle!</button>
-        <button id='loadBtn' class="button-primary u-full-width">Load Preselected Team</button>
-    </div>
-</div>
+
+    <!-- INCLUDE THE FOOTER -->
+    <script src='js/footer.js'></script>
+
 </container>
 </body>
 </html>
