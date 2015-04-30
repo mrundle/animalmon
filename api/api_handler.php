@@ -301,7 +301,7 @@
             $_SESSION['battleTeam1'][$animal] = NULL; 
         }
 	    // NEED TO RANDOMIZE THIS
-        $_SESSION['battleTeam2'] = array('Bear'=>NULL, 'Parasite'=>NULL, 'Spider'=>NULL, 'Elk'=>NULL, 'Poison Frog'=>NULL, 'Falcon' => NULL);
+        $_SESSION['battleTeam2'] = array('Bear'=>NULL, 'Giant Squid'=>NULL, 'Spider'=>NULL, 'Elk'=>NULL, 'Poison Frog'=>NULL, 'Sloth' => NULL);
 	    getSessionAnimalmon();
 	    $_SESSION['battleTeam2']['currentAnimalmon'] = 'Bear';
 	    $_SESSION['battleTeam1']['currentAnimalmon'] = $animal;
@@ -361,7 +361,7 @@
         $animal = $query_results['ANIMAL_6'][0];
 
         // NEED TO RANDOMIZE THIS
-        $_SESSION['battleTeam2'] = array('Bear'=>NULL, 'Parasite'=>NULL, 'Spider'=>NULL, 'Elk'=>NULL, 'Poison Frog'=>NULL, 'Falcon' => NULL);
+        $_SESSION['battleTeam2'] = array('Bear'=>NULL, 'Giant Squid'=>NULL, 'Spider'=>NULL, 'Elk'=>NULL, 'Poison Frog'=>NULL, 'Sloth' => NULL);
 	    getSessionAnimalmon();
 	    $_SESSION['battleTeam2']['currentAnimalmon'] = 'Bear';
 	    $_SESSION['battleTeam1']['currentAnimalmon'] = $animal;
