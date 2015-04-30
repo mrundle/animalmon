@@ -191,8 +191,8 @@ function statusSwitchCase($team, $foeTeam, $target, $effect){
 			$_SESSION[$team][$target]['STATS']['ATTACK'] *= 1.50;
 			break;
 		case "Enraged":
-			$_SESSION[$foeteam][$target]['STATS']['EVASION'] *= 0.75;
-			$_SESSION[$foeteam][$target]['STATS']['DEFENSE'] *= 0.75;
+			$_SESSION[$foeTeam][$target]['STATS']['EVASION'] *= 0.75;
+			$_SESSION[$foeTeam][$target]['STATS']['DEFENSE'] *= 0.75;
 			break;
 		case "Focused":
 			$_SESSION[$team][$target]['STATS']['ACCURACY'] *= 1.50;
