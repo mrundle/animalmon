@@ -64,13 +64,22 @@ function moveTypeCalculation($team, $move){
 	if($_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] < 1) {
 		$_SESSION[$team][$selfAnimalmon]['STATS']['HEALTH'] = 0;
 	}
+<<<<<<< HEAD
+    unset($animalmonArray);
+=======
 
 	unset($animalmonArray);
+>>>>>>> 2ff8632aa2824f34c9183c02024f40b552483adc
 	$animalmonArray = array_keys($_SESSION['battleTeam1']);
 	$deadCount = 0;
 	unset($animalmonArray[array_search('currentAnimalmon', $animalmonArray)]);
-	foreach($animalmonArray as $animalmon){
-		if($_SESSION['battleTeam1'][$animalmon]['STATS']['HEALTH'] == 0){
+	$i = 0;
+    foreach($animalmonArray as $animalmon){
+        $i += 1;
+        if($i > 6) {
+            break;
+        }
+        if($_SESSION['battleTeam1'][$animalmon]['STATS']['HEALTH'] == 0){
 			$deadCount++;
 		}
 	}
@@ -187,8 +196,8 @@ function statusSwitchCase($team, $foeTeam, $target, $effect){
 			$_SESSION[$team][$target]['STATS']['ATTACK'] *= 1.50;
 			break;
 		case "Enraged":
-			$_SESSION[$foeTeam][$target]['STATS']['EVASION'] *= 0.75;
-			$_SESSION[$foeTeam][$target]['STATS']['DEFENSE'] *= 0.75;
+			$_SESSION[$foeteam][$target]['STATS']['EVASION'] *= 0.75;
+			$_SESSION[$foeteam][$target]['STATS']['DEFENSE'] *= 0.75;
 			break;
 		case "Focused":
 			$_SESSION[$team][$target]['STATS']['ACCURACY'] *= 1.50;
@@ -242,7 +251,11 @@ function AIMoveCalculation($team){
 function AISwapAnimalmon($team){
 	$deadAnimalmon = $_SESSION['battleTeam2']['currentAnimalmon'];
 	unset($animalmonArray);
+<<<<<<< HEAD
+    $animalmonArray = array_keys($_SESSION['battleTeam2']);
+=======
 	$animalmonArray = array_keys($_SESSION['battleTeam2']);
+>>>>>>> 2ff8632aa2824f34c9183c02024f40b552483adc
 	unset($animalmonArray[array_search('currentAnimalmon', $animalmonArray)]);
     $i = 0;
 	foreach($animalmonArray as $animalmon){
